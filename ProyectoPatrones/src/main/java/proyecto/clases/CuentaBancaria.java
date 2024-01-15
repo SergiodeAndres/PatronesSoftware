@@ -1,6 +1,8 @@
 package proyecto.clases;
 
-public class CuentaBancaria {
+import java.io.Serializable;
+
+public class CuentaBancaria implements Serializable{
     
     private String numeroCuenta;
     private double saldo;

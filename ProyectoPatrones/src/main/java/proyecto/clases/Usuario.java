@@ -1,7 +1,9 @@
 package proyecto.clases;
 
+import java.io.Serializable;
 
-public class Usuario {
+
+public class Usuario implements Serializable{
     
     private String correo;
     private String contraseña;
