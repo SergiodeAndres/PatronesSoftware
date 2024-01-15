@@ -4,35 +4,46 @@
  */
 package proyecto.clases;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 /**
  *
  * @author sergi
  */
 public class FactoriaProductividad implements Factoria{
     
-    private FactoriaProductividad instanciaUnica;
+    private static FactoriaProductividad instanciaUnica;
+
+    public FactoriaProductividad() {
+    }
 
     /**
      * Get the value of instanciaUnica
      *
      * @return the value of instanciaUnica
      */
-    public FactoriaProductividad getInstanciaUnica() {
+    public static FactoriaProductividad getInstanciaUnica() {
+        if (instanciaUnica == null)
+        {
+            instanciaUnica = new FactoriaProductividad();
+        }
         return instanciaUnica;
     }
 
-    /**
-     * Set the value of instanciaUnica
-     *
-     * @param instanciaUnica new value of instanciaUnica
-     */
-    public void setInstanciaUnica(FactoriaProductividad instanciaUnica) {
-        this.instanciaUnica = instanciaUnica;
+    @Override
+    public Antivirus crearProducto(String versionActual, LocalDate fechaVersionActual, ArrayList<String> certificaciones, String nombre, String condigoInterno, Creador creador, String descripcion, LocalDate fechaCreacion, Dolar precio, String caratula, String valoracionGeneral, ArrayList<Review> reviews, ArrayList<String> limitacionesTecnicas, boolean aprobado) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public Producto crearProducto() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Videojuego crearProducto(ArrayList<String> generos, ArrayList<String> otrasPlataformas, boolean multijugador, int jugadores, boolean online, String nombre, String condigoInterno, Creador creador, String descripcion, LocalDate fechaCreacion, Dolar precio, String caratula, String valoracionGeneral, ArrayList<Review> reviews, ArrayList<String> limitacionesTecnicas, boolean aprobado) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    @Override
+    public Productividad crearProducto(String versionActual, LocalDate fechaVersionActual, String tipo, String nombre, String condigoInterno, Creador creador, String descripcion, LocalDate fechaCreacion, Dolar precio, String caratula, String valoracionGeneral, ArrayList<Review> reviews, ArrayList<String> limitacionesTecnicas, boolean aprobado) {
+        return(new Productividad(versionActual, fechaVersionActual, tipo, nombre, condigoInterno, creador, descripcion, fechaCreacion, precio, caratula, valoracionGeneral, reviews, limitacionesTecnicas, aprobado));
     }
 
 }
