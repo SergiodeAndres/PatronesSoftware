@@ -17,6 +17,7 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<Cliente> clientes = new ArrayList<>(); 
     private static ArrayList<Creador> creadores = new ArrayList<>();
     
+    @Override
     public void guardarClientes() {
         try {
             //Si hay datos los guardamos
@@ -40,6 +41,7 @@ public class ServidorBBDD implements Servidor {
         }
     }
     
+    @Override
     public void cargarClientes() {
         try {
             //Lectura de los clientes
@@ -59,6 +61,7 @@ public class ServidorBBDD implements Servidor {
         }
     }
     
+    @Override
     public void guardarCreadores() {
         try {
             //Si hay datos los guardamos
@@ -82,6 +85,7 @@ public class ServidorBBDD implements Servidor {
         }
     }
     
+    @Override
     public void cargarCreadores() {
         try {
             //Lectura de los clientes
@@ -101,14 +105,17 @@ public class ServidorBBDD implements Servidor {
         }
     }
     
+    @Override
     public void addCliente(Cliente c){
         clientes.add(c);
     }
     
+    @Override
     public void addCreadores(Creador c){
         creadores.add(c);
     }
     
+    @Override
     public int correoValido(String correo){
          List<String> lista_correos = clientes.stream()
                 .map(Cliente::getCorreo)
@@ -135,6 +142,7 @@ public class ServidorBBDD implements Servidor {
         }
     }
     
+    @Override
     public boolean comprobarContraseña(String correo, String con){
         ArrayList<String> lista_correos = new ArrayList<>();
         ArrayList<String> lista_contraseñas = new ArrayList<>();
@@ -149,5 +157,18 @@ public class ServidorBBDD implements Servidor {
         int pos = lista_correos.indexOf(correo);
         String contraseña = lista_contraseñas.get(pos);
         return (contraseña.equals(con));
+    }
+    
+    @Override
+    public Cliente esCliente(String correo) {
+        Cliente cliente = null; 
+        for (Cliente c: clientes)
+        {
+            if (c.getCorreo().equals(correo))
+            {
+                cliente = c;
+            }
+        }
+        return cliente; 
     }
 }

@@ -32,36 +32,49 @@ public class Proxy implements Servidor {
         this.servidor = servidor;
     }
 
+    @Override
     public void addCliente(Cliente c){
         servidor.addCliente(c);
     }
     
+    @Override
     public void addCreadores(Creador c){
         servidor.addCreadores(c);
     }
     
+    @Override
     public void guardarClientes(){
         servidor.guardarClientes();
     }
     
+    @Override
     public void cargarClientes(){
         servidor.cargarClientes();
     }
     
+    @Override
     public void guardarCreadores(){
         servidor.guardarCreadores();
     }
     
+    @Override
     public void cargarCreadores(){
         servidor.cargarCreadores();
     }
     
+    @Override
     public int correoValido(String correo){
         return servidor.correoValido(correo);
     }
     
+    @Override
     public boolean comprobarContraseña(String correo, String con){
         return servidor.comprobarContraseña(correo, con);
+    }
+    
+    @Override
+    public Cliente esCliente(String correo) {
+        return servidor.esCliente(correo);
     }
 
 }

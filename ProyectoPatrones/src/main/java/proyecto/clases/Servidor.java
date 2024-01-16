@@ -3,19 +3,21 @@ package proyecto.clases;
 
 
 public interface Servidor {
-    public abstract void addCliente(Cliente c);
+    public void addCliente(Cliente c);
     
-    public abstract void addCreadores(Creador c);
+    public void addCreadores(Creador c);
     
-    public abstract void guardarClientes();
+    public void guardarClientes();
     
-    public abstract void guardarCreadores();
+    public void guardarCreadores();
     
-    public abstract int correoValido(String correo);
+    public int correoValido(String correo);
     
-    public abstract void cargarClientes();
+    public void cargarClientes();
            
-    public abstract void cargarCreadores();
+    public void cargarCreadores();
     
-    public abstract boolean comprobarContraseña(String correo, String con);
+    public boolean comprobarContraseña(String correo, String con);
+    
+    public Cliente esCliente(String correo);
 }

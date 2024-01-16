@@ -222,6 +222,9 @@ public class RegistroPantalla extends javax.swing.JFrame {
                         jLabel8.setText("Registro Exitoso");
                         jLabel8.setForeground(Color.green);
                         jLabel8.setVisible(true);
+                        Inicio inicio = new Inicio();
+                        this.setVisible(false);
+                        inicio.setVisible(true);
                     }
                     case 1 -> {
                         jLabel8.setText("Correo ya existente");

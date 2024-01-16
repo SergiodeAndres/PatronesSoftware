@@ -103,6 +103,13 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
             if (proxy.comprobarContraseña(jTextField1.getText(),jPasswordField1.getText())){
                 jLabel3.setText("Inicio de sesion correcto");
                 jLabel3.setVisible(true);
+                if(proxy.esCliente(jTextField1.getText()) != null)
+                {
+                    ClienteLibreria c = new ClienteLibreria(this, proxy.esCliente(jTextField1.getText()));
+                    c.setLocationRelativeTo(null);
+                    c.setVisible(true);
+                }
+                //ELSE REDIRIGIR A CREADOR O ADMIN
             }else{
                 jLabel3.setText("Contraseña incorrecta");
                 jLabel3.setVisible(true);
