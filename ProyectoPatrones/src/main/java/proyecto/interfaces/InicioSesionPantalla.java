@@ -114,7 +114,25 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                 jLabel3.setText("Contraseña incorrecta");
                 jLabel3.setVisible(true);
             }
-        }else{
+        }else if (jTextField1.getText().contains("admin") && (jTextField1.getText().contains("@javasteam.com"))){
+            String numeroAdmin  = jTextField1.getText().replace("admin","");
+            numeroAdmin = numeroAdmin.replace("@javasteam.com", "");
+            try{
+                Integer.valueOf(numeroAdmin);
+                if (jPasswordField1.getText().equals("admin"+numeroAdmin)){
+                    jLabel3.setText("Accediendo como admin");
+                    jLabel3.setVisible(true);
+                }else{
+                    jLabel3.setText("Ese correo no existe");
+                    jLabel3.setVisible(true);
+                }
+            } catch (Exception e){
+                System.out.println(e);
+                jLabel3.setText("Ese correo no existe");
+                jLabel3.setVisible(true);
+            }
+        }
+        else{
             jLabel3.setText("Ese correo no existe");
             jLabel3.setVisible(true);
         }
