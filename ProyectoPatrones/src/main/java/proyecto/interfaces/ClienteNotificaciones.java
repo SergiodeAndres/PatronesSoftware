@@ -6,8 +6,10 @@ package proyecto.interfaces;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
 
 /**
@@ -21,19 +23,23 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
      */
     private JFrame principal;
     private Cliente cliente;
+    DefaultTableModel mt = new DefaultTableModel();
     public ClienteNotificaciones(JFrame v, Cliente c) {
         initComponents();
         principal = v;
         principal.setVisible(false);
         this.setVisible(true);
         cliente = c;
-        String notificaciones = "";
+        cliente.addNotificacion("Prueba 1");
+        cliente.addNotificacion("Prueba 2");
+        cliente.addNotificacion("Prueba 3");
+        String ids [] = {"Notificación"};
+        mt.setColumnIdentifiers(ids);
+        jTableNotificaciones.setModel(mt);
         for (String n: cliente.getNotificaciones())
         {
-            notificaciones += n;
-            notificaciones += "\n";
+            mt.addRow(new Object[]{n});
         }
-        jTextAreaNotificaciones.setText(notificaciones);
     }
 
     /**
@@ -46,9 +52,9 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaNotificaciones = new javax.swing.JTextArea();
         jButtonBorrarNotificaciones = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableNotificaciones = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -63,17 +69,33 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Notificaciones");
 
-        jTextAreaNotificaciones.setEditable(false);
-        jTextAreaNotificaciones.setColumns(20);
-        jTextAreaNotificaciones.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaNotificaciones);
-
-        jButtonBorrarNotificaciones.setText("Borrar Notificaciones");
+        jButtonBorrarNotificaciones.setText("Borrar Notificación");
         jButtonBorrarNotificaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBorrarNotificacionesActionPerformed(evt);
             }
         });
+
+        jTableNotificaciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableNotificaciones);
 
         jMenu1.setText("Menú");
 
@@ -134,18 +156,17 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(203, 203, 203)
-                                .addComponent(jLabel1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(242, 242, 242)
-                        .addComponent(jButtonBorrarNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(132, 132, 132))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonBorrarNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,25 +174,19 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBorrarNotificaciones)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBorrarNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarNotificacionesActionPerformed
-        cliente.setNotificaciones(new ArrayList<>());
+        cliente.removeNotificacion(jTableNotificaciones.getSelectedRow());
+        mt.removeRow(jTableNotificaciones.getSelectedRow());
         proxy.guardarClientes();
-        String notificaciones = "";
-        for (String n: cliente.getNotificaciones())
-        {
-            notificaciones += n;
-            notificaciones += "\n";
-        }
-        jTextAreaNotificaciones.setText(notificaciones);
     }//GEN-LAST:event_jButtonBorrarNotificacionesActionPerformed
 
     private void jMenuItemLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLibreriaActionPerformed
@@ -223,7 +238,7 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNotificacion;
     private javax.swing.JMenuItem jMenuItemSaldo;
     private javax.swing.JMenuItem jMenuItemTienda;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextAreaNotificaciones;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableNotificaciones;
     // End of variables declaration//GEN-END:variables
 }

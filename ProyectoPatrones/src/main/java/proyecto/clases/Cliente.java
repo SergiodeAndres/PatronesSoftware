@@ -134,5 +134,13 @@ public class Cliente extends Usuario {
     public void addCodigoDescuento(CodigoDescuento cd) {
         this.llavero.add(cd);
     }
+    
+    public void addNotificacion(String notificacion) {
+        notificaciones.add(notificacion);
+    }
+    
+    public void removeNotificacion(int indice) {
+        notificaciones.remove(indice);
+    }
 
 }

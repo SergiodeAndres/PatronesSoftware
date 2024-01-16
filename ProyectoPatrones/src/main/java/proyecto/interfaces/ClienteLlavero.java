@@ -6,6 +6,7 @@ package proyecto.interfaces;
 import java.awt.Color;
 import proyecto.clases.*;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,21 +19,20 @@ public class ClienteLlavero extends javax.swing.JFrame {
      */
     private JFrame principal;
     private Cliente cliente; 
+    DefaultTableModel mt = new DefaultTableModel();
     public ClienteLlavero(JFrame v, Cliente c) {
         initComponents();
         principal = v;
         principal.setVisible(false);
         this.setVisible(true);
         cliente = c;
-        String descuentos = "";
+        String ids [] = {"Código", "Valor", "Producto"};
+        mt.setColumnIdentifiers(ids);
+        jTableDescuentos.setModel(mt);
         for (CodigoDescuento cd: cliente.getLlavero())
         {
-            double descuentoCantidad = cd.getCantidad() * 100;
-            String descuentoActual = cd.getCodigo() + " - " + Double.toString(descuentoCantidad) + "% de descuento en " + cd.getProducto().getNombre();
-            descuentos += descuentoActual;
-            descuentos += "\n";
+            mt.addRow(new Object[]{cd.getCodigo(),Double.toString(cd.getCantidad()*100) + "%",cd.getProducto().getNombre()});
         }
-        jTextAreaCodigos.setText(descuentos);
     }
 
     /**
@@ -48,8 +48,8 @@ public class ClienteLlavero extends javax.swing.JFrame {
         jTextFieldCodigo = new javax.swing.JTextField();
         jButtonAddCodigo = new javax.swing.JButton();
         jLabelError = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaCodigos = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableDescuentos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -70,10 +70,18 @@ public class ClienteLlavero extends javax.swing.JFrame {
             }
         });
 
-        jTextAreaCodigos.setEditable(false);
-        jTextAreaCodigos.setColumns(20);
-        jTextAreaCodigos.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaCodigos);
+        jTableDescuentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableDescuentos);
 
         jMenu1.setText("Menú");
 
@@ -134,17 +142,19 @@ public class ClienteLlavero extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAddCodigo)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAddCodigo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,9 +166,9 @@ public class ClienteLlavero extends javax.swing.JFrame {
                     .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAddCodigo)
                     .addComponent(jLabelError))
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,15 +229,7 @@ public class ClienteLlavero extends javax.swing.JFrame {
             cliente.addCodigoDescuento(codigo);
             proxy.guardarClientes();
             proxy.guardarCodigosDescuento();
-            String descuentos = "";
-            for (CodigoDescuento cd: cliente.getLlavero())
-            {
-                double descuentoCantidad = cd.getCantidad() * 100;
-                String descuentoActual = cd.getCodigo() + " - " + Double.toString(descuentoCantidad) + "% de descuento en " + cd.getProducto().getNombre();
-                descuentos += descuentoActual;
-                descuentos += "\n";
-            }
-            jTextAreaCodigos.setText(descuentos);
+            mt.addRow(new Object[]{codigo.getCodigo(),Double.toString(codigo.getCantidad()*100) + "%",codigo.getProducto().getNombre()});
         }
     }//GEN-LAST:event_jButtonAddCodigoActionPerformed
 
@@ -245,8 +247,8 @@ public class ClienteLlavero extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNotificacion;
     private javax.swing.JMenuItem jMenuItemSaldo;
     private javax.swing.JMenuItem jMenuItemTienda;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaCodigos;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableDescuentos;
     private javax.swing.JTextField jTextFieldCodigo;
     // End of variables declaration//GEN-END:variables
 }
