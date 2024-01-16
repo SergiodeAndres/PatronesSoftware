@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 public class ServidorBBDD implements Servidor {
     private static ArrayList<Cliente> clientes = new ArrayList<>(); 
     private static ArrayList<Creador> creadores = new ArrayList<>();
+    private static ArrayList<CodigoDescuento> codigosDescuento = new ArrayList<>();
+    private static ArrayList<TarjetaCredito> tarjetasCredito = new ArrayList<>();
     
     @Override
     public void guardarClientes() {
@@ -106,6 +108,50 @@ public class ServidorBBDD implements Servidor {
     }
     
     @Override
+    public void guardarCodigosDescuento() {
+        try {
+            //Si hay datos los guardamos
+            if (!codigosDescuento.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamClientes = new FileOutputStream("codigosDescuento.dat");
+                ObjectOutputStream oosClientes = new ObjectOutputStream(ostreamClientes);
+                //se guarda el array en el archivo
+                oosClientes.writeObject(codigosDescuento);
+                ostreamClientes.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void cargarCodigosDescuento() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamClientes = new FileInputStream("codigosDescuento.dat");
+            ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
+            codigosDescuento = (ArrayList) oisClientes.readObject();
+            istreamClientes.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
     public void addCliente(Cliente c){
         clientes.add(c);
     }
@@ -113,6 +159,22 @@ public class ServidorBBDD implements Servidor {
     @Override
     public void addCreadores(Creador c){
         creadores.add(c);
+    }
+    
+    @Override
+    public void addCodigoDescuento(CodigoDescuento cd){
+        codigosDescuento.add(cd);
+    }
+    
+    @Override
+    public void removeCodigoDescuento(String cd){
+        for (CodigoDescuento c: codigosDescuento)
+        {
+            if (c.getCodigo().equals(cd))
+            {
+                codigosDescuento.remove(c);
+            }
+        }
     }
     
     @Override
@@ -170,5 +232,119 @@ public class ServidorBBDD implements Servidor {
             }
         }
         return cliente; 
+    }
+
+    @Override
+    public boolean existeCodigoDescuento(String cd) {
+        boolean veredicto = false; 
+        for (CodigoDescuento c: codigosDescuento)
+        {
+            if (c.getCodigo().equals(cd))
+            {
+                veredicto = true;
+            }
+        }
+        return veredicto;
+    }
+
+    @Override
+    public CodigoDescuento getCodigoDescuento(String cd) {
+        CodigoDescuento codigo = null; 
+        for (CodigoDescuento c: codigosDescuento)
+        {
+            if (c.getCodigo().equals(cd))
+            {
+                codigo = c;
+            }
+        }
+        return codigo; 
+    }
+
+    @Override
+    public void addTarjetaCredito(TarjetaCredito tc) {
+        tarjetasCredito.add(tc);
+    }
+
+    @Override
+    public void guardarTarjetasCredito() {
+        try {
+            //Si hay datos los guardamos
+            if (!tarjetasCredito.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamClientes = new FileOutputStream("tarjetasCredito.dat");
+                ObjectOutputStream oosClientes = new ObjectOutputStream(ostreamClientes);
+                //se guarda el array en el archivo
+                oosClientes.writeObject(tarjetasCredito);
+                ostreamClientes.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void cargarTarjetasCredito() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamClientes = new FileInputStream("tarjetasCredito.dat");
+            ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
+            tarjetasCredito = (ArrayList) oisClientes.readObject();
+            istreamClientes.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean existeTarjetaCredito(String numero) {
+        boolean veredicto = false; 
+        for (TarjetaCredito tc: tarjetasCredito)
+        {
+            if (tc.getNumeroTarjeta().equals(numero))
+            {
+                veredicto = true;
+            }
+        }
+        return veredicto;
+    }
+
+    @Override
+    public boolean saldoSuficienteTarjetaCredito(String numero, double saldo) {
+        boolean veredicto = false; 
+        for (TarjetaCredito tc: tarjetasCredito)
+        {
+            if (tc.getNumeroTarjeta().equals(numero) && tc.getSaldo() >= saldo)
+            {
+                veredicto = true;
+            }
+        }
+        return veredicto;
+    }
+
+    @Override
+    public TarjetaCredito getTarjetaCredito(String numero) {
+        TarjetaCredito tarjeta = null; 
+        for (TarjetaCredito tc: tarjetasCredito)
+        {
+            if (tc.getNumeroTarjeta().equals(numero))
+            {
+                tarjeta = tc;
+            }
+        }
+        return tarjeta;
     }
 }

@@ -9,14 +9,16 @@ public class Cliente extends Usuario {
     private ArrayList<String> notificaciones;
     private ArrayList<CodigoDescuento> llavero;
     private ArrayList<Producto> libreria;
+    private double saldo;
 
-    public Cliente(String nombreUsuario, String pais, ArrayList<String> notificaciones, ArrayList<CodigoDescuento> llavero, ArrayList<Producto> libreria, String correo, String contraseña) {
+    public Cliente(String nombreUsuario, String pais, ArrayList<String> notificaciones, ArrayList<CodigoDescuento> llavero, ArrayList<Producto> libreria, double saldo, String correo, String contraseña) {
         super(correo, contraseña);
         this.nombreUsuario = nombreUsuario;
         this.pais = pais;
         this.notificaciones = notificaciones;
         this.llavero = llavero;
         this.libreria = libreria;
+        this.saldo = saldo;
     }
 
     /**
@@ -109,6 +111,28 @@ public class Cliente extends Usuario {
      */
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+    
+    /**
+     * Get the value of saldo
+     *
+     * @return the value of saldo
+     */
+    public double getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * Set the value of saldo
+     *
+     * @param saldo new value of saldo
+     */
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+    
+    public void addCodigoDescuento(CodigoDescuento cd) {
+        this.llavero.add(cd);
     }
 
 }

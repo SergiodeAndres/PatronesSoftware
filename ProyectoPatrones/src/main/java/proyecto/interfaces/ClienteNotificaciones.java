@@ -15,7 +15,7 @@ import proyecto.clases.*;
  * @author sergi
  */
 public class ClienteNotificaciones extends javax.swing.JFrame {
-
+    private Servidor proxy=new Proxy(new ServidorBBDD());
     /**
      * Creates new form ClienteNotificaciones
      */
@@ -164,6 +164,7 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
 
     private void jButtonBorrarNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarNotificacionesActionPerformed
         cliente.setNotificaciones(new ArrayList<>());
+        proxy.guardarClientes();
         String notificaciones = "";
         for (String n: cliente.getNotificaciones())
         {

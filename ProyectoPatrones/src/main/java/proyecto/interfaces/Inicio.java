@@ -21,6 +21,8 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         proxy.cargarClientes();
         proxy.cargarCreadores();
+        proxy.cargarCodigosDescuento();
+        proxy.cargarTarjetasCredito();
     }
 
     /**

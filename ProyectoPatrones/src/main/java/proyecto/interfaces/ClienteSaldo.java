@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyecto.interfaces;
+import java.awt.Color;
 import proyecto.clases.*;
 import javax.swing.JFrame;
 
@@ -11,7 +12,7 @@ import javax.swing.JFrame;
  * @author sergi
  */
 public class ClienteSaldo extends javax.swing.JFrame {
-
+    private Servidor proxy=new Proxy(new ServidorBBDD());
     /**
      * Creates new form ClienteSaldo
      */
@@ -23,6 +24,7 @@ public class ClienteSaldo extends javax.swing.JFrame {
         principal.setVisible(false);
         this.setVisible(true);
         cliente = c;
+        jLabelSaldo.setText(Double.toString(cliente.getSaldo()));
     }
 
     /**
@@ -34,6 +36,15 @@ public class ClienteSaldo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldTarjeta = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jSpinnerSaldo = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelSaldo = new javax.swing.JLabel();
+        jLabelErrorTarjeta = new javax.swing.JLabel();
+        jLabelErrorSaldo = new javax.swing.JLabel();
+        jButtonAddSaldo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -44,6 +55,22 @@ public class ClienteSaldo extends javax.swing.JFrame {
         jMenuItemCerrarSesion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Número de tarjeta:");
+
+        jLabel2.setText("Saldo a añadir:");
+
+        jSpinnerSaldo.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnerSaldo.setEditor(new javax.swing.JSpinner.NumberEditor(jSpinnerSaldo, ""));
+
+        jLabel3.setText("Saldo actual:");
+
+        jButtonAddSaldo.setText("Añadir Saldo");
+        jButtonAddSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddSaldoActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menú");
 
@@ -103,11 +130,51 @@ public class ClienteSaldo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 669, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                                    .addComponent(jSpinnerSaldo))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelErrorTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelErrorSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
+                            .addComponent(jLabelSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(228, 228, 228)
+                        .addComponent(jButtonAddSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 531, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelErrorTarjeta))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jSpinnerSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelErrorSaldo))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonAddSaldo)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelSaldo))
+                .addContainerGap(359, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,9 +216,44 @@ public class ClienteSaldo extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_jMenuItemCerrarSesionActionPerformed
 
+    private void jButtonAddSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddSaldoActionPerformed
+        if (jTextFieldTarjeta.getText().isEmpty())
+        {
+            jLabelErrorTarjeta.setText("Introduzca una tarjeta");
+            jLabelErrorTarjeta.setForeground(Color.red);
+        }
+        else if (!proxy.existeTarjetaCredito(jTextFieldTarjeta.getText()))
+        {
+            jLabelErrorTarjeta.setText("Esta tarjeta no existe");
+            jLabelErrorTarjeta.setForeground(Color.red);
+        }
+        else if (!proxy.saldoSuficienteTarjetaCredito(jTextFieldTarjeta.getText(), (Double) jSpinnerSaldo.getValue()))
+        {
+            jLabelErrorTarjeta.setText("");
+            jLabelErrorTarjeta.setText("La tarjeta no tiene saldo suficiente");
+            jLabelErrorTarjeta.setForeground(Color.red);
+        }
+        else 
+        {
+            cliente.setSaldo(cliente.getSaldo() + (Double) jSpinnerSaldo.getValue());
+            TarjetaCredito tc = proxy.getTarjetaCredito(jTextFieldTarjeta.getText());
+            tc.setSaldo(tc.getSaldo() - (Double) jSpinnerSaldo.getValue());
+            proxy.guardarClientes();
+            proxy.guardarTarjetasCredito();
+            jLabelSaldo.setText(Double.toString(cliente.getSaldo()));
+        }
+    }//GEN-LAST:event_jButtonAddSaldoActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAddSaldo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelErrorSaldo;
+    private javax.swing.JLabel jLabelErrorTarjeta;
+    private javax.swing.JLabel jLabelSaldo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemCerrarSesion;
@@ -160,5 +262,7 @@ public class ClienteSaldo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNotificacion;
     private javax.swing.JMenuItem jMenuItemSaldo;
     private javax.swing.JMenuItem jMenuItemTienda;
+    private javax.swing.JSpinner jSpinnerSaldo;
+    private javax.swing.JTextField jTextFieldTarjeta;
     // End of variables declaration//GEN-END:variables
 }

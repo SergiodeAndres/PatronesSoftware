@@ -77,4 +77,64 @@ public class Proxy implements Servidor {
         return servidor.esCliente(correo);
     }
 
+    @Override
+    public void addCodigoDescuento(CodigoDescuento cd) {
+        servidor.addCodigoDescuento(cd);
+    }
+
+    @Override
+    public void removeCodigoDescuento(String cd) {
+        servidor.removeCodigoDescuento(cd);
+    }
+
+    @Override
+    public void guardarCodigosDescuento() {
+        servidor.guardarCodigosDescuento();
+    }
+
+    @Override
+    public void cargarCodigosDescuento() {
+        servidor.cargarCodigosDescuento();
+    }
+
+    @Override
+    public boolean existeCodigoDescuento(String cd) {
+        return servidor.existeCodigoDescuento(cd);
+    }
+
+    @Override
+    public CodigoDescuento getCodigoDescuento(String cd) {
+        return servidor.getCodigoDescuento(cd);
+    }
+
+    @Override
+    public void addTarjetaCredito(TarjetaCredito tc) {
+        servidor.addTarjetaCredito(tc);
+    }
+
+    @Override
+    public void guardarTarjetasCredito() {
+        servidor.guardarTarjetasCredito();
+    }
+
+    @Override
+    public void cargarTarjetasCredito() {
+        servidor.cargarTarjetasCredito();
+    }
+
+    @Override
+    public boolean existeTarjetaCredito(String numero) {
+        return servidor.existeTarjetaCredito(numero);
+    }
+
+    @Override
+    public boolean saldoSuficienteTarjetaCredito(String numero, double saldo) {
+        return servidor.saldoSuficienteTarjetaCredito(numero, saldo);
+    }
+
+    @Override
+    public TarjetaCredito getTarjetaCredito(String numero) {
+        return servidor.getTarjetaCredito(numero);
+    }
+
 }

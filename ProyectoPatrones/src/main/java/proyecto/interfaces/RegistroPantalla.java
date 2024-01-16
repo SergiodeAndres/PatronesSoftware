@@ -214,7 +214,7 @@ public class RegistroPantalla extends javax.swing.JFrame {
                 ArrayList<String> notificaciones = new ArrayList<>();
                 ArrayList<CodigoDescuento> llavero = new ArrayList<>();
                 ArrayList<Producto> libreria = new ArrayList<>();
-                Cliente cl = new Cliente(usuarioNombre,usuarioPais,notificaciones,llavero,libreria,usuarioCorreo,usuarioContrasena);
+                Cliente cl = new Cliente(usuarioNombre,usuarioPais,notificaciones,llavero,libreria,0,usuarioCorreo,usuarioContrasena);
                 switch (proxy.correoValido(usuarioCorreo)) {
                     case 0 -> {
                         proxy.addCliente(cl);
