@@ -9,6 +9,8 @@ public interface Servidor {
     
     public void addCodigoDescuento(CodigoDescuento cd);
     
+    public void addCuentaBancaria(CuentaBancaria cb);
+    
     public void removeCodigoDescuento(String cd);
     
     public void guardarClientes();
@@ -17,6 +19,8 @@ public interface Servidor {
     
     public void guardarCodigosDescuento();
     
+    public void guardarCuentasBancarias();
+    
     public int correoValido(String correo);
     
     public void cargarClientes();
@@ -24,6 +28,8 @@ public interface Servidor {
     public void cargarCreadores();
     
     public void cargarCodigosDescuento();
+    
+    public void cargarCuentasBancarias();
     
     public boolean comprobarContraseña(String correo, String con);
     
@@ -44,4 +50,6 @@ public interface Servidor {
     public boolean existeTarjetaCredito(String numero); 
     
     public boolean saldoSuficienteTarjetaCredito(String numero, double saldo);
+    
+     public boolean comprobarCuentaBancaria(String numeroCuenta);
 }

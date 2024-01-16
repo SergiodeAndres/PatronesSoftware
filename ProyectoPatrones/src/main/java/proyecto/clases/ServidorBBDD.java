@@ -18,6 +18,7 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<Creador> creadores = new ArrayList<>();
     private static ArrayList<CodigoDescuento> codigosDescuento = new ArrayList<>();
     private static ArrayList<TarjetaCredito> tarjetasCredito = new ArrayList<>();
+        private static ArrayList<CuentaBancaria> cuentasBancarias = new ArrayList<>();
     
     @Override
     public void guardarClientes() {
@@ -152,6 +153,50 @@ public class ServidorBBDD implements Servidor {
     }
     
     @Override
+    public void guardarCuentasBancarias() {
+        try {
+            //Si hay datos los guardamos
+            if (!cuentasBancarias.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamCuentasBancarias = new FileOutputStream("cuentasBancarias.dat");
+                ObjectOutputStream oosCuentasBancarias = new ObjectOutputStream(ostreamCuentasBancarias);
+                //se guarda el array en el archivo
+                oosCuentasBancarias.writeObject(cuentasBancarias);
+                ostreamCuentasBancarias.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void cargarCuentasBancarias() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamCuentasBancarias = new FileInputStream("cuentasBancarias.dat");
+            ObjectInputStream oisCuentasBancarias = new ObjectInputStream(istreamCuentasBancarias);
+            cuentasBancarias = (ArrayList) oisCuentasBancarias.readObject();
+            istreamCuentasBancarias.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
     public void addCliente(Cliente c){
         clientes.add(c);
     }
@@ -164,6 +209,11 @@ public class ServidorBBDD implements Servidor {
     @Override
     public void addCodigoDescuento(CodigoDescuento cd){
         codigosDescuento.add(cd);
+    }
+    
+    @Override
+    public void addCuentaBancaria(CuentaBancaria cb){
+        cuentasBancarias.add(cb);
     }
     
     @Override
@@ -346,5 +396,15 @@ public class ServidorBBDD implements Servidor {
             }
         }
         return tarjeta;
+    }
+    
+    @Override
+    public boolean comprobarCuentaBancaria(String numeroCuenta){
+        List<String> lista_numeroCuenta = cuentasBancarias.stream()
+                .map(CuentaBancaria::getNumeroCuenta)
+                .collect(Collectors.toList());
+        
+        //Comprobamos si el número de cuenta ya existe
+        return !lista_numeroCuenta.contains(numeroCuenta);
     }
 }

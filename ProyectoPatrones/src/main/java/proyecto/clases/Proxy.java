@@ -43,6 +43,11 @@ public class Proxy implements Servidor {
     }
     
     @Override
+    public void addCuentaBancaria(CuentaBancaria cb){
+        servidor.addCuentaBancaria(cb);
+    }
+    
+    @Override
     public void guardarClientes(){
         servidor.guardarClientes();
     }
@@ -60,6 +65,16 @@ public class Proxy implements Servidor {
     @Override
     public void cargarCreadores(){
         servidor.cargarCreadores();
+    }
+    
+    @Override
+    public void guardarCuentasBancarias(){
+        servidor.guardarCuentasBancarias();
+    }
+    
+    @Override
+    public void cargarCuentasBancarias(){
+        servidor.cargarCuentasBancarias();
     }
     
     @Override
@@ -135,6 +150,11 @@ public class Proxy implements Servidor {
     @Override
     public TarjetaCredito getTarjetaCredito(String numero) {
         return servidor.getTarjetaCredito(numero);
+    }
+    
+    @Override
+    public boolean comprobarCuentaBancaria(String numeroCuenta){
+        return servidor.comprobarCuentaBancaria(numeroCuenta);
     }
 
 }
