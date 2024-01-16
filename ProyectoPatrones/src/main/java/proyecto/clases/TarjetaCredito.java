@@ -1,6 +1,7 @@
 package proyecto.clases;
+import java.io.Serializable;
 
-public class TarjetaCredito {
+public class TarjetaCredito implements Serializable{
     
     private String numeroTarjeta;
     private double saldo;
