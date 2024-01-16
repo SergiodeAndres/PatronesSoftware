@@ -51,5 +51,7 @@ public interface Servidor {
     
     public boolean saldoSuficienteTarjetaCredito(String numero, double saldo);
     
-     public boolean comprobarCuentaBancaria(String numeroCuenta);
+    public boolean comprobarCuentaBancaria(String numeroCuenta);
+    
+    public Creador esCreador(String correo);
 }

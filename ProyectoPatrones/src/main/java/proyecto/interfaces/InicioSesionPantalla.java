@@ -108,6 +108,10 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                     ClienteLibreria c = new ClienteLibreria(this, proxy.esCliente(jTextField1.getText()));
                     c.setLocationRelativeTo(null);
                     c.setVisible(true);
+                } else{
+                    CreadorStatus c = new CreadorStatus(this, proxy.esCreador(jTextField1.getText()));
+                    c.setLocationRelativeTo(null);
+                    c.setVisible(true);
                 }
                 //ELSE REDIRIGIR A CREADOR O ADMIN
             }else{

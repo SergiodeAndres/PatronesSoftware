@@ -407,4 +407,17 @@ public class ServidorBBDD implements Servidor {
         //Comprobamos si el número de cuenta ya existe
         return !lista_numeroCuenta.contains(numeroCuenta);
     }
+    
+    @Override
+    public Creador esCreador(String correo) {
+        Creador creador = null; 
+        for (Creador c: creadores)
+        {
+            if (c.getCorreo().equals(correo))
+            {
+                creador = c;
+            }
+        }
+        return creador; 
+    }
 }

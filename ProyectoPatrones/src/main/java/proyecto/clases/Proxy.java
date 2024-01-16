@@ -156,5 +156,10 @@ public class Proxy implements Servidor {
     public boolean comprobarCuentaBancaria(String numeroCuenta){
         return servidor.comprobarCuentaBancaria(numeroCuenta);
     }
+    
+    @Override
+    public Creador esCreador(String correo){
+        return servidor.esCreador(correo);
+    }
 
 }
