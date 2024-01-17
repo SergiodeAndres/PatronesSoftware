@@ -19,17 +19,7 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import proyecto.clases.Antivirus;
-import proyecto.clases.Dolar;
-import proyecto.clases.Factoria;
-import proyecto.clases.FactoriaAntivirus;
-import proyecto.clases.FactoriaProductividad;
-import proyecto.clases.ImageFilter;
-import proyecto.clases.Productividad;
-import proyecto.clases.Proxy;
-import proyecto.clases.Review;
-import proyecto.clases.Servidor;
-import proyecto.clases.ServidorBBDD;
+import proyecto.clases.*;
 
 /**
  *
@@ -364,7 +354,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 guardarImagen();
                 
                 if (jRadioButton1.isSelected()){
-                    Factoria fabrica = new FactoriaProductividad();
+                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
                     Productividad p = fabrica.crearProducto(versionActual, fecha, jTextField4.getText(), nombre, codigoInterno,
                             creador, descripcion, fecha, new Dolar(Double.valueOf(precio)), nombreImagen,
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
@@ -376,7 +366,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     this.setVisible(false);
                     principal.setVisible(true);
                 }else {
-                    Factoria fabrica = new FactoriaAntivirus();
+                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
                     Antivirus v = fabrica.crearProducto(versionActual, fecha, procesarString(jTextField4.getText()), nombre,
                             codigoInterno, creador, descripcion, fecha, new Dolar(Double.valueOf(precio)), nombreImagen,
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
