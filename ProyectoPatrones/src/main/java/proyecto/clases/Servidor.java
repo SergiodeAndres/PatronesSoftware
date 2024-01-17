@@ -84,4 +84,6 @@ public interface Servidor {
     public ArrayList<Productividad> getProductividad();
     
     public ArrayList<Antivirus> getAntivirus();
+    
+    public ArrayList<Factura> getFacturas();
 }

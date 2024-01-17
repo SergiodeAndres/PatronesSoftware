@@ -126,6 +126,9 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                 if (jPasswordField1.getText().equals("admin"+numeroAdmin)){
                     jLabel3.setText("Accediendo como admin");
                     jLabel3.setVisible(true);
+                    this.setVisible(false);
+                    AdminMenu admin = new AdminMenu();
+                    admin.setVisible(true);
                 }else{
                     jLabel3.setText("Ese correo no existe");
                     jLabel3.setVisible(true);

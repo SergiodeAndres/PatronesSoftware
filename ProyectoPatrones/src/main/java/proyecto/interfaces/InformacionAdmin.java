@@ -4,16 +4,30 @@
  */
 package proyecto.interfaces;
 
+import java.util.ArrayList;
+import proyecto.clases.*;
+
 /**
  *
  * @author diego
  */
 public class InformacionAdmin extends javax.swing.JFrame {
-
+    private Servidor proxy = new Proxy(new ServidorBBDD());
     /**
      * Creates new form InformacionAdmin
      */
     public InformacionAdmin() {
+        ArrayList<Factura> facturas = proxy.getFacturas();
+        double suma_total = 0;
+        for (int i=0; i < facturas.size(); i++){
+            String tipo_creador = facturas.get(i).getProducto().getCreador().getTipo();
+            if (tipo_creador == "AAA"){
+                suma_total += facturas.get(i).getPrecioFinal().getCantidad() * 0.7;
+            }else{
+                suma_total += facturas.get(i).getPrecioFinal().getCantidad() * 0.8;
+            }
+        }
+        jLabel2.setText(suma_total+"");
         initComponents();
     }
 
@@ -27,10 +41,13 @@ public class InformacionAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("La olataforma ha generado un total de:");
+
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -39,13 +56,17 @@ public class InformacionAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addContainerGap(249, Short.MAX_VALUE))
         );
 
@@ -53,5 +74,6 @@ public class InformacionAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

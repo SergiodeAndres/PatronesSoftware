@@ -630,4 +630,8 @@ public class ServidorBBDD implements Servidor {
     public ArrayList<Antivirus> getAntivirus() {
         return antivirus;
     }
+    
+    public ArrayList<Factura> getFacturas(){
+        return facturas;
+    }
 }

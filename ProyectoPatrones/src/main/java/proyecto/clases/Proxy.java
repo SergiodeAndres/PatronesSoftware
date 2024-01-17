@@ -232,4 +232,8 @@ public class Proxy implements Servidor {
     public ArrayList<Antivirus> getAntivirus() {
         return servidor.getAntivirus();
     }
+    
+    public ArrayList<Factura> getFacturas(){
+        return servidor.getFacturas();
+    }
 }
