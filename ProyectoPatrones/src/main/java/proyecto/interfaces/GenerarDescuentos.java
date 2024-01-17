@@ -4,16 +4,24 @@
  */
 package proyecto.interfaces;
 
+import java.util.ArrayList;
+import proyecto.clases.*;
+
 /**
  *
  * @author diego
  */
 public class GenerarDescuentos extends javax.swing.JFrame {
-
+    private Servidor proxy = new Proxy(new ServidorBBDD());
+    private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
     /**
      * Creates new form GenerarDescuentos
      */
     public GenerarDescuentos() {
+        ArrayList<Videojuego> lista_videojuegos = lectura.getListaVideojuegos();
+        ArrayList<Productividad> lista_productividad = lectura.getListaProductividad();
+        ArrayList<Antivirus> lista_antivirus = lectura.getListaAntivirus();
+        
         initComponents();
     }
 
