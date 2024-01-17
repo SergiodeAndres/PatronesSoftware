@@ -10,6 +10,26 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import proyecto.clases.Creador;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import proyecto.clases.Antivirus;
+import proyecto.clases.Dolar;
+import proyecto.clases.Factoria;
+import proyecto.clases.FactoriaAntivirus;
+import proyecto.clases.FactoriaProductividad;
+import proyecto.clases.ImageFilter;
+import proyecto.clases.Productividad;
+import proyecto.clases.Proxy;
+import proyecto.clases.Review;
+import proyecto.clases.Servidor;
+import proyecto.clases.ServidorBBDD;
 
 /**
  *
@@ -20,16 +40,21 @@ public class CreadorCreacion extends javax.swing.JFrame {
     /**
      * Creates new form AdminMenu
      */
+    private Servidor proxy=new Proxy(new ServidorBBDD());
     private JFrame principal;
     private Creador creador;
+    private String nombreImagen, rutaImagen, extension = "jpg";
+    private BufferedImage bimage;
+    private File file;
+
     public CreadorCreacion(JFrame v, Creador c) {
         initComponents();
-        
+
         principal = v;
         principal.setVisible(false);
         this.setVisible(true);
         creador = c;
-        
+
         jLabel10.setVisible(false);
         jTextField5.setVisible(false);
         jCheckBox1.setVisible(false);
@@ -46,6 +71,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,6 +96,11 @@ public class CreadorCreacion extends javax.swing.JFrame {
         jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,23 +153,52 @@ public class CreadorCreacion extends javax.swing.JFrame {
 
         jLabel11.setText("Errores");
 
+        jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Productividad");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Antivirus");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(252, 252, 252))
-            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(362, 362, 362))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox2))
+                                .addComponent(jCheckBox2)
+                                .addGap(101, 101, 101)
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -151,53 +211,68 @@ public class CreadorCreacion extends javax.swing.JFrame {
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel10))
                                 .addGap(61, 61, 61)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField1)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane2)
-                                        .addComponent(jTextField3)
-                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField2)
-                                        .addComponent(jTextField4)
-                                        .addComponent(jTextField5))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(jButton1)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextField6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(342, 342, 342)
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(303, 303, 303))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jButton2)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -206,95 +281,131 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
+                    .addComponent(jCheckBox2)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel11)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if (jComboBox1.getSelectedIndex()==0){
+        if (jComboBox1.getSelectedIndex() == 0) {
             jLabel8.setText("Versión actual:");
             jLabel9.setText("Tipo:");
             jLabel10.setVisible(false);
             jTextField5.setVisible(false);
             jCheckBox1.setVisible(false);
             jCheckBox2.setVisible(false);
-        } else{
+        } else {
             jLabel8.setText("Géneros:");
             jLabel9.setText("Otras plataformas:");
             jLabel10.setVisible(true);
             jTextField5.setVisible(true);
             jCheckBox1.setVisible(true);
             jCheckBox2.setVisible(true);
+            jRadioButton1.setVisible(false);
+            jRadioButton2.setVisible(false);
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private String generarCodigoInterno(){
+    private String generarCodigoInterno() {
         String codigo = String.valueOf(LocalDateTime.now());
         codigo = codigo.replace("-", "");
         codigo = codigo.replace(".", "");
         codigo = codigo.replace(":", "");
-        return codigo.replace("T","");
+        return codigo.replace("T", "");
     }
-    
-    private ArrayList<String> procesarString(String texto){
+
+    private ArrayList<String> procesarString(String texto) {
         ArrayList<String> lista = new ArrayList<>();
-        
-        String [] partes = texto.split(", ");
-        
-        for (String parte:partes){
+
+        String[] partes = texto.split(", ");
+
+        for (String parte : partes) {
             lista.add(parte);
         }
-        
+
         return lista;
     }
     
+    private boolean esDouble(String numero){
+        Pattern pat = Pattern.compile("^[0-9]{1,20}\\.[0-9]{2}$");
+        Matcher mat = pat.matcher(numero);
+        return mat.group().equals(numero);
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombre = jTextField1.getText();
         String codigoInterno = generarCodigoInterno();
         String descripcion = jTextArea1.getText();
         LocalDate fecha = LocalDate.now();
-        double precio = Double.valueOf(jTextField3.getText());
+        String precio = jTextField3.getText();
         String valoracion = "0.0";
-        ArrayList<String> reviews = new ArrayList<>();
+        ArrayList<Review> reviews = new ArrayList<>();
         String limitacionesTecnicas = jTextArea2.getText();
         boolean aprobado = false;
-        
-        if (jComboBox1.getSelectedIndex() == 0){
+
+        if (jComboBox1.getSelectedIndex() == 0) {
             String versionActual = jTextField2.getText();
             String tipo = jTextField4.getText();
-            
-            if (nombre.isEmpty()||descripcion.isEmpty()||limitacionesTecnicas.isEmpty()||
-                    versionActual.isEmpty()||tipo.isEmpty()){
+
+            if (!nombre.isEmpty() || !descripcion.isEmpty() || !limitacionesTecnicas.isEmpty()
+                    || !versionActual.isEmpty() || !jTextField4.getText().isEmpty() || !jTextField6.getText().isEmpty() || esDouble(precio)) {
                 
+                guardarImagen();
                 
-                
-            }else {
+                if (jRadioButton1.isSelected()){
+                    Factoria fabrica = new FactoriaProductividad();
+                    Productividad p = fabrica.crearProducto(versionActual, fecha, jTextField4.getText(), nombre, codigoInterno,
+                            creador, descripcion, fecha, new Dolar(Double.valueOf(precio)), nombreImagen,
+                            valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
+                    proxy.addProductividad(p);
+                    proxy.guardarProductividad();
+                    jLabel11.setText("Productividad registrada");
+                    jLabel11.setForeground(Color.green);
+                    jLabel11.setVisible(true);
+                    this.setVisible(false);
+                    principal.setVisible(true);
+                }else {
+                    Factoria fabrica = new FactoriaAntivirus();
+                    Antivirus v = fabrica.crearProducto(versionActual, fecha, procesarString(jTextField4.getText()), nombre,
+                            codigoInterno, creador, descripcion, fecha, new Dolar(Double.valueOf(precio)), nombreImagen,
+                            valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
+                    proxy.addAntivirus(v);
+                    proxy.guardarAntivirus();
+                    jLabel11.setText("Antivirus registrado");
+                    jLabel11.setForeground(Color.green);
+                    jLabel11.setVisible(true);
+                    this.setVisible(false);
+                    principal.setVisible(true);
+                }
+
+            } else {
                 jLabel11.setText("Error: Relleno todos los campos.");
                 jLabel11.setVisible(true);
                 jLabel11.setForeground(Color.red);
             }
-            
-        }else {
+
+        } else {
             String generos = jTextField2.getText();
             String otrasPlataformas = jTextField4.getText();
             int jugadores = Integer.valueOf(jTextField5.getText());
             boolean multijugador = jCheckBox1.isSelected();
             boolean online = jCheckBox2.isSelected();
-            
-            if (nombre.isEmpty()||descripcion.isEmpty()||limitacionesTecnicas.isEmpty()||
-                    generos.isEmpty()||otrasPlataformas.isEmpty()){
-                
-            }else {
+
+            if (!nombre.isEmpty() || !descripcion.isEmpty() || !limitacionesTecnicas.isEmpty()
+                    || !generos.isEmpty() || !otrasPlataformas.isEmpty() || !jTextField6.getText().isEmpty() || esDouble(precio)) {
+
+            } else {
                 jLabel11.setText("Error: Rellene todos los campos.");
                 jLabel11.setVisible(true);
                 jLabel11.setForeground(Color.red);
@@ -302,14 +413,67 @@ public class CreadorCreacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void guardarImagen() {
+        String imagen = nombreImagen;
+        if (jLabel12.getIcon() == null) { //SI NO HAY PORTADA
+            jLabel11.setText("Falta portada");
+            jLabel11.setVisible(true);
+            jLabel11.setForeground(Color.red);
+        } else {
+            //Se guarda la imagen en la carpeta "portadas"
+            try {
+                bimage = ImageIO.read(file);
+                File fout = new File("./portadas/" + imagen);
+                ImageIO.write(bimage, extension, fout);
+                JOptionPane.showMessageDialog(this, "Imagen guardada");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar imagen");
+            }
+        }
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.addChoosableFileFilter(new ImageFilter());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        int option = fileChooser.showOpenDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+            rutaImagen = file.getAbsolutePath();
+            nombreImagen = file.getName();
+            jTextField6.setText(rutaImagen);
+            System.out.println("imagen: " + nombreImagen);
+            String[] aux = nombreImagen.split("\\.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ningún fichero seleccionado", "Mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+
+        ImageIcon imagen = new ImageIcon(rutaImagen);
+        //Se redimensiona
+        ImageIcon imgRedimensionada = new ImageIcon(imagen.getImage().getScaledInstance(jLabel12.getWidth(), jLabel12.getHeight(), java.awt.Image.SCALE_SMOOTH));
+        jLabel12.setIcon(imgRedimensionada);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        jLabel9.setText("Tipo:");
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        jLabel9.setText("Certificados:");
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -318,6 +482,8 @@ public class CreadorCreacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
@@ -327,5 +493,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

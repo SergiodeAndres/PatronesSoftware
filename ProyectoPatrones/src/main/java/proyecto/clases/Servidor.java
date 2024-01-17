@@ -58,4 +58,16 @@ public interface Servidor {
     public void cargarFacturas();
     
     public void guardarFacturas();
+    
+    public void addProductividad(Productividad p);
+    
+    public void guardarProductividad();
+    
+    public void cargarProductividad();
+    
+    public void addAntivirus(Antivirus s);
+    
+    public void guardarAntivirus();
+    
+    public void cargarAntivirus();
 }

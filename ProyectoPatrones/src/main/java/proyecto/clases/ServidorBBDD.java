@@ -20,6 +20,8 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<TarjetaCredito> tarjetasCredito = new ArrayList<>();
     private static ArrayList<CuentaBancaria> cuentasBancarias = new ArrayList<>();
     private static ArrayList<Factura> facturas = new ArrayList<>();
+    private static ArrayList<Productividad> productividad = new ArrayList<>();
+    private static ArrayList<Antivirus> antivirus = new ArrayList<>();
     
     @Override
     public void guardarClientes() {
@@ -460,6 +462,104 @@ public class ServidorBBDD implements Servidor {
         } 
         catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void addProductividad(Productividad p){
+        productividad.add(p);
+    }
+    
+    @Override
+    public void guardarProductividad() {
+        try {
+            //Si hay datos los guardamos
+            if (!productividad.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamProductividad = new FileOutputStream("productividad.dat");
+                ObjectOutputStream oosProductividad = new ObjectOutputStream(ostreamProductividad);
+                //se guarda el array en el archivo
+                oosProductividad.writeObject(productividad);
+                ostreamProductividad.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void cargarProductividad() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamProductividad = new FileInputStream("productividad.dat");
+            ObjectInputStream oisProductividad = new ObjectInputStream(istreamProductividad);
+            productividad = (ArrayList) oisProductividad.readObject();
+            istreamProductividad.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void addAntivirus(Antivirus a){
+        antivirus.add(a);
+    }
+    
+    @Override
+    public void guardarAntivirus() {
+        try {
+            //Si hay datos los guardamos
+            if (!antivirus.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamAntivirus = new FileOutputStream("antivirus.dat");
+                ObjectOutputStream oosAntivirus = new ObjectOutputStream(ostreamAntivirus);
+                //se guarda el array en el archivo
+                oosAntivirus.writeObject(antivirus);
+                ostreamAntivirus.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void cargarAntivirus() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamAntivirus = new FileInputStream("antivirus.dat");
+            ObjectInputStream oisAntivirus = new ObjectInputStream(istreamAntivirus);
+            antivirus = (ArrayList) oisAntivirus.readObject();
+            istreamAntivirus.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } 
         catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

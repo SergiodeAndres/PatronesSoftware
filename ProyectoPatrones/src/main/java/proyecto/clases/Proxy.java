@@ -171,5 +171,34 @@ public class Proxy implements Servidor {
     public void guardarFacturas() {
         servidor.guardarFacturas();
     }
+    
+    @Override
+    public void addProductividad(Productividad p){
+        servidor.addProductividad(p);
+    }
+    
+    @Override
+    public void guardarProductividad(){
+        servidor.guardarProductividad();
+    }
+    
+    @Override
+    public void cargarProductividad(){
+        servidor.cargarProductividad();
+    }
 
+    @Override
+    public void addAntivirus(Antivirus a){
+        servidor.addAntivirus(a);
+    }
+    
+    @Override
+    public void guardarAntivirus(){
+        servidor.guardarAntivirus();
+    }
+    
+    @Override
+    public void cargarAntivirus(){
+        servidor.guardarAntivirus();
+    }
 }

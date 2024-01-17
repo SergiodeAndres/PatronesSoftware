@@ -7,7 +7,7 @@ public class FactoriaAntivirus implements Factoria{
     
     private static FactoriaAntivirus instanciaUnica;
 
-    private FactoriaAntivirus() {
+    public FactoriaAntivirus() {
     }
     
     /**
