@@ -30,7 +30,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
     /**
      * Creates new form AdminMenu
      */
-    private Servidor proxy=new Proxy(new ServidorBBDD());
+    private Servidor proxy = new Proxy(new ServidorBBDD());
     private JFrame principal;
     private Creador creador;
     private String nombreImagen, rutaImagen, extension = "jpg";
@@ -50,6 +50,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
         jCheckBox1.setVisible(false);
         jCheckBox2.setVisible(false);
         jLabel11.setVisible(false);
+        jRadioButton1.setSelected(true);
     }
 
     /**
@@ -326,11 +327,25 @@ public class CreadorCreacion extends javax.swing.JFrame {
 
         return lista;
     }
-    
-    private boolean esDouble(String numero){
+
+    private boolean esDouble(String numero) {
         Pattern pat = Pattern.compile("^[0-9]{1,20}\\.[0-9]{2}$");
         Matcher mat = pat.matcher(numero);
-        return mat.group().equals(numero);
+        if(mat.find()){
+            return mat.group().equals(numero);
+        }else{
+            return false;
+        }
+    }
+    
+    private boolean esInteger(String numero){
+        Pattern pat = Pattern.compile("^[1-9]{1}[0-9]{0,20}$");
+        Matcher mat = pat.matcher(numero);
+        if(mat.find()){
+            return mat.group().equals(numero);
+        }else{
+            return false;
+        }
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -348,15 +363,16 @@ public class CreadorCreacion extends javax.swing.JFrame {
             String versionActual = jTextField2.getText();
             String tipo = jTextField4.getText();
 
-            if (!nombre.isEmpty() || !descripcion.isEmpty() || !limitacionesTecnicas.isEmpty()
-                    || !versionActual.isEmpty() || !jTextField4.getText().isEmpty() || !jTextField6.getText().isEmpty() || esDouble(precio)) {
-                
+            System.out.println("Me ejecuto");
+            if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
+                    && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
+                System.out.println("Llego a la imagen");
                 guardarImagen();
-                
-                if (jRadioButton1.isSelected()){
+                System.out.println("Paso de la imagen");
+                if (jRadioButton1.isSelected()) {
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
                     Productividad p = fabrica.crearProducto(versionActual, fecha, jTextField4.getText(), nombre, codigoInterno,
-                            creador, descripcion, fecha, new Dolar(Double.valueOf(precio)), nombreImagen,
+                            creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), nombreImagen,
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
                     proxy.addProductividad(p);
                     proxy.guardarProductividad();
@@ -365,12 +381,12 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     jLabel11.setVisible(true);
                     this.setVisible(false);
                     principal.setVisible(true);
-                }else {
+                } else {
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Antivirus v = fabrica.crearProducto(versionActual, fecha, procesarString(jTextField4.getText()), nombre,
-                            codigoInterno, creador, descripcion, fecha, new Dolar(Double.valueOf(precio)), nombreImagen,
+                    Antivirus a = fabrica.crearProducto(versionActual, fecha, procesarString(jTextField4.getText()), nombre,
+                            codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), nombreImagen,
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
-                    proxy.addAntivirus(v);
+                    proxy.addAntivirus(a);
                     proxy.guardarAntivirus();
                     jLabel11.setText("Antivirus registrado");
                     jLabel11.setForeground(Color.green);
@@ -380,25 +396,34 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 }
 
             } else {
-                jLabel11.setText("Error: Relleno todos los campos.");
-                jLabel11.setVisible(true);
-                jLabel11.setForeground(Color.red);
+                JOptionPane.showMessageDialog(this, "Error: Relleno todos los campos.");
             }
 
         } else {
             String generos = jTextField2.getText();
             String otrasPlataformas = jTextField4.getText();
-            int jugadores = Integer.valueOf(jTextField5.getText());
+            String jugadores = jTextField5.getText();
             boolean multijugador = jCheckBox1.isSelected();
             boolean online = jCheckBox2.isSelected();
 
-            if (!nombre.isEmpty() || !descripcion.isEmpty() || !limitacionesTecnicas.isEmpty()
-                    || !generos.isEmpty() || !otrasPlataformas.isEmpty() || !jTextField6.getText().isEmpty() || esDouble(precio)) {
+            if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
+                    && !generos.isEmpty() && !otrasPlataformas.isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio) 
+                    && esInteger(jugadores)) {
+                guardarImagen();
+                Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
+                Videojuego v = fabrica.crearProducto(procesarString(generos), procesarString(otrasPlataformas), multijugador,
+                        Integer.parseInt(jugadores), online, nombre, codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)),
+                        nombreImagen, valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
+                proxy.addVideojuego(v);
+                proxy.guardarVideojuegos();
+                jLabel11.setText("Videojuego registrado");
+                jLabel11.setForeground(Color.green);
+                jLabel11.setVisible(true);
+                this.setVisible(false);
+                principal.setVisible(true);
 
             } else {
-                jLabel11.setText("Error: Rellene todos los campos.");
-                jLabel11.setVisible(true);
-                jLabel11.setForeground(Color.red);
+                JOptionPane.showMessageDialog(this, "Error: Relleno todos los campos.");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -406,9 +431,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
     private void guardarImagen() {
         String imagen = nombreImagen;
         if (jLabel12.getIcon() == null) { //SI NO HAY PORTADA
-            jLabel11.setText("Falta portada");
-            jLabel11.setVisible(true);
-            jLabel11.setForeground(Color.red);
+            JOptionPane.showMessageDialog(this, "Error: Falta portada.");
         } else {
             //Se guarda la imagen en la carpeta "portadas"
             try {
@@ -417,6 +440,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 ImageIO.write(bimage, extension, fout);
                 JOptionPane.showMessageDialog(this, "Imagen guardada");
             } catch (IOException e) {
+                System.out.println(e);
                 JOptionPane.showMessageDialog(this, "Error al guardar imagen");
             }
         }
