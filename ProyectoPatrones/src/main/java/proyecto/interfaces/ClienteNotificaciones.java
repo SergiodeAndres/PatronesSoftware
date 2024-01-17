@@ -30,9 +30,6 @@ public class ClienteNotificaciones extends javax.swing.JFrame {
         principal.setVisible(false);
         this.setVisible(true);
         cliente = c;
-        cliente.addNotificacion("Prueba 1");
-        cliente.addNotificacion("Prueba 2");
-        cliente.addNotificacion("Prueba 3");
         String ids [] = {"Notificación"};
         mt.setColumnIdentifiers(ids);
         jTableNotificaciones.setModel(mt);

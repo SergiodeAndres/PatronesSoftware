@@ -1,32 +1,13 @@
 package proyecto.interfaces;
 
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
 
-public class ClienteLibreria extends javax.swing.JFrame {
+public class ClienteConfCompra extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ClienteInicio
-     */
-    private JFrame principal;
     private Cliente cliente;
-    DefaultTableModel mt = new DefaultTableModel();
-    public ClienteLibreria(JFrame v, Cliente c) {
+    public ClienteConfCompra(Cliente c) {
         initComponents();
-        principal = v;
-        principal.setVisible(false);
-        this.setVisible(true);
         cliente = c;
-        jLabelNombreUsuario.setText(cliente.getNombreUsuario());
-        String ids [] = {"Nombre", "Imagen"};
-        mt.setColumnIdentifiers(ids);
-        jTableLibreria.setModel(mt);
-        for (Producto p: cliente.getLibreria())
-        {
-            mt.addRow(new Object[]{p.getNombre(),""});
-        }
     }
 
     /**
@@ -38,11 +19,13 @@ public class ClienteLibreria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabelNombreUsuario = new javax.swing.JLabel();
+        jLabelNombreProducto = new javax.swing.JLabel();
+        jLabelPrecioActual = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableLibreria = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonUsarCodigos = new javax.swing.JButton();
+        jButtonConfirmarCompra = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -54,25 +37,24 @@ public class ClienteLibreria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Bienvenido");
+        jLabelNombreProducto.setText("jLabel1");
 
-        jLabelNombreUsuario.setText("jLabel2");
+        jLabelPrecioActual.setText("jLabel1");
 
-        jTableLibreria.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel1.setText("Códigos Descuento");
+
+        jButtonUsarCodigos.setText("Usar Códigos");
+        jButtonUsarCodigos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUsarCodigosActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTableLibreria);
+        });
 
-        jLabel2.setText("LIBRERÍA");
+        jButtonConfirmarCompra.setText("Confirmar Compra");
 
         jMenu1.setText("Menú");
 
@@ -132,39 +114,47 @@ public class ClienteLibreria extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 106, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(238, 238, 238))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelNombreUsuario)
-                        .addGap(306, 306, 306))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(276, 276, 276))))
+                    .addComponent(jLabelNombreProducto)
+                    .addComponent(jLabelPrecioActual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jButtonUsarCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(jButtonConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelNombreUsuario)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelNombreProducto)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelPrecioActual))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jButtonUsarCodigos)
+                .addGap(58, 58, 58)
+                .addComponent(jButtonConfirmarCompra)
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonUsarCodigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsarCodigosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonUsarCodigosActionPerformed
 
     private void jMenuItemLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLibreriaActionPerformed
         ClienteLibreria c = new ClienteLibreria(this, cliente);
@@ -202,11 +192,12 @@ public class ClienteLibreria extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_jMenuItemCerrarSesionActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonConfirmarCompra;
+    private javax.swing.JButton jButtonUsarCodigos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelNombreUsuario;
+    private javax.swing.JLabel jLabelNombreProducto;
+    private javax.swing.JLabel jLabelPrecioActual;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemCerrarSesion;
@@ -216,6 +207,6 @@ public class ClienteLibreria extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSaldo;
     private javax.swing.JMenuItem jMenuItemTienda;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableLibreria;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,4 +54,8 @@ public interface Servidor {
     public boolean comprobarCuentaBancaria(String numeroCuenta);
     
     public Creador esCreador(String correo);
+    
+    public void cargarFacturas();
+    
+    public void guardarFacturas();
 }

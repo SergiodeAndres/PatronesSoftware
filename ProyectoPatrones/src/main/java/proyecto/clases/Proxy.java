@@ -162,4 +162,14 @@ public class Proxy implements Servidor {
         return servidor.esCreador(correo);
     }
 
+    @Override
+    public void cargarFacturas() {
+        servidor.cargarFacturas();
+    }
+
+    @Override
+    public void guardarFacturas() {
+        servidor.guardarFacturas();
+    }
+
 }

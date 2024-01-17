@@ -4,11 +4,32 @@ package proyecto.clases;
 public class Review {
     private boolean positiva;
     private String comentario;
+    private Cliente cliente;
 
-    public Review(boolean positiva, String comentario) {
+    public Review(boolean positiva, String comentario, Cliente cliente) {
         this.positiva = positiva;
         this.comentario = comentario;
+        this.cliente = cliente;
     }
+
+    /**
+     * Get the value of cliente
+     *
+     * @return the value of cliente
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Set the value of cliente
+     *
+     * @param cliente new value of cliente
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     
     /**
      * Get the value of comentario

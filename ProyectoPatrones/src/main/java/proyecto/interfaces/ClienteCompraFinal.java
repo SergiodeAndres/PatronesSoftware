@@ -1,32 +1,12 @@
 package proyecto.interfaces;
 
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
+public class ClienteCompraFinal extends javax.swing.JFrame {
 
-public class ClienteLibreria extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ClienteInicio
-     */
-    private JFrame principal;
     private Cliente cliente;
-    DefaultTableModel mt = new DefaultTableModel();
-    public ClienteLibreria(JFrame v, Cliente c) {
+    public ClienteCompraFinal(Cliente c) {
         initComponents();
-        principal = v;
-        principal.setVisible(false);
-        this.setVisible(true);
         cliente = c;
-        jLabelNombreUsuario.setText(cliente.getNombreUsuario());
-        String ids [] = {"Nombre", "Imagen"};
-        mt.setColumnIdentifiers(ids);
-        jTableLibreria.setModel(mt);
-        for (Producto p: cliente.getLibreria())
-        {
-            mt.addRow(new Object[]{p.getNombre(),""});
-        }
     }
 
     /**
@@ -39,10 +19,6 @@ public class ClienteLibreria extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabelNombreUsuario = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableLibreria = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -54,25 +30,7 @@ public class ClienteLibreria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Bienvenido");
-
-        jLabelNombreUsuario.setText("jLabel2");
-
-        jTableLibreria.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableLibreria);
-
-        jLabel2.setText("LIBRERÍA");
+        jLabel1.setText("El producto se ha añadido a su librería y se ha generado la factura");
 
         jMenu1.setText("Menú");
 
@@ -132,35 +90,17 @@ public class ClienteLibreria extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 106, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(238, 238, 238))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelNombreUsuario)
-                        .addGap(306, 306, 306))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(276, 276, 276))))
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelNombreUsuario)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,11 +142,10 @@ public class ClienteLibreria extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_jMenuItemCerrarSesionActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelNombreUsuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemCerrarSesion;
@@ -215,7 +154,5 @@ public class ClienteLibreria extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNotificacion;
     private javax.swing.JMenuItem jMenuItemSaldo;
     private javax.swing.JMenuItem jMenuItemTienda;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableLibreria;
     // End of variables declaration//GEN-END:variables
 }

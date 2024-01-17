@@ -18,7 +18,8 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<Creador> creadores = new ArrayList<>();
     private static ArrayList<CodigoDescuento> codigosDescuento = new ArrayList<>();
     private static ArrayList<TarjetaCredito> tarjetasCredito = new ArrayList<>();
-        private static ArrayList<CuentaBancaria> cuentasBancarias = new ArrayList<>();
+    private static ArrayList<CuentaBancaria> cuentasBancarias = new ArrayList<>();
+    private static ArrayList<Factura> facturas = new ArrayList<>();
     
     @Override
     public void guardarClientes() {
@@ -419,5 +420,49 @@ public class ServidorBBDD implements Servidor {
             }
         }
         return creador; 
+    }
+
+    @Override
+    public void cargarFacturas() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamCuentasBancarias = new FileInputStream("facturas.dat");
+            ObjectInputStream oisCuentasBancarias = new ObjectInputStream(istreamCuentasBancarias);
+            facturas = (ArrayList) oisCuentasBancarias.readObject();
+            istreamCuentasBancarias.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void guardarFacturas() {
+        try {
+            //Si hay datos los guardamos
+            if (!facturas.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamClientes = new FileOutputStream("facturas.dat");
+                ObjectOutputStream oosClientes = new ObjectOutputStream(ostreamClientes);
+                //se guarda el array en el archivo
+                oosClientes.writeObject(facturas);
+                ostreamClientes.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }

@@ -60,7 +60,7 @@ public class ClienteSaldo extends javax.swing.JFrame {
 
         jLabel2.setText("Saldo a añadir:");
 
-        jSpinnerSaldo.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnerSaldo.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
         jSpinnerSaldo.setEditor(new javax.swing.JSpinner.NumberEditor(jSpinnerSaldo, ""));
 
         jLabel3.setText("Saldo actual:");
@@ -227,7 +227,7 @@ public class ClienteSaldo extends javax.swing.JFrame {
             jLabelErrorTarjeta.setText("Esta tarjeta no existe");
             jLabelErrorTarjeta.setForeground(Color.red);
         }
-        else if (!proxy.saldoSuficienteTarjetaCredito(jTextFieldTarjeta.getText(), (Double) jSpinnerSaldo.getValue()))
+        else if (!proxy.saldoSuficienteTarjetaCredito(jTextFieldTarjeta.getText(),  (Double)jSpinnerSaldo.getValue()))
         {
             jLabelErrorTarjeta.setText("");
             jLabelErrorTarjeta.setText("La tarjeta no tiene saldo suficiente");
