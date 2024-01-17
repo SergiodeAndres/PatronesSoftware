@@ -1,6 +1,8 @@
 
 package proyecto.clases;
 
+import java.util.ArrayList;
+
 
 public interface Servidor {
     public void addCliente(Cliente c);
@@ -70,4 +72,16 @@ public interface Servidor {
     public void guardarAntivirus();
     
     public void cargarAntivirus();
+    
+    public void addVideojuego(Videojuego v);
+    
+    public void guardarVideojuegos();
+    
+    public void cargarVideojuegos();
+    
+    public ArrayList<Videojuego> getVideojuegos();
+    
+    public ArrayList<Productividad> getProductividad();
+    
+    public ArrayList<Antivirus> getAntivirus();
 }

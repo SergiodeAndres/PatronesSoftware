@@ -22,6 +22,7 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<Factura> facturas = new ArrayList<>();
     private static ArrayList<Productividad> productividad = new ArrayList<>();
     private static ArrayList<Antivirus> antivirus = new ArrayList<>();
+    private static ArrayList<Videojuego> videojuegos = new ArrayList<>();
     
     @Override
     public void guardarClientes() {
@@ -564,5 +565,69 @@ public class ServidorBBDD implements Servidor {
         catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void addVideojuego(Videojuego v) {
+        videojuegos.add(v);
+    }
+
+    @Override
+    public void guardarVideojuegos() {
+        try {
+            //Si hay datos los guardamos
+            if (!videojuegos.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamAntivirus = new FileOutputStream("videojuegos.dat");
+                ObjectOutputStream oosAntivirus = new ObjectOutputStream(ostreamAntivirus);
+                //se guarda el array en el archivo
+                oosAntivirus.writeObject(videojuegos);
+                ostreamAntivirus.close();
+            } 
+            else {
+                System.out.println("Error: No hay datos...");
+            }
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void cargarVideojuegos() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamAntivirus = new FileInputStream("videojuegos.dat");
+            ObjectInputStream oisAntivirus = new ObjectInputStream(istreamAntivirus);
+            videojuegos = (ArrayList) oisAntivirus.readObject();
+            istreamAntivirus.close();
+        } 
+        catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } 
+        catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } 
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public ArrayList<Videojuego> getVideojuegos() {
+        return videojuegos;
+    }
+
+    @Override
+    public ArrayList<Productividad> getProductividad() {
+        return productividad;
+    }
+
+    @Override
+    public ArrayList<Antivirus> getAntivirus() {
+        return antivirus;
     }
 }

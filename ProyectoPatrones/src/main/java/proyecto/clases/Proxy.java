@@ -4,6 +4,7 @@ package proyecto.clases;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 
 public class Proxy implements Servidor {
@@ -200,5 +201,35 @@ public class Proxy implements Servidor {
     @Override
     public void cargarAntivirus(){
         servidor.guardarAntivirus();
+    }
+
+    @Override
+    public void addVideojuego(Videojuego v) {
+        servidor.addVideojuego(v);
+    }
+
+    @Override
+    public void guardarVideojuegos() {
+        servidor.guardarVideojuegos();
+    }
+
+    @Override
+    public void cargarVideojuegos() {
+        servidor.cargarVideojuegos();
+    }
+
+    @Override
+    public ArrayList<Videojuego> getVideojuegos() {
+        return servidor.getVideojuegos();
+    }
+
+    @Override
+    public ArrayList<Productividad> getProductividad() {
+        return servidor.getProductividad();
+    }
+
+    @Override
+    public ArrayList<Antivirus> getAntivirus() {
+        return servidor.getAntivirus();
     }
 }
