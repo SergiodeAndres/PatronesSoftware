@@ -354,7 +354,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
         String descripcion = jTextArea1.getText();
         LocalDate fecha = LocalDate.now();
         String precio = jTextField3.getText();
-        String valoracion = "0.0";
+        String valoracion = "Sin Valorar";
         ArrayList<Review> reviews = new ArrayList<>();
         String limitacionesTecnicas = jTextArea2.getText();
         boolean aprobado = false;
@@ -363,12 +363,9 @@ public class CreadorCreacion extends javax.swing.JFrame {
             String versionActual = jTextField2.getText();
             String tipo = jTextField4.getText();
 
-            System.out.println("Me ejecuto");
             if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
                     && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
-                System.out.println("Llego a la imagen");
                 guardarImagen();
-                System.out.println("Paso de la imagen");
                 if (jRadioButton1.isSelected()) {
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
                     Productividad p = fabrica.crearProducto(versionActual, fecha, jTextField4.getText(), nombre, codigoInterno,
