@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package proyecto.clases;
 
-/**
- *
- * @author sergi
- */
+import java.util.ArrayList;
+
 public interface Estrategia {
-    
+    public ArrayList<Producto> buscar(ArrayList<Producto> productos, String nombre, String creador, String valoracion, double precioMin, double precioMax, String tipo, Cliente c);
 }

@@ -9,8 +9,6 @@ public class AgregadoConcreto implements Agregado {
         this.elementos = elementos;
     }
     
-    
-
     /**
      * Get the value of elementos
      *
@@ -27,6 +25,11 @@ public class AgregadoConcreto implements Agregado {
      */
     public void setElementos(ArrayList elementos) {
         this.elementos = elementos;
+    }
+
+    @Override
+    public Iterador crearIterador() {
+        return new IteradorConcreto(this);
     }
 
 }

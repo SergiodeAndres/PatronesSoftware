@@ -1,5 +1,7 @@
 
 package proyecto.interfaces;
+import java.util.ArrayList;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import proyecto.clases.*;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ public class Tienda extends javax.swing.JFrame {
     private Servidor proxy = new Proxy(new ServidorBBDD());
     private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
     private Estrategia estrategiaBusqueda;
+    private Busqueda busqueda = new Busqueda(estrategiaBusqueda, new ArrayList<>());
     private DefaultTableModel mt = new DefaultTableModel();
     public Tienda(JFrame v, Cliente c) {
         initComponents();
@@ -343,6 +346,9 @@ public class Tienda extends javax.swing.JFrame {
             {
                 tipo = (String) jComboBoxTipo.getSelectedItem();
             }
+            mt.setRowCount(0);
+            busqueda.setEstrategia(estrategiaBusqueda);
+            
         }
         else
         {

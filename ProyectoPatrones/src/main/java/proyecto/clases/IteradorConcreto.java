@@ -4,8 +4,8 @@ public class IteradorConcreto implements Iterador {
     
     private int indice;
     private AgregadoConcreto agregado;
-    public IteradorConcreto(int indice, AgregadoConcreto agregado) {
-        this.indice = indice;
+    public IteradorConcreto(AgregadoConcreto agregado) {
+        this.indice = 0;
         this.agregado = agregado;
     }
     
@@ -43,6 +43,50 @@ public class IteradorConcreto implements Iterador {
      */
     public void setIndice(int indice) {
         this.indice = indice;
+    }
+
+    @Override
+    public Object primero() throws IndexOutOfBoundsException {
+        Object objeto = null;
+        if (!agregado.getElementos().isEmpty()) {
+            indice = 0;
+            objeto = agregado.getElementos().get(0);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+        return objeto;
+    }
+
+    @Override
+    public Object siguiente() throws IndexOutOfBoundsException {
+        Object objeto = null;
+        if (indice < agregado.getElementos().size()) {
+            objeto = agregado.getElementos().get(indice);
+            indice = indice + 1;
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+        return objeto;
+    }
+
+    @Override
+    public boolean hayMas() {
+        boolean veredicto = true;
+        if (agregado.getElementos().isEmpty() || indice == agregado.getElementos().size()) {
+            veredicto = false;
+        }
+        return veredicto;
+    }
+
+    @Override
+    public Object elementoActual() throws IndexOutOfBoundsException {
+        Object objeto = null;
+        if (indice < agregado.getElementos().size()) {
+            objeto = agregado.getElementos().get(indice);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+        return objeto;
     }
 
 }
