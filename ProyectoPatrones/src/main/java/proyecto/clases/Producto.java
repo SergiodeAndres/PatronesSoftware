@@ -141,6 +141,24 @@ public abstract class Producto implements Serializable{
     public Dolar getPrecio() {
         return precio;
     }
+    
+    public double getPrecio(Cliente c) {
+        Manejador manejadorDolar = new ManejadorMonedaDolar();
+        Manejador manejadorEuro = new ManejadorMonedaEuro();
+        Manejador manejadorOtro = new ManejadorMonedaOtro();
+        manejadorDolar.setSucesor(manejadorEuro);
+        manejadorEuro.setSucesor(manejadorOtro);
+        return manejadorDolar.calcularPrecio(precio, c);
+    }
+    
+    public double getPrecio(Creador cr) {
+        Manejador manejadorDolar = new ManejadorMonedaDolar();
+        Manejador manejadorEuro = new ManejadorMonedaEuro();
+        Manejador manejadorOtro = new ManejadorMonedaOtro();
+        manejadorDolar.setSucesor(manejadorEuro);
+        manejadorEuro.setSucesor(manejadorOtro);
+        return manejadorDolar.calcularPrecio(precio, cr);
+    }
 
     /**
      * Set the value of precio

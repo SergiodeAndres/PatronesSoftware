@@ -1,15 +1,12 @@
 package proyecto.clases;
 
-public class AdaptadorMonedaX {
+public class AdaptadorMonedaOtro implements OtraMoneda{
     
     private Dolar dolares;
 
-    public AdaptadorMonedaX(Dolar dolares) {
+    public AdaptadorMonedaOtro(Dolar dolares) {
         this.dolares = dolares;
     }
-    
-    
-
     /**
      * Get the value of dolares
      *
@@ -26,6 +23,11 @@ public class AdaptadorMonedaX {
      */
     public void setDolares(Dolar dolares) {
         this.dolares = dolares;
+    }
+
+    @Override
+    public double getPrecio() {
+        return Math.round((dolares.getCantidad() * 1.05)*100)/100.0;
     }
 
 }

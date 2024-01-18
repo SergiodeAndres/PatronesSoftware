@@ -192,17 +192,17 @@ public class CreadorStatus extends javax.swing.JFrame {
         System.out.println(proxy.getVideojuegos().size());
         
         for (Videojuego v:productos.getListaVideojuegosPorCreador(creador)){
-            mt.addRow(new Object[]{v.getNombre(), v.getFechaCreacion(), v.getPrecio().getCantidad(), v.getValoracionGeneral(),
+            mt.addRow(new Object[]{v.getNombre(), v.getFechaCreacion(), v.getPrecio(creador), v.getValoracionGeneral(),
                 v.isAprobado()});
         }
         
         for (Productividad p:productos.getListaProductividadPorCreador(creador)){
-            mt.addRow(new Object[]{p.getNombre(), p.getFechaCreacion(), p.getPrecio().getCantidad(), p.getValoracionGeneral(),
+            mt.addRow(new Object[]{p.getNombre(), p.getFechaCreacion(), p.getPrecio(creador), p.getValoracionGeneral(),
                 p.isAprobado()});
         }
         
         for (Antivirus a:productos.getListaAntivirusPorCreador(creador)){
-            mt.addRow(new Object[]{a.getNombre(), a.getFechaCreacion(), a.getPrecio().getCantidad(), a.getValoracionGeneral(), 
+            mt.addRow(new Object[]{a.getNombre(), a.getFechaCreacion(), a.getPrecio(creador), a.getValoracionGeneral(), 
                 a.isAprobado()});
         }
         

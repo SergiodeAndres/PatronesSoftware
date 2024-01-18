@@ -22,5 +22,9 @@ public abstract class Manejador {
     public void setSucesor(Manejador sucesor) {
         this.sucesor = sucesor;
     }
+    
+    public abstract double calcularPrecio(Dolar precio, Cliente c);
+    
+    public abstract double calcularPrecio(Dolar precio, Creador c);
 
 }

@@ -1,7 +1,9 @@
 
 package proyecto.interfaces;
+import javax.swing.DefaultComboBoxModel;
 import proyecto.clases.*;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 public class Tienda extends javax.swing.JFrame {
 
@@ -13,12 +15,32 @@ public class Tienda extends javax.swing.JFrame {
     private Servidor proxy = new Proxy(new ServidorBBDD());
     private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
     private Estrategia estrategiaBusqueda;
+    private DefaultTableModel mt = new DefaultTableModel();
     public Tienda(JFrame v, Cliente c) {
         initComponents();
         principal = v;
         principal.setVisible(false);
         this.setVisible(true);
         cliente = c;
+        jComboBoxBusquedaCreador.setSelectedIndex(0);
+        DefaultComboBoxModel creadores = new DefaultComboBoxModel (lectura.getListaCreadoresConProductos().toArray()); 
+        jComboBoxBusquedaCreador.setModel(creadores);
+        String[] ids = {"Nombre", "Creador", "Valoración", "Precio", "Tipo"};
+        mt.setColumnIdentifiers(ids);
+        jTableTienda.setModel(mt);
+        for (Videojuego vj: lectura.getListaVideojuegos())
+        {
+            mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), vj.getValoracionGeneral(), vj.getPrecio(cliente), "Videojuego"});
+        }
+        for (Productividad pv: lectura.getListaProductividad())
+        {
+            mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), pv.getValoracionGeneral(), pv.getPrecio(cliente), "Productividad"});
+        }
+        for (Antivirus av: lectura.getListaAntivirus())
+        {
+            mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), av.getValoracionGeneral(), av.getPrecio(cliente), "Antivirus"});
+        }
+        
     }
 
     /**
@@ -42,7 +64,7 @@ public class Tienda extends javax.swing.JFrame {
         jComboBoxTipo = new javax.swing.JComboBox<>();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableTienda = new javax.swing.JTable();
         jButtonVerProducto = new javax.swing.JButton();
         jRadioButtonValoracion = new javax.swing.JRadioButton();
         jRadioButtonCreador = new javax.swing.JRadioButton();
@@ -82,7 +104,7 @@ public class Tienda extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTienda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -93,7 +115,7 @@ public class Tienda extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableTienda);
 
         jButtonVerProducto.setText("Ver Producto");
 
@@ -202,21 +224,20 @@ public class Tienda extends javax.swing.JFrame {
                     .addComponent(jComboBoxCriterio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonVerProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(301, 301, 301))))
+                .addContainerGap(341, Short.MAX_VALUE)
+                .addComponent(jButtonVerProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(301, 301, 301))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jRadioButtonTipo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(471, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +379,7 @@ public class Tienda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerPrecioMaximo;
     private javax.swing.JSpinner jSpinnerPrecioMinimo;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableTienda;
     private javax.swing.JTextField jTextFieldBusquedaNombre;
     // End of variables declaration//GEN-END:variables
 }

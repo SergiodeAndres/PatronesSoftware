@@ -114,5 +114,28 @@ public class LecturaBBDD {
         
         return lista;
     }
+    
+    public ArrayList<String> getListaCreadoresConProductos() {
+        ArrayList<String> correos = new ArrayList<>();
+        for (Antivirus a:listaAntivirus){
+            if (!correos.contains(a.getCreador().getCorreo()))
+            {
+                correos.add(a.getCreador().getCorreo());
+            }
+        }
+        for (Videojuego v:listaVideojuegos){
+            if (!correos.contains(v.getCreador().getCorreo()))
+            {
+                correos.add(v.getCreador().getCorreo());
+            }
+        }
+        for (Productividad p:listaProductividad){
+            if (!correos.contains(p.getCreador().getCorreo()))
+            {
+                correos.add(p.getCreador().getCorreo());
+            }
+        }
+        return correos;
+    }
 
 }

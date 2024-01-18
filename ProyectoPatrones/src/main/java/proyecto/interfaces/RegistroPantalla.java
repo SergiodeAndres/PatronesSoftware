@@ -82,7 +82,7 @@ public class RegistroPantalla extends javax.swing.JFrame {
 
         jLabel4.setText("País:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "España", "E.E.U.U", "Francia", "Portugal" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "España", "E.E.U.U", "Francia", "Portugal", "Reino Unido" }));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Creador" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
