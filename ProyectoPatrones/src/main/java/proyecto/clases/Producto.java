@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto.clases;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author sergi
  */
-public abstract class Producto {
+public abstract class Producto implements Serializable{
     private String nombre;
     private String condigoInterno;
     private Creador creador;

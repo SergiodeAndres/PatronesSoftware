@@ -1,7 +1,9 @@
 
 package proyecto.clases;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable{
     private boolean positiva;
     private String comentario;
     private Cliente cliente;

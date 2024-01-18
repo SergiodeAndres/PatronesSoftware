@@ -200,7 +200,7 @@ public class Proxy implements Servidor {
     
     @Override
     public void cargarAntivirus(){
-        servidor.guardarAntivirus();
+        servidor.cargarAntivirus();
     }
 
     @Override

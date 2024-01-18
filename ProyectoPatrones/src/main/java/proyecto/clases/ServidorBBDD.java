@@ -563,6 +563,7 @@ public class ServidorBBDD implements Servidor {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } 
         catch (Exception e) {
+            System.out.println(e);
             System.out.println("Error: " + e.getMessage());
         }
     }

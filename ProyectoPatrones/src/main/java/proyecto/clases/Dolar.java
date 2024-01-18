@@ -1,6 +1,8 @@
 package proyecto.clases;
 
-public class Dolar {
+import java.io.Serializable;
+
+public class Dolar implements Serializable{
     private double cantidad;
 
     public Dolar(double cantidad) {

@@ -75,5 +75,44 @@ public class LecturaBBDD {
     public void setListaVideojuegos(ArrayList<Videojuego> listaVideojuegos) {
         this.listaVideojuegos = listaVideojuegos;
     }
+    
+    public ArrayList<Videojuego> getListaVideojuegosPorCreador(Creador c){
+        ArrayList<Videojuego> lista = new ArrayList<>();
+        
+        for (Videojuego v:listaVideojuegos){
+            if (v.getCreador().getCorreo().equals(c.getCorreo())){
+                lista.add(v);
+            }
+        }
+        
+        return lista;
+    }
+    
+    public ArrayList<Productividad> getListaProductividadPorCreador(Creador c){
+        ArrayList<Productividad> lista = new ArrayList<>();
+        
+        for (Productividad p:listaProductividad){
+            if (p.getCreador().getCorreo().equals(c.getCorreo())){
+                lista.add(p);
+            }
+        }
+        
+        return lista;
+    }
+    
+    public ArrayList<Antivirus> getListaAntivirusPorCreador(Creador c){
+        ArrayList<Antivirus> lista = new ArrayList<>();
+        
+        for (Antivirus a:listaAntivirus){
+            System.out.println(a.getCreador().getCorreo());
+            System.out.println(c.getCorreo());
+            System.out.println(a.getCreador().getCorreo().equals(c.getCorreo()));
+            if (a.getCreador().getCorreo().equals(c.getCorreo())){
+                lista.add(a);
+            }
+        }
+        
+        return lista;
+    }
 
 }

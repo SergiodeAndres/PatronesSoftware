@@ -1,9 +1,10 @@
 package proyecto.clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Productividad extends Producto {
+public class Productividad extends Producto{
     private String versionActual;
     private LocalDate fechaVersionActual;
     private String tipo;

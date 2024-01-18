@@ -6,7 +6,14 @@ package proyecto.interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import proyecto.clases.Antivirus;
 import proyecto.clases.Creador;
+import proyecto.clases.LecturaBBDD;
+import proyecto.clases.Productividad;
+import proyecto.clases.Proxy;
+import proyecto.clases.Servidor;
+import proyecto.clases.ServidorBBDD;
+import proyecto.clases.Videojuego;
 
 /**
  *
@@ -20,6 +27,8 @@ public class CreadorStatus extends javax.swing.JFrame {
     private JFrame principal;
     private Creador creador;
     private DefaultTableModel mt = new DefaultTableModel();
+    private LecturaBBDD productos = null;
+    private Servidor proxy = new Proxy(new ServidorBBDD());
     
     public CreadorStatus(JFrame v, Creador c) {
         initComponents();
@@ -33,11 +42,13 @@ public class CreadorStatus extends javax.swing.JFrame {
         jLabel4.setText("Tipo: " + c.getTipo());
         jLabel5. setText("Número de cuenta: " + c.getCuentaBancaria().getNumeroCuenta());
         
-        String [] ids = {"Nombre", "Fecha creación", "Precio", "Calificación", "Estado"};
+        String [] ids = {"Nombre", "Fecha creación", "Precio", "Valoración", "Estado"};
         
         mt.setColumnIdentifiers(ids);
         
         jTable1.setModel(mt);
+        
+        cargarTabla();
     }
 
     /**
@@ -166,6 +177,40 @@ public class CreadorStatus extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cargarTabla(){
+        if (productos == null){
+            productos = new LecturaBBDD(proxy.getVideojuegos(),proxy.getProductividad(),
+                    proxy.getAntivirus());
+        }else {
+            productos.setListaVideojuegos(proxy.getVideojuegos());
+            productos.setListaProductividad(proxy.getProductividad());
+            productos.setListaAntivirus(proxy.getAntivirus());
+        }
+        
+        System.out.println(proxy.getAntivirus().size());
+        System.out.println(proxy.getProductividad().size());
+        System.out.println(proxy.getVideojuegos().size());
+        
+        for (Videojuego v:productos.getListaVideojuegosPorCreador(creador)){
+            mt.addRow(new Object[]{v.getNombre(), v.getFechaCreacion(), v.getPrecio().getCantidad(), v.getValoracionGeneral(),
+                v.isAprobado()});
+        }
+        
+        for (Productividad p:productos.getListaProductividadPorCreador(creador)){
+            mt.addRow(new Object[]{p.getNombre(), p.getFechaCreacion(), p.getPrecio().getCantidad(), p.getValoracionGeneral(),
+                p.isAprobado()});
+        }
+        
+        for (Antivirus a:productos.getListaAntivirusPorCreador(creador)){
+            mt.addRow(new Object[]{a.getNombre(), a.getFechaCreacion(), a.getPrecio().getCantidad(), a.getValoracionGeneral(), 
+                a.isAprobado()});
+        }
+        
+        System.out.println(productos.getListaAntivirusPorCreador(creador).size());
+        System.out.println(productos.getListaProductividadPorCreador(creador).size());
+        System.out.println(productos.getListaVideojuegosPorCreador(creador).size());
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CreadorCreacion cc = new CreadorCreacion(this, creador);
     }//GEN-LAST:event_jButton1ActionPerformed
