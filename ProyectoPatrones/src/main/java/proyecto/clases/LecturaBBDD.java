@@ -104,9 +104,6 @@ public class LecturaBBDD {
         ArrayList<Antivirus> lista = new ArrayList<>();
         
         for (Antivirus a:listaAntivirus){
-            System.out.println(a.getCreador().getCorreo());
-            System.out.println(c.getCorreo());
-            System.out.println(a.getCreador().getCorreo().equals(c.getCorreo()));
             if (a.getCreador().getCorreo().equals(c.getCorreo())){
                 lista.add(a);
             }

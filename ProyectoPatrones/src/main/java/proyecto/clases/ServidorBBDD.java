@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
  * @author sergi
  */
 public class ServidorBBDD implements Servidor {
-    private static ArrayList<Cliente> clientes = new ArrayList<>(); 
+
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Creador> creadores = new ArrayList<>();
     private static ArrayList<CodigoDescuento> codigosDescuento = new ArrayList<>();
     private static ArrayList<TarjetaCredito> tarjetasCredito = new ArrayList<>();
@@ -23,7 +24,7 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<Productividad> productividad = new ArrayList<>();
     private static ArrayList<Antivirus> antivirus = new ArrayList<>();
     private static ArrayList<Videojuego> videojuegos = new ArrayList<>();
-    
+
     @Override
     public void guardarClientes() {
         try {
@@ -35,19 +36,16 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosClientes.writeObject(clientes);
                 ostreamClientes.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void cargarClientes() {
         try {
@@ -56,18 +54,15 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
             clientes = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void guardarCreadores() {
         try {
@@ -79,19 +74,16 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosCreadores.writeObject(creadores);
                 ostreamCreadores.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void cargarCreadores() {
         try {
@@ -100,18 +92,15 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
             creadores = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void guardarCodigosDescuento() {
         try {
@@ -123,19 +112,16 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosClientes.writeObject(codigosDescuento);
                 ostreamClientes.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void cargarCodigosDescuento() {
         try {
@@ -144,18 +130,15 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
             codigosDescuento = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void guardarCuentasBancarias() {
         try {
@@ -167,19 +150,16 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosCuentasBancarias.writeObject(cuentasBancarias);
                 ostreamCuentasBancarias.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void cargarCuentasBancarias() {
         try {
@@ -188,85 +168,78 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisCuentasBancarias = new ObjectInputStream(istreamCuentasBancarias);
             cuentasBancarias = (ArrayList) oisCuentasBancarias.readObject();
             istreamCuentasBancarias.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
-    public void addCliente(Cliente c){
+    public void addCliente(Cliente c) {
         clientes.add(c);
     }
-    
+
     @Override
-    public void addCreadores(Creador c){
+    public void addCreadores(Creador c) {
         creadores.add(c);
     }
-    
+
     @Override
-    public void addCodigoDescuento(CodigoDescuento cd){
+    public void addCodigoDescuento(CodigoDescuento cd) {
         codigosDescuento.add(cd);
     }
-    
+
     @Override
-    public void addCuentaBancaria(CuentaBancaria cb){
+    public void addCuentaBancaria(CuentaBancaria cb) {
         cuentasBancarias.add(cb);
     }
-    
+
     @Override
-    public void removeCodigoDescuento(String cd){
-        for (CodigoDescuento c: codigosDescuento)
-        {
-            if (c.getCodigo().equals(cd))
-            {
+    public void removeCodigoDescuento(String cd) {
+        for (CodigoDescuento c : codigosDescuento) {
+            if (c.getCodigo().equals(cd)) {
                 codigosDescuento.remove(c);
             }
         }
     }
-    
+
     @Override
-    public int correoValido(String correo){
-         List<String> lista_correos = clientes.stream()
+    public int correoValido(String correo) {
+        List<String> lista_correos = clientes.stream()
                 .map(Cliente::getCorreo)
                 .collect(Collectors.toList());
-         List<String> lista_correos_creadores = creadores.stream()
+        List<String> lista_correos_creadores = creadores.stream()
                 .map(Creador::getCorreo)
                 .collect(Collectors.toList());
         //Se comprueba que el correo introducido no está en la lista
-        if (lista_correos.contains(correo) || lista_correos_creadores.contains(correo)){
+        if (lista_correos.contains(correo) || lista_correos_creadores.contains(correo)) {
             lista_correos.removeAll(lista_correos);
             lista_correos_creadores.removeAll(lista_correos_creadores);
-            return 1; 
-        }
-        else {
+            return 1;
+        } else {
             //Se comprueba que el correo es válido (tiene un @, tiene .com o .es y no es el correo del administrador)
             lista_correos.removeAll(lista_correos);
             lista_correos_creadores.removeAll(lista_correos_creadores);
-            if (correo.contains("@") && !correo.equals("admin") && (correo.contains(".com")||correo.contains(".es"))) { 
+            if (correo.contains("@") && !correo.equals("admin") && (correo.contains(".com") || correo.contains(".es"))) {
                 return 0;
-            }
-            else { 
+            } else {
                 return 2;
             }
         }
     }
-    
+
     @Override
-    public boolean comprobarContraseña(String correo, String con){
+    public boolean comprobarContraseña(String correo, String con) {
         ArrayList<String> lista_correos = new ArrayList<>();
         ArrayList<String> lista_contraseñas = new ArrayList<>();
-        for (int i = 0; i < creadores.size();i++){
+        for (int i = 0; i < creadores.size(); i++) {
             lista_correos.add(creadores.get(i).getCorreo());
             lista_contraseñas.add(creadores.get(i).getContraseña());
         }
-        for (int i = 0; i < clientes.size();i++){
+        for (int i = 0; i < clientes.size(); i++) {
             lista_correos.add(clientes.get(i).getCorreo());
             lista_contraseñas.add(clientes.get(i).getContraseña());
         }
@@ -274,27 +247,23 @@ public class ServidorBBDD implements Servidor {
         String contraseña = lista_contraseñas.get(pos);
         return (contraseña.equals(con));
     }
-    
+
     @Override
     public Cliente esCliente(String correo) {
-        Cliente cliente = null; 
-        for (Cliente c: clientes)
-        {
-            if (c.getCorreo().equals(correo))
-            {
+        Cliente cliente = null;
+        for (Cliente c : clientes) {
+            if (c.getCorreo().equals(correo)) {
                 cliente = c;
             }
         }
-        return cliente; 
+        return cliente;
     }
 
     @Override
     public boolean existeCodigoDescuento(String cd) {
-        boolean veredicto = false; 
-        for (CodigoDescuento c: codigosDescuento)
-        {
-            if (c.getCodigo().equals(cd))
-            {
+        boolean veredicto = false;
+        for (CodigoDescuento c : codigosDescuento) {
+            if (c.getCodigo().equals(cd)) {
                 veredicto = true;
             }
         }
@@ -303,15 +272,13 @@ public class ServidorBBDD implements Servidor {
 
     @Override
     public CodigoDescuento getCodigoDescuento(String cd) {
-        CodigoDescuento codigo = null; 
-        for (CodigoDescuento c: codigosDescuento)
-        {
-            if (c.getCodigo().equals(cd))
-            {
+        CodigoDescuento codigo = null;
+        for (CodigoDescuento c : codigosDescuento) {
+            if (c.getCodigo().equals(cd)) {
                 codigo = c;
             }
         }
-        return codigo; 
+        return codigo;
     }
 
     @Override
@@ -330,15 +297,12 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosClientes.writeObject(tarjetasCredito);
                 ostreamClientes.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -351,25 +315,20 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
             tarjetasCredito = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     @Override
     public boolean existeTarjetaCredito(String numero) {
-        boolean veredicto = false; 
-        for (TarjetaCredito tc: tarjetasCredito)
-        {
-            if (tc.getNumeroTarjeta().equals(numero))
-            {
+        boolean veredicto = false;
+        for (TarjetaCredito tc : tarjetasCredito) {
+            if (tc.getNumeroTarjeta().equals(numero)) {
                 veredicto = true;
             }
         }
@@ -378,11 +337,9 @@ public class ServidorBBDD implements Servidor {
 
     @Override
     public boolean saldoSuficienteTarjetaCredito(String numero, double saldo) {
-        boolean veredicto = false; 
-        for (TarjetaCredito tc: tarjetasCredito)
-        {
-            if (tc.getNumeroTarjeta().equals(numero) && tc.getSaldo() >= saldo)
-            {
+        boolean veredicto = false;
+        for (TarjetaCredito tc : tarjetasCredito) {
+            if (tc.getNumeroTarjeta().equals(numero) && tc.getSaldo() >= saldo) {
                 veredicto = true;
             }
         }
@@ -391,38 +348,34 @@ public class ServidorBBDD implements Servidor {
 
     @Override
     public TarjetaCredito getTarjetaCredito(String numero) {
-        TarjetaCredito tarjeta = null; 
-        for (TarjetaCredito tc: tarjetasCredito)
-        {
-            if (tc.getNumeroTarjeta().equals(numero))
-            {
+        TarjetaCredito tarjeta = null;
+        for (TarjetaCredito tc : tarjetasCredito) {
+            if (tc.getNumeroTarjeta().equals(numero)) {
                 tarjeta = tc;
             }
         }
         return tarjeta;
     }
-    
+
     @Override
-    public boolean comprobarCuentaBancaria(String numeroCuenta){
+    public boolean comprobarCuentaBancaria(String numeroCuenta) {
         List<String> lista_numeroCuenta = cuentasBancarias.stream()
                 .map(CuentaBancaria::getNumeroCuenta)
                 .collect(Collectors.toList());
-        
+
         //Comprobamos si el número de cuenta ya existe
         return !lista_numeroCuenta.contains(numeroCuenta);
     }
-    
+
     @Override
     public Creador esCreador(String correo) {
-        Creador creador = null; 
-        for (Creador c: creadores)
-        {
-            if (c.getCorreo().equals(correo))
-            {
+        Creador creador = null;
+        for (Creador c : creadores) {
+            if (c.getCorreo().equals(correo)) {
                 creador = c;
             }
         }
-        return creador; 
+        return creador;
     }
 
     @Override
@@ -433,14 +386,11 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisCuentasBancarias = new ObjectInputStream(istreamCuentasBancarias);
             facturas = (ArrayList) oisCuentasBancarias.readObject();
             istreamCuentasBancarias.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -456,24 +406,21 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosClientes.writeObject(facturas);
                 ostreamClientes.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
-    public void addProductividad(Productividad p){
+    public void addProductividad(Productividad p) {
         productividad.add(p);
     }
-    
+
     @Override
     public void guardarProductividad() {
         try {
@@ -485,19 +432,16 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosProductividad.writeObject(productividad);
                 ostreamProductividad.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void cargarProductividad() {
         try {
@@ -506,23 +450,20 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisProductividad = new ObjectInputStream(istreamProductividad);
             productividad = (ArrayList) oisProductividad.readObject();
             istreamProductividad.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
-    public void addAntivirus(Antivirus a){
+    public void addAntivirus(Antivirus a) {
         antivirus.add(a);
     }
-    
+
     @Override
     public void guardarAntivirus() {
         try {
@@ -534,19 +475,16 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosAntivirus.writeObject(antivirus);
                 ostreamAntivirus.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
     public void cargarAntivirus() {
         try {
@@ -555,14 +493,11 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisAntivirus = new ObjectInputStream(istreamAntivirus);
             antivirus = (ArrayList) oisAntivirus.readObject();
             istreamAntivirus.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Error: " + e.getMessage());
         }
@@ -584,15 +519,12 @@ public class ServidorBBDD implements Servidor {
                 //se guarda el array en el archivo
                 oosAntivirus.writeObject(videojuegos);
                 ostreamAntivirus.close();
-            } 
-            else {
+            } else {
                 System.out.println("Error: No hay datos...");
             }
-        } 
-        catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage()+ ioe.toString());
-        } 
-        catch (Exception e) {
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -605,14 +537,11 @@ public class ServidorBBDD implements Servidor {
             ObjectInputStream oisAntivirus = new ObjectInputStream(istreamAntivirus);
             videojuegos = (ArrayList) oisAntivirus.readObject();
             istreamAntivirus.close();
-        } 
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
-        } 
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -631,8 +560,48 @@ public class ServidorBBDD implements Servidor {
     public ArrayList<Antivirus> getAntivirus() {
         return antivirus;
     }
-    
-    public ArrayList<Factura> getFacturas(){
+
+    @Override
+    public ArrayList<Factura> getFacturas() {
         return facturas;
+    }
+
+    @Override
+    public void removeVideojuego(String codigoInterno) {
+        try {
+            for (Videojuego v : videojuegos) {
+                if (v.getCondigoInterno().equals(codigoInterno)) {
+                    videojuegos.remove(v);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void removeProductividad(String codigoInterno) {
+        try {
+            for (Productividad p : productividad) {
+                if (p.getCondigoInterno().equals(codigoInterno)) {
+                    productividad.remove(p);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void removeAntivirus(String codigoInterno) {
+        try {
+            for (Antivirus a : antivirus) {
+                if (a.getCondigoInterno().equals(codigoInterno)) {
+                    antivirus.remove(a);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

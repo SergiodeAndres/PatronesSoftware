@@ -86,4 +86,10 @@ public interface Servidor {
     public ArrayList<Antivirus> getAntivirus();
     
     public ArrayList<Factura> getFacturas();
+    
+    public void removeVideojuego(String codigoInterno);
+    
+    public void removeProductividad(String codigoInterno);
+    
+    public void removeAntivirus(String codigoInterno);
 }

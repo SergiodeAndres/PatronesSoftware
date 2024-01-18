@@ -233,7 +233,23 @@ public class Proxy implements Servidor {
         return servidor.getAntivirus();
     }
     
+    @Override
     public ArrayList<Factura> getFacturas(){
         return servidor.getFacturas();
+    }
+    
+    @Override
+    public void removeVideojuego(String codigoInterno){
+        servidor.removeVideojuego(codigoInterno);
+    }
+    
+    @Override
+    public void removeProductividad(String codigoInterno){
+        servidor.removeProductividad(codigoInterno);
+    }
+    
+    @Override
+    public void removeAntivirus(String codigoInterno){
+        servidor.removeAntivirus(codigoInterno);
     }
 }
