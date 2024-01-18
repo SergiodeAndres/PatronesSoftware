@@ -27,4 +27,9 @@ public class Dolar implements Serializable{
         this.cantidad = cantidad;
     }
 
+    @Override
+    public String toString() {
+        return "Dolar{" + "cantidad=" + cantidad + '}';
+    }
+
 }

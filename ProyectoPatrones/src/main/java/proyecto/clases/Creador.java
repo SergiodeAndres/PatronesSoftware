@@ -89,4 +89,9 @@ public class Creador extends Usuario {
         this.nombreUsuario = nombreUsuario;
     }
 
+    @Override
+    public String toString() {
+        return "Creador{" + "nombreUsuario=" + nombreUsuario + ", pais=" + pais + ", tipo=" + tipo + ", cuentaBancaria=" + cuentaBancaria + '}';
+    }
+
 }

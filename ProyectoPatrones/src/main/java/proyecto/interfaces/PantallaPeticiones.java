@@ -4,17 +4,45 @@
  */
 package proyecto.interfaces;
 
+import javax.swing.table.DefaultTableModel;
+import proyecto.clases.*;
+
 /**
  *
  * @author diego
  */
 public class PantallaPeticiones extends javax.swing.JFrame {
-
+    private Servidor proxy = new Proxy(new ServidorBBDD());
+    private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
+    private DefaultTableModel mt = new DefaultTableModel();
     /**
      * Creates new form PantallaPeticiones
      */
     public PantallaPeticiones() {
         initComponents();
+        
+        String[] ids = {"Nombre", "Creador", "Tipo"};
+        mt.setColumnIdentifiers(ids);
+        jTable1.setModel(mt);
+        
+        for (Videojuego vj: lectura.getListaVideojuegos())
+        {
+            if (!vj.isAprobado()){
+                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego"});   
+            }
+        }
+        for (Productividad pv: lectura.getListaProductividad())
+        {
+            if (!pv.isAprobado()){
+                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad"});
+            }
+        }
+        for (Antivirus av: lectura.getListaAntivirus())
+        {
+            if (!av.isAprobado()){
+                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus"});
+            }
+        }
     }
 
     /**
@@ -26,21 +54,69 @@ public class PantallaPeticiones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Detalles");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(jButton1)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int seleccion = jTable1.getSelectedRow();
+        String prod_seleccionado = jTable1.getValueAt(seleccion, 0).toString();
+        String tipo_seleccionado = jTable1.getValueAt(seleccion, 2).toString();
+        EspecificacionesProductoAdmin e = new EspecificacionesProductoAdmin(prod_seleccionado,tipo_seleccionado);
+        e.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
