@@ -130,7 +130,6 @@ public class ServidorBBDD implements Servidor {
             FileInputStream istreamClientes = new FileInputStream("codigosDescuento.dat");
             ObjectInputStream oisClientes = new ObjectInputStream(istreamClientes);
             codigosDescuento = (ArrayList) oisClientes.readObject();
-            System.out.println(codigosDescuento.size());
             istreamClientes.close();
         } catch (IOException ioe) {
             System.out.println("Error de IO: " + ioe.getMessage());
@@ -753,11 +752,7 @@ public class ServidorBBDD implements Servidor {
     @Override
     public ArrayList<CodigoDescuento> getCodigosDescuentoPorProducto(Producto p){
         ArrayList<CodigoDescuento> lista = new ArrayList<>();
-        System.out.println(codigosDescuento.size());
         for (CodigoDescuento cd:codigosDescuento){
-            System.out.println(cd.getProducto().getCondigoInterno());
-            System.out.println(p.getCondigoInterno());
-            System.out.println(cd.getProducto().getCondigoInterno().equals(p.getCondigoInterno()));
             if (cd.getProducto().getCondigoInterno().equals(p.getCondigoInterno())){
                 lista.add(cd);
             }

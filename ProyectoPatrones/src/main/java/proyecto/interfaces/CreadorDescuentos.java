@@ -52,8 +52,6 @@ public class CreadorDescuentos extends javax.swing.JFrame {
     private void cargarTabla(){
         ArrayList<CodigoDescuento> descuentos = proxy.getCodigosDescuentoPorProducto(producto);
         
-        System.out.println(descuentos.size());
-        
         for (CodigoDescuento cd:descuentos){
             mt.addRow(new Object[]{cd.getCodigo(), cd.getCantidad()});
         }
