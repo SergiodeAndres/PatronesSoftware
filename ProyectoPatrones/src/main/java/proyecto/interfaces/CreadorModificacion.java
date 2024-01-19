@@ -38,10 +38,34 @@ public class CreadorModificacion extends javax.swing.JFrame {
     private String nombreImagen, rutaImagen, extension = "jpg";
     private BufferedImage bimage;
     private File file;
+    private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
 
-    public CreadorModificacion(JFrame v, Creador c, Object o, String clase) {
+
+    public CreadorModificacion(JFrame v, Creador c, Object o, String clase, boolean admin) {
         initComponents();
 
+        if (admin){
+            jLabel1.setText("ADMIN");
+            jLabel5.setVisible(false);
+            jLabel6.setVisible(false);
+            jTextField6.setVisible(false);
+            jButton2.setVisible(false);
+            jTextArea2.setVisible(false);
+            jTextField2.setVisible(false);
+            jTextField4.setVisible(false);
+            jTextField5.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel9.setVisible(false);
+            jLabel10.setVisible(false);
+            jLabel12.setVisible(false);
+            jCheckBox1.setVisible(false);
+            jCheckBox2.setVisible(false);
+        }else {
+            jButton3.setVisible(false);
+        }
+        Producto p =(Producto) o;
+        
+        jLabel7.setText("Modificando: " + p.getNombre());
         principal = v;
         principal.setVisible(false);
         this.setVisible(true);
@@ -90,6 +114,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,6 +167,13 @@ public class CreadorModificacion extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo de Producto:");
 
+        jButton3.setText("Eliminar Reviews");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,16 +189,6 @@ public class CreadorModificacion extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
-                                .addGap(100, 100, 100)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,17 +211,25 @@ public class CreadorModificacion extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2)
                                     .addComponent(jScrollPane1)
                                     .addComponent(jTextField1)
-                                    .addComponent(jTextField3))))
+                                    .addComponent(jTextField3)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel11))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(jButton1)))
+                                .addGap(77, 77, 77)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton3)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jTextField4)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(342, 342, 342)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(324, 324, 324)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +283,9 @@ public class CreadorModificacion extends javax.swing.JFrame {
                     .addComponent(jCheckBox1)
                     .addComponent(jCheckBox2))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -411,7 +443,8 @@ public class CreadorModificacion extends javax.swing.JFrame {
 
                 if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
                         && !generos.isEmpty() && !otrasPlataformas.isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)
-                        && esInteger(jugadores)) {
+                        && esInteger(jugadores) && !jLabel1.getText().equals("ADMIN") || ((!nombre.isEmpty() && !descripcion.isEmpty() && 
+                        !jTextField3.getText().isEmpty() && esDouble(precio) && jLabel1.getText().equals("ADMIN")))) {
                     
                     if(!producto.getCaratula().equals(nombreImagen)){
                         guardarImagen();
@@ -426,7 +459,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
                     this.setVisible(false);
                     principal.setVisible(true);
 
-                } else {
+                }else {
                     JOptionPane.showMessageDialog(this, "Error: Rellena todos los campos.");
                 }
             }
@@ -434,7 +467,8 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 String versionActual = jTextField2.getText();
 
                 if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
+                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio) || ((!nombre.isEmpty() && !descripcion.isEmpty() && 
+                        !jTextField3.getText().isEmpty() && esDouble(precio) && jLabel1.getText().equals("ADMIN")))) {
 
                     if(!producto.getCaratula().equals(nombreImagen)){
                         guardarImagen();
@@ -460,7 +494,8 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 String versionActual = jTextField2.getText();
                 
                 if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
+                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)|| ((!nombre.isEmpty() && !descripcion.isEmpty() && 
+                        !jTextField3.getText().isEmpty() && esDouble(precio) && jLabel1.getText().equals("ADMIN")))) {
                     if(!producto.getCaratula().equals(nombreImagen)){
                         guardarImagen();
                     }
@@ -488,19 +523,21 @@ public class CreadorModificacion extends javax.swing.JFrame {
 
     private void guardarImagen() {
         String imagen = nombreImagen;
-        if (jLabel12.getIcon() == null) { //SI NO HAY PORTADA
-            JOptionPane.showMessageDialog(this, "Error: Falta portada.");
-        } else {
+        if(!jLabel1.getText().equals("ADMIN")){
+            if (jLabel12.getIcon() == null) { //SI NO HAY PORTADA
+                JOptionPane.showMessageDialog(this, "Error: Falta portada.");
+            } else {
             //Se guarda la imagen en la carpeta "portadas"
-            try {
-                bimage = ImageIO.read(file);
-                File fout = new File("./portadas/" + imagen);
-                ImageIO.write(bimage, extension, fout);
-                JOptionPane.showMessageDialog(this, "Imagen guardada");
-            } catch (IOException e) {
-                System.out.println(e);
-                JOptionPane.showMessageDialog(this, "Error al guardar imagen");
-            }
+                try {
+                    bimage = ImageIO.read(file);
+                    File fout = new File("./portadas/" + imagen);
+                    ImageIO.write(bimage, extension, fout);
+                    JOptionPane.showMessageDialog(this, "Imagen guardada");
+                } catch (IOException e) {
+                    System.out.println(e);
+                    JOptionPane.showMessageDialog(this, "Error al guardar imagen");
+                }
+            } 
         }
     }
 
@@ -527,10 +564,45 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jLabel12.setIcon(imgRedimensionada);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String nombreProducto = jLabel7.getText();
+        nombreProducto = nombreProducto.replace("Modificando: ", "");
+        System.out.println(nombreProducto);
+        if (clase.equals("Videojuego")){
+            ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
+            for (int i=0 ; i< candidatosV.size(); i++){
+                System.out.println(candidatosV.get(i).getNombre());
+                if (candidatosV.get(i).getNombre().equals(nombreProducto)){  
+                    candidatosV.get(i).setReviews(new ArrayList<Review>());
+                    System.out.println(nombreProducto + ":"+ candidatosV.get(i).getReviews());
+                }
+            }
+        }else if (clase.equals("Antivirus")){
+            ArrayList<Antivirus> candidatosA = lectura.getListaAntivirus();
+            for (int i=0 ; i< candidatosA.size(); i++){
+                System.out.println(candidatosA.get(i).getNombre());
+                if (candidatosA.get(i).getNombre().equals(nombreProducto)){
+                    candidatosA.get(i).setReviews(new ArrayList<Review>());
+                    System.out.println(nombreProducto + ":"+candidatosA.get(i).getReviews());
+                }
+            }
+        }else{
+            ArrayList<Productividad> candidatosP = lectura.getListaProductividad();
+            for (int i=0 ; i< candidatosP.size(); i++){
+                System.out.println(candidatosP.get(i).getNombre());
+                if (candidatosP.get(i).getNombre().equals(nombreProducto)){
+                    candidatosP.get(i).setReviews(new ArrayList<Review>());
+                    System.out.println(nombreProducto + ":"+candidatosP.get(i).getReviews());
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
