@@ -50,6 +50,7 @@ public class ClienteConfCompra extends javax.swing.JFrame {
         jButtonUsarCodigos = new javax.swing.JButton();
         jButtonConfirmarCompra = new javax.swing.JButton();
         jLabelSaldoError = new javax.swing.JLabel();
+        jLabelErrorCodigos = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -143,17 +144,6 @@ public class ClienteConfCompra extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelNombreProducto)
-                    .addComponent(jLabelPrecioActual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jButtonUsarCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -163,6 +153,19 @@ public class ClienteConfCompra extends javax.swing.JFrame {
                         .addGap(236, 236, 236)
                         .addComponent(jLabelSaldoError)))
                 .addContainerGap(194, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelNombreProducto)
+                    .addComponent(jLabelPrecioActual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelErrorCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jScrollPane1)
+                        .addComponent(jButtonUsarCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,18 +181,52 @@ public class ClienteConfCompra extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonUsarCodigos)
-                .addGap(58, 58, 58)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelErrorCodigos)
+                .addGap(24, 24, 24)
                 .addComponent(jButtonConfirmarCompra)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelSaldoError)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUsarCodigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsarCodigosActionPerformed
-        // TODO add your handling code here:
+        String[] codigos = jTextArea1.getText().split("\n");
+        double descuentoTotal = 0;
+        boolean aplicables = true;
+        for (String c: codigos)
+        {
+            if (cliente.getCodigoFromLlavero(c) == null || (cliente.getCodigoFromLlavero(c) != null && 
+                    !cliente.getCodigoFromLlavero(c).getProducto().getNombre().equals(producto.getNombre())) )
+            {
+                aplicables = false;
+            }
+            else 
+            {
+                descuentoTotal += cliente.getCodigoFromLlavero(c).getCantidad();
+            }
+        }
+        if (!aplicables)
+        {
+            jLabelErrorCodigos.setText("Uno de los códigos no es correcto .");
+            jLabelErrorCodigos.setForeground(Color.red);
+        }
+        else if (descuentoTotal > 1)
+        {
+            jLabelErrorCodigos.setText("El descuento excede el 100%");
+            jLabelErrorCodigos.setForeground(Color.red);
+        }
+        else
+        {
+            jLabelErrorCodigos.setText("");
+            jButtonUsarCodigos.setVisible(false);
+            precioFinalDolares = new Dolar(precioFinalDolares.getCantidad() * (1 - descuentoTotal));
+            jLabelPrecioActual.setText("Precio actual:" + manejadorDolar.calcularPrecio(precioFinalDolares, cliente));
+            
+        }
     }//GEN-LAST:event_jButtonUsarCodigosActionPerformed
 
     private void jMenuItemLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLibreriaActionPerformed
@@ -245,6 +282,12 @@ public class ClienteConfCompra extends javax.swing.JFrame {
             proxy.addFactura(factura);
             proxy.guardarFacturas();
             cliente.addProducto(producto);
+            cliente.setSaldo(cliente.getSaldo() - manejadorDolar.calcularPrecio(precioFinalDolares, cliente));
+            String[] codigos = jTextArea1.getText().split("\n");
+            for (String c: codigos)
+            {
+                cliente.removeCodigo(cliente.getLlavero().indexOf(cliente.getCodigoFromLlavero(c)));
+            }
             proxy.guardarClientes();
             JOptionPane.showMessageDialog(this, "Se ha añadido el producto a su librería y se ha generado la factura.");
             Tienda c = new Tienda(this, cliente);
@@ -257,6 +300,7 @@ public class ClienteConfCompra extends javax.swing.JFrame {
     private javax.swing.JButton jButtonConfirmarCompra;
     private javax.swing.JButton jButtonUsarCodigos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelErrorCodigos;
     private javax.swing.JLabel jLabelNombreProducto;
     private javax.swing.JLabel jLabelPrecioActual;
     private javax.swing.JLabel jLabelSaldoError;

@@ -143,7 +143,23 @@ public class Cliente extends Usuario {
         notificaciones.remove(indice);
     }
     
+    public void removeCodigo(int indice) {
+        llavero.remove(indice);
+    }
+    
     public void addProducto(Producto p) {
         libreria.add(p);
+    }
+    
+    public CodigoDescuento getCodigoFromLlavero(String c) {
+        CodigoDescuento codigo = null; 
+        for (CodigoDescuento cd : llavero)
+        {
+            if (cd.getCodigo().equals(c))
+            {
+                codigo = cd;
+            }
+        }
+        return codigo;
     }
 }

@@ -6,6 +6,7 @@ package proyecto.clases;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +57,7 @@ public class ServidorBBDD implements Servidor {
             clientes = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO clientes: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -94,7 +95,7 @@ public class ServidorBBDD implements Servidor {
             creadores = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO creadores: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -132,7 +133,7 @@ public class ServidorBBDD implements Servidor {
             codigosDescuento = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO codigosdescuento: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -170,7 +171,7 @@ public class ServidorBBDD implements Servidor {
             cuentasBancarias = (ArrayList) oisCuentasBancarias.readObject();
             istreamCuentasBancarias.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO cuentas bancarias: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -200,11 +201,13 @@ public class ServidorBBDD implements Servidor {
 
     @Override
     public void removeCodigoDescuento(String cd) {
-        for (CodigoDescuento c : codigosDescuento) {
-            if (c.getCodigo().equals(cd)) {
-                codigosDescuento.remove(c);
+        Iterator<CodigoDescuento> it = codigosDescuento.iterator();
+	while (it.hasNext()) {
+            CodigoDescuento codigo = it.next();
+            if (codigo.getCodigo().equals(cd)) {
+		it.remove();
             }
-        }
+	}
     }
 
     @Override
@@ -317,7 +320,7 @@ public class ServidorBBDD implements Servidor {
             tarjetasCredito = (ArrayList) oisClientes.readObject();
             istreamClientes.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO tarjetas de credito: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -388,7 +391,7 @@ public class ServidorBBDD implements Servidor {
             facturas = (ArrayList) oisCuentasBancarias.readObject();
             istreamCuentasBancarias.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO facturas: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -452,7 +455,7 @@ public class ServidorBBDD implements Servidor {
             productividad = (ArrayList) oisProductividad.readObject();
             istreamProductividad.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO productividad: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -495,7 +498,7 @@ public class ServidorBBDD implements Servidor {
             antivirus = (ArrayList) oisAntivirus.readObject();
             istreamAntivirus.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO antivirus: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -539,7 +542,7 @@ public class ServidorBBDD implements Servidor {
             videojuegos = (ArrayList) oisAntivirus.readObject();
             istreamAntivirus.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO videojuego: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
@@ -646,7 +649,7 @@ public class ServidorBBDD implements Servidor {
             sujetos = (ArrayList) oisAntivirus.readObject();
             istreamAntivirus.close();
         } catch (IOException ioe) {
-            System.out.println("Error de IO: " + ioe.getMessage());
+            System.out.println("Error de IO sujetos: " + ioe.getMessage());
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
         } catch (Exception e) {
