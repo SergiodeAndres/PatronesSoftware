@@ -373,6 +373,10 @@ public class CreadorCreacion extends javax.swing.JFrame {
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
                     proxy.addProductividad(p);
                     proxy.guardarProductividad();
+                    Sujeto s = new SujetoConcreto();
+                    s.setProducto(p);
+                    proxy.addSujeto(s);
+                    proxy.guardarSujetos();
                     jLabel11.setText("Productividad registrada");
                     jLabel11.setForeground(Color.green);
                     jLabel11.setVisible(true);
@@ -385,6 +389,10 @@ public class CreadorCreacion extends javax.swing.JFrame {
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
                     proxy.addAntivirus(a);
                     proxy.guardarAntivirus();
+                    Sujeto s = new SujetoConcreto();
+                    s.setProducto(a);
+                    proxy.addSujeto(s);
+                    proxy.guardarSujetos();
                     jLabel11.setText("Antivirus registrado");
                     jLabel11.setForeground(Color.green);
                     jLabel11.setVisible(true);
@@ -413,6 +421,10 @@ public class CreadorCreacion extends javax.swing.JFrame {
                         nombreImagen, valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
                 proxy.addVideojuego(v);
                 proxy.guardarVideojuegos();
+                Sujeto s = new SujetoConcreto();
+                s.setProducto(v);
+                proxy.addSujeto(s);
+                proxy.guardarSujetos();
                 jLabel11.setText("Videojuego registrado");
                 jLabel11.setForeground(Color.green);
                 jLabel11.setVisible(true);

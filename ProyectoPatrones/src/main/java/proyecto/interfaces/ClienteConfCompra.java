@@ -1,13 +1,36 @@
 package proyecto.interfaces;
 
+import java.awt.Color;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import proyecto.clases.*;
 
 public class ClienteConfCompra extends javax.swing.JFrame {
 
     private Cliente cliente;
-    public ClienteConfCompra(Cliente c) {
+    private Producto producto;
+    private JFrame principal;
+    private Manejador manejadorDolar = new ManejadorMonedaDolar();
+    private Manejador manejadorEuro = new ManejadorMonedaEuro();
+    private Manejador manejadorOtro = new ManejadorMonedaOtro();
+    private Dolar precioFinalDolares;
+    private Servidor proxy = new Proxy(new ServidorBBDD());
+    public ClienteConfCompra(JFrame v, Cliente c, Producto p) {
         initComponents();
+        principal = v;
+        principal.setVisible(false);
+        this.setVisible(true);
         cliente = c;
+        producto = p;
+        manejadorDolar.setSucesor(manejadorEuro);
+        manejadorEuro.setSucesor(manejadorOtro);
+        jLabelNombreProducto.setText("Producto: " + producto.getNombre());
+        precioFinalDolares = producto.getPrecio();
+        jLabelPrecioActual.setText("Precio actual:" + manejadorDolar.calcularPrecio(precioFinalDolares, cliente));
     }
 
     /**
@@ -26,6 +49,7 @@ public class ClienteConfCompra extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonUsarCodigos = new javax.swing.JButton();
         jButtonConfirmarCompra = new javax.swing.JButton();
+        jLabelSaldoError = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -55,6 +79,11 @@ public class ClienteConfCompra extends javax.swing.JFrame {
         });
 
         jButtonConfirmarCompra.setText("Confirmar Compra");
+        jButtonConfirmarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarCompraActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menú");
 
@@ -126,8 +155,13 @@ public class ClienteConfCompra extends javax.swing.JFrame {
                     .addComponent(jButtonUsarCodigos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17))
             .addGroup(layout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(jButtonConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jButtonConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(jLabelSaldoError)))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -146,7 +180,9 @@ public class ClienteConfCompra extends javax.swing.JFrame {
                 .addComponent(jButtonUsarCodigos)
                 .addGap(58, 58, 58)
                 .addComponent(jButtonConfirmarCompra)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelSaldoError)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,12 +228,38 @@ public class ClienteConfCompra extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_jMenuItemCerrarSesionActionPerformed
 
+    private void jButtonConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarCompraActionPerformed
+        if (cliente.getSaldo() < manejadorDolar.calcularPrecio(precioFinalDolares, cliente)) {
+            jLabelSaldoError.setText("Saldo insuficiente");
+            jLabelSaldoError.setForeground(Color.red);
+        }
+        else
+        {
+            jLabelSaldoError.setText("");
+            Factura factura = new Factura(cliente, producto, LocalDate.now(), precioFinalDolares);
+            try {
+                factura.imprimirFactura();
+            } catch (IOException ex) {
+                Logger.getLogger(ClienteConfCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            proxy.addFactura(factura);
+            proxy.guardarFacturas();
+            cliente.addProducto(producto);
+            proxy.guardarClientes();
+            JOptionPane.showMessageDialog(this, "Se ha añadido el producto a su librería y se ha generado la factura.");
+            Tienda c = new Tienda(this, cliente);
+            c.setLocationRelativeTo(null);
+            c.setVisible(true); 
+        }
+    }//GEN-LAST:event_jButtonConfirmarCompraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirmarCompra;
     private javax.swing.JButton jButtonUsarCodigos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelNombreProducto;
     private javax.swing.JLabel jLabelPrecioActual;
+    private javax.swing.JLabel jLabelSaldoError;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemCerrarSesion;

@@ -263,5 +263,38 @@ public abstract class Producto implements Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-   
+    
+    public void addReview(Review review) {
+        reviews.add(review);
+        double positivas = 0; 
+        double totales = 0;
+        for (Review r: reviews) {
+            if (r.isPositiva())
+            {
+                positivas += 1; 
+            }
+            totales += 1;
+        }
+        double resultado = positivas / totales;
+        if (resultado >= 0.8)
+        {
+            valoracionGeneral = "Muy Positiva";
+        }
+        else if (0.6 <= resultado && resultado < 0.8)
+        {
+            valoracionGeneral = "Positiva";
+        }
+        else if (0.4 <= resultado && resultado < 0.6)
+        {
+            valoracionGeneral = "Mixta";
+        }
+        else if (0.2 <= resultado && resultado < 0.4)
+        {
+            valoracionGeneral = "Negativa";
+        }
+        else if (0 <= resultado && resultado < 0.2)
+        {
+            valoracionGeneral = "Muy Negativa";
+        }
+    }
 }

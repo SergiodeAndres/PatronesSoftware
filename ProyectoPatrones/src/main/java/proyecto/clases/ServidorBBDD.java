@@ -24,6 +24,7 @@ public class ServidorBBDD implements Servidor {
     private static ArrayList<Productividad> productividad = new ArrayList<>();
     private static ArrayList<Antivirus> antivirus = new ArrayList<>();
     private static ArrayList<Videojuego> videojuegos = new ArrayList<>();
+    private static ArrayList<Sujeto> sujetos = new ArrayList<>();
 
     @Override
     public void guardarClientes() {
@@ -603,5 +604,148 @@ public class ServidorBBDD implements Servidor {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    @Override
+    public Producto getProductoByCodigo(String codigoInterno) {
+        Producto producto = null;
+        for (Videojuego v : videojuegos) {
+                if (v.getCondigoInterno().equals(codigoInterno)) {
+                    producto = v;
+                }
+            }
+        for (Productividad p : productividad) {
+                if (p.getCondigoInterno().equals(codigoInterno)) {
+                    producto = p;
+                }
+            }
+        for (Antivirus a : antivirus) {
+                if (a.getCondigoInterno().equals(codigoInterno)) {
+                    producto = a;
+                }
+            }
+        return producto; 
+    }
+
+    @Override
+    public void addSujeto(Sujeto s) {
+        sujetos.add(s);
+    }
+
+    @Override
+    public void removeSujeto(Sujeto s) {
+        sujetos.remove(s);
+    }
+
+    @Override
+    public void cargarSujetos() {
+        try {
+            //Lectura de los clientes
+            FileInputStream istreamAntivirus = new FileInputStream("sujetos.dat");
+            ObjectInputStream oisAntivirus = new ObjectInputStream(istreamAntivirus);
+            sujetos = (ArrayList) oisAntivirus.readObject();
+            istreamAntivirus.close();
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage());
+        } catch (ClassNotFoundException cnfe) {
+            System.out.println("Error de clase no encontrada: " + cnfe.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void guardarSujetos() {
+        try {
+            //Si hay datos los guardamos
+            if (!sujetos.isEmpty()) {
+                //Serialización de los clientes
+                FileOutputStream ostreamAntivirus = new FileOutputStream("sujetos.dat");
+                ObjectOutputStream oosAntivirus = new ObjectOutputStream(ostreamAntivirus);
+                //se guarda el array en el archivo
+                oosAntivirus.writeObject(sujetos);
+                ostreamAntivirus.close();
+            } else {
+                System.out.println("Error: No hay datos...");
+            }
+        } catch (IOException ioe) {
+            System.out.println("Error de IO: " + ioe.getMessage() + ioe.toString());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean clienteSuscritoProducto(Cliente c, Producto p) {
+        boolean veredicto = false; 
+        if(!sujetos.isEmpty())
+        {
+            for (Sujeto s: sujetos)
+            {
+                if (s.getProducto().getNombre().equals(p.getNombre()) && s.getObservadores() != null)
+                {
+                    for (Observador o: s.getObservadores())
+                    {
+                        if (o.getCliente().getCorreo().equals(c.getCorreo()))
+                        {
+                            veredicto = true;
+                        }
+                    }
+                }
+            }
+        }
+        return veredicto;
+    }
+
+    @Override
+    public Sujeto getSujetoProducto(Producto p) {
+        Sujeto sujeto = null; 
+        for (Sujeto s: sujetos)
+        {
+            if (s.getProducto().getCondigoInterno().equals(p.getCondigoInterno()))
+            {
+                sujeto = s;
+            }
+        }
+        return sujeto;
+    }
+
+    @Override
+    public Producto getProductoByNombre(String nombre) {
+        Producto producto = null;
+        for (Videojuego v : videojuegos) {
+                if (v.getNombre().equals(nombre)) {
+                    producto = v;
+                }
+            }
+        for (Productividad p : productividad) {
+                if (p.getNombre().equals(nombre)) {
+                    producto = p;
+                }
+            }
+        for (Antivirus a : antivirus) {
+                if (a.getNombre().equals(nombre)) {
+                    producto = a;
+                }
+            }
+        return producto; 
+    }
+
+    @Override
+    public Cliente getClientebyCorreo(String correo) {
+        Cliente cliente = null;
+        for (Cliente c: clientes)
+        {
+            if (c.getCorreo().equals(correo))
+            {
+                cliente = c;
+            }
+        }
+        return cliente;
+    }
+
+    @Override
+    public void addFactura(Factura f) {
+        facturas.add(f);
     }
 }

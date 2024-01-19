@@ -47,5 +47,9 @@ public class Busqueda {
     public void setEstrategia(Estrategia estrategia) {
         this.estrategia = estrategia;
     }
+    
+    public ArrayList<Producto> ejecutarEstrategia(String nombre, String creador, String valoracion, Double precioMinimo, Double precioMaximo, String tipo, Cliente c) {
+        return estrategia.buscar(lista, nombre, creador, valoracion, precioMinimo, precioMaximo, tipo, c);
+    }
 
 }

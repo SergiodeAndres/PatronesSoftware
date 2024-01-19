@@ -142,5 +142,8 @@ public class Cliente extends Usuario {
     public void removeNotificacion(int indice) {
         notificaciones.remove(indice);
     }
-
+    
+    public void addProducto(Producto p) {
+        libreria.add(p);
+    }
 }

@@ -253,24 +253,48 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (tipoProducto.equals("Videojuego")){
-            ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
+            ArrayList<Videojuego> candidatosV = proxy.getVideojuegos();
             for (int i=0 ; i< candidatosV.size(); i++){
                 if (candidatosV.get(i).getNombre().equals(nombreProducto)){
                     candidatosV.get(i).setAprobado(true);
+                    proxy.guardarVideojuegos();
+                    proxy.guardarAntivirus();
+                    proxy.guardarProductividad();
+                    Sujeto sujeto = proxy.getSujetoProducto(candidatosV.get(i));
+                    sujeto.setProducto(candidatosV.get(i));
+                    sujeto.notificarObservadores();
+                    proxy.guardarSujetos();
+                    proxy.guardarClientes();
                 }
             }
         }else if (tipoProducto.equals("Antivirus")){
-            ArrayList<Antivirus> candidatosA = lectura.getListaAntivirus();
+            ArrayList<Antivirus> candidatosA = proxy.getAntivirus();
             for (int i=0 ; i< candidatosA.size(); i++){
                 if (candidatosA.get(i).getNombre().equals(nombreProducto)){
                     candidatosA.get(i).setAprobado(true);
+                    proxy.guardarVideojuegos();
+                    proxy.guardarAntivirus();
+                    proxy.guardarProductividad();
+                    Sujeto sujeto = proxy.getSujetoProducto(candidatosA.get(i));
+                    sujeto.setProducto(candidatosA.get(i));
+                    sujeto.notificarObservadores();
+                    proxy.guardarSujetos();
+                    proxy.guardarClientes();
                 }
             }
         }else{
-            ArrayList<Productividad> candidatosP = lectura.getListaProductividad();
+            ArrayList<Productividad> candidatosP = proxy.getProductividad();
             for (int i=0 ; i< candidatosP.size(); i++){
                 if (candidatosP.get(i).getNombre().equals(nombreProducto)){
                     candidatosP.get(i).setAprobado(true);
+                    proxy.guardarVideojuegos();
+                    proxy.guardarAntivirus();
+                    proxy.guardarProductividad();
+                    Sujeto sujeto = proxy.getSujetoProducto(candidatosP.get(i));
+                    sujeto.setProducto(candidatosP.get(i));
+                    sujeto.notificarObservadores();
+                    proxy.guardarSujetos();
+                    proxy.guardarClientes();
                 }
             }
         }
@@ -278,27 +302,35 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (tipoProducto.equals("Videojuego")){
-            ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
+            ArrayList<Videojuego> candidatosV = proxy.getVideojuegos();
             for (int i=0 ; i< candidatosV.size(); i++){
                 if (candidatosV.get(i).getNombre().equals(nombreProducto)){
+                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByNombre(nombreProducto)));
                     candidatosV.remove(i);
                 }
             }
         }else if (tipoProducto.equals("Antivirus")){
-            ArrayList<Antivirus> candidatosA = lectura.getListaAntivirus();
+            ArrayList<Antivirus> candidatosA = proxy.getAntivirus();
             for (int i=0 ; i< candidatosA.size(); i++){
                 if (candidatosA.get(i).getNombre().equals(nombreProducto)){
+                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByNombre(nombreProducto)));
                     candidatosA.remove(i);
                 }
             }
         }else{
-            ArrayList<Productividad> candidatosP = lectura.getListaProductividad();
+            ArrayList<Productividad> candidatosP = proxy.getProductividad();
             for (int i=0 ; i< candidatosP.size(); i++){
                 if (candidatosP.get(i).getNombre().equals(nombreProducto)){
+                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByNombre(nombreProducto)));
                     candidatosP.remove(i);
                 }
             }
         }
+        proxy.guardarVideojuegos();
+        proxy.guardarAntivirus();
+        proxy.guardarProductividad();
+        proxy.guardarSujetos();
+        proxy.guardarClientes();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -28,6 +28,7 @@ public class Inicio extends javax.swing.JFrame {
         proxy.cargarVideojuegos();
         proxy.cargarProductividad();
         proxy.cargarAntivirus();
+        proxy.cargarSujetos();
     }
 
     /**

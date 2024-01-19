@@ -28,20 +28,20 @@ public class Tienda extends javax.swing.JFrame {
         jComboBoxBusquedaCreador.setSelectedIndex(0);
         DefaultComboBoxModel creadores = new DefaultComboBoxModel (lectura.getListaCreadoresConProductos().toArray()); 
         jComboBoxBusquedaCreador.setModel(creadores);
-        String[] ids = {"Nombre", "Creador", "Valoración", "Precio", "Tipo"};
+        String[] ids = {"Nombre", "Creador", "Valoración", "Precio", "Tipo","Código Interno"};
         mt.setColumnIdentifiers(ids);
         jTableTienda.setModel(mt);
         for (Videojuego vj: lectura.getListaVideojuegos())
         {
-            mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), vj.getValoracionGeneral(), vj.getPrecio(cliente), "Videojuego"});
+            mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), vj.getValoracionGeneral(), vj.getPrecio(cliente), "Videojuego", vj.getCondigoInterno()});
         }
         for (Productividad pv: lectura.getListaProductividad())
         {
-            mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), pv.getValoracionGeneral(), pv.getPrecio(cliente), "Productividad"});
+            mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), pv.getValoracionGeneral(), pv.getPrecio(cliente), "Productividad", pv.getCondigoInterno()});
         }
         for (Antivirus av: lectura.getListaAntivirus())
         {
-            mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), av.getValoracionGeneral(), av.getPrecio(cliente), "Antivirus"});
+            mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), av.getValoracionGeneral(), av.getPrecio(cliente), "Antivirus", av.getCondigoInterno()});
         }
         
     }
@@ -98,7 +98,7 @@ public class Tienda extends javax.swing.JFrame {
 
         jComboBoxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Al menos uno" }));
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Videojuego", "Productividad", "Antivirus", "N/A" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Videojuego", "Productividad", "Antivirus" }));
 
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +121,11 @@ public class Tienda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableTienda);
 
         jButtonVerProducto.setText("Ver Producto");
+        jButtonVerProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerProductoActionPerformed(evt);
+            }
+        });
 
         jRadioButtonValoracion.setText("Valoración:");
 
@@ -314,6 +319,20 @@ public class Tienda extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         LecturaBBDD nuevaLectura = new LecturaBBDD(lectura);
+        ArrayList<Producto> listaInicial = new ArrayList<>();
+        ArrayList<Producto> listaFinal = new ArrayList<>();
+        for (Antivirus a: nuevaLectura.getListaAntivirus())
+        {
+            listaInicial.add(a);
+        }
+        for (Productividad p: nuevaLectura.getListaProductividad())
+        {
+            listaInicial.add(p);
+        }
+        for (Videojuego vj: nuevaLectura.getListaVideojuegos())
+        {
+            listaInicial.add(vj);
+        }
         if(jComboBoxCriterio.getSelectedItem().toString().equals("Todos"))
         {
             String nombre = null;
@@ -346,15 +365,87 @@ public class Tienda extends javax.swing.JFrame {
             {
                 tipo = (String) jComboBoxTipo.getSelectedItem();
             }
-            mt.setRowCount(0);
+            estrategiaBusqueda = new EstrategiaBusquedaCompleta();
             busqueda.setEstrategia(estrategiaBusqueda);
-            
+            busqueda.setLista(listaInicial);
+            listaFinal = busqueda.ejecutarEstrategia(nombre, creador, valoracion, precioMinimo, precioMaximo, tipo, cliente);
         }
         else
         {
-            
+            if (jRadioButtonNombre.isSelected())
+            {
+                String nombre = jTextFieldBusquedaNombre.getText();
+                estrategiaBusqueda = new EstrategiaBusquedaNombre();
+                busqueda.setEstrategia(estrategiaBusqueda);
+                busqueda.setLista(listaInicial);
+                listaFinal.addAll(busqueda.ejecutarEstrategia(nombre, null, null, null, null, null, cliente));
+            }
+            if (jRadioButtonCreador.isSelected())
+            {
+                String creador = (String) jComboBoxBusquedaCreador.getSelectedItem();
+                estrategiaBusqueda = new EstrategiaBusquedaCreador();
+                busqueda.setEstrategia(estrategiaBusqueda);
+                busqueda.setLista(listaInicial);
+                listaFinal.addAll(busqueda.ejecutarEstrategia(null, creador, null, null, null, null, cliente));
+            }
+            if (jRadioButtonValoracion.isSelected())
+            {
+                String valoracion = (String) jComboBoxBusquedaValGeneral.getSelectedItem();
+                estrategiaBusqueda = new EstrategiaBusquedaValoracion();
+                busqueda.setEstrategia(estrategiaBusqueda);
+                busqueda.setLista(listaInicial);
+                listaFinal.addAll(busqueda.ejecutarEstrategia(null, null, valoracion, null, null, null, cliente));
+            }
+            if (jRadioButtonPrecioMinimo.isSelected())
+            {
+                Double precioMinimo = (Double) jSpinnerPrecioMinimo.getValue();
+                estrategiaBusqueda = new EstrategiaBusquedaPrecioMin();
+                busqueda.setEstrategia(estrategiaBusqueda);
+                busqueda.setLista(listaInicial);
+                listaFinal.addAll(busqueda.ejecutarEstrategia(null, null, null, precioMinimo, null, null, cliente));
+            }
+            if (jRadioButtonPrecioMaximo.isSelected())
+            {
+                Double precioMaximo = (Double) jSpinnerPrecioMaximo.getValue();
+                estrategiaBusqueda = new EstrategiaBusquedaPrecioMax();
+                busqueda.setEstrategia(estrategiaBusqueda);
+                busqueda.setLista(listaInicial);
+                listaFinal.addAll(busqueda.ejecutarEstrategia(null, null, null, null, precioMaximo, null, cliente));
+            }
+            if (jRadioButtonTipo.isSelected())
+            {
+                String tipo = (String) jComboBoxTipo.getSelectedItem();
+                estrategiaBusqueda = new EstrategiaBusquedaTipo();
+                busqueda.setEstrategia(estrategiaBusqueda);
+                busqueda.setLista(listaInicial);
+                listaFinal.addAll(busqueda.ejecutarEstrategia(null, null, null, null, null, tipo, cliente));
+            }
+        }
+        mt.setRowCount(0);
+        for (Producto p: listaFinal)
+        {
+            if (p instanceof Videojuego)
+            {
+                mt.addRow(new Object[]{p.getNombre(), p.getCreador().getCorreo(), p.getValoracionGeneral(), p.getPrecio(cliente), "Videojuego", p.getCondigoInterno()});
+            }
+            else if (p instanceof Productividad)
+            {
+                mt.addRow(new Object[]{p.getNombre(), p.getCreador().getCorreo(), p.getValoracionGeneral(), p.getPrecio(cliente), "Productividad", p.getCondigoInterno()});
+            }
+            else
+            {
+                mt.addRow(new Object[]{p.getNombre(), p.getCreador().getCorreo(), p.getValoracionGeneral(), p.getPrecio(cliente), "Antivirus", p.getCondigoInterno()});
+            }
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonVerProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerProductoActionPerformed
+        String codigoProducto = (String) mt.getValueAt(jTableTienda.getSelectedRow(), 5);
+        Producto producto = proxy.getProductoByCodigo(codigoProducto);
+        ClienteInfoProducto cip = new ClienteInfoProducto(this, cliente, producto);
+        this.setVisible(false);
+        cip.setVisible(true);
+    }//GEN-LAST:event_jButtonVerProductoActionPerformed
 
     
 

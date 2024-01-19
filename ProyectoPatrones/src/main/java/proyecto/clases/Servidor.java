@@ -92,4 +92,24 @@ public interface Servidor {
     public void removeProductividad(String codigoInterno);
     
     public void removeAntivirus(String codigoInterno);
+    
+    public Producto getProductoByCodigo(String codigoInterno);
+    
+    public void addSujeto(Sujeto s);
+    
+    public void removeSujeto(Sujeto s);
+    
+    public void cargarSujetos();
+    
+    public void guardarSujetos();
+    
+    public boolean clienteSuscritoProducto(Cliente c, Producto p);
+    
+    public Sujeto getSujetoProducto(Producto p);
+    
+    public Producto getProductoByNombre(String nombre);
+    
+    public Cliente getClientebyCorreo(String correo);
+    
+    public void addFactura(Factura f);
 }

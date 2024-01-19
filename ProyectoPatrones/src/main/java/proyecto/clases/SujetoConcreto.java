@@ -1,16 +1,18 @@
 package proyecto.clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SujetoConcreto implements Sujeto {
+public class SujetoConcreto implements Sujeto, Serializable{
     private Producto producto;
-    private ArrayList<Observador> observadores;
+    private ArrayList<Observador> observadores = new ArrayList<>();
 
     /**
      * Get the value of observadores
      *
      * @return the value of observadores
      */
+    @Override
     public ArrayList<Observador> getObservadores() {
         return observadores;
     }
@@ -20,6 +22,7 @@ public class SujetoConcreto implements Sujeto {
      *
      * @param observadores new value of observadores
      */
+    @Override
     public void setObservadores(ArrayList<Observador> observadores) {
         this.observadores = observadores;
     }
@@ -30,6 +33,7 @@ public class SujetoConcreto implements Sujeto {
      *
      * @return the value of producto
      */
+    @Override
     public Producto getProducto() {
         return producto;
     }
@@ -39,8 +43,19 @@ public class SujetoConcreto implements Sujeto {
      *
      * @param producto new value of producto
      */
+    @Override
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    @Override
+    public void notificarObservadores() {
+        Object[] obArray = observadores.toArray();
+
+        for (int i = 0; i < obArray.length; ++i) {
+            Observador o = (Observador) obArray[i];
+            o.actualizar();
+        }
     }
 
 }

@@ -252,4 +252,54 @@ public class Proxy implements Servidor {
     public void removeAntivirus(String codigoInterno){
         servidor.removeAntivirus(codigoInterno);
     }
+
+    @Override
+    public Producto getProductoByCodigo(String codigoInterno) {
+        return servidor.getProductoByCodigo(codigoInterno);
+    }
+
+    @Override
+    public void addSujeto(Sujeto s) {
+        servidor.addSujeto(s);
+    }
+
+    @Override
+    public void removeSujeto(Sujeto s) {
+        servidor.removeSujeto(s);
+    }
+
+    @Override
+    public void cargarSujetos() {
+        servidor.cargarSujetos();
+    }
+
+    @Override
+    public void guardarSujetos() {
+        servidor.guardarSujetos();
+    }
+
+    @Override
+    public boolean clienteSuscritoProducto(Cliente c, Producto p) {
+        return servidor.clienteSuscritoProducto(c, p);
+    }
+
+    @Override
+    public Sujeto getSujetoProducto(Producto p) {
+        return servidor.getSujetoProducto(p);
+    }
+
+    @Override
+    public Producto getProductoByNombre(String nombre) {
+        return servidor.getProductoByNombre(nombre);
+    }
+
+    @Override
+    public Cliente getClientebyCorreo(String correo) {
+        return servidor.getClientebyCorreo(correo);
+    }
+
+    @Override
+    public void addFactura(Factura f) {
+        servidor.addFactura(f);
+    }
 }

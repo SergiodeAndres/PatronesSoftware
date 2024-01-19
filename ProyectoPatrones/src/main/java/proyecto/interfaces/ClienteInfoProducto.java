@@ -1,16 +1,132 @@
 
 package proyecto.interfaces;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import proyecto.clases.*;
 public class ClienteInfoProducto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ClienteInfoProducto
-     */
+    private Servidor proxy = new Proxy(new ServidorBBDD());
     Cliente cliente;
-    public ClienteInfoProducto(Cliente c) {
+    Producto producto;
+    private JFrame principal;
+    public ClienteInfoProducto(JFrame v, Cliente c, Producto p) {
         initComponents();
+        principal = v;
+        principal.setVisible(false);
+        this.setVisible(true);
         cliente = c;
+        producto = p;
+        jLabelNombreProducto.setText("Nombre: " + producto.getNombre());
+        String rutaImagen = "./portadas/" + producto.getCaratula();
+        ImageIcon portada_original = new ImageIcon(rutaImagen);
+        ImageIcon portada_img = new ImageIcon(portada_original.getImage().getScaledInstance(jLabelCaratula.getWidth(), jLabelCaratula.getHeight(), java.awt.Image.SCALE_SMOOTH));
+        jLabelCaratula.setIcon(portada_img);
+        jLabelNombreCreador.setText("Creador: " + producto.getCreador().getNombreUsuario());
+        jLabelDescripcionProducto.setText("Descripción: " + producto.getDescripcion());
+        jLabelFechaCreacion.setText("Fecha de creación: " + producto.getFechaCreacion().toString());
+        jLabelPrecio.setText("Precio: " + producto.getPrecio(c));
+        jLabelValoracionGeneral.setText("Valoración General: " + producto.getValoracionGeneral());
+        String comentarios = "";
+        for (Review r:producto.getReviews())
+        {
+            String comentarioI = "";
+            if (r.isPositiva())
+            {
+               comentarioI = r.getCliente().getNombreUsuario() + "(positiva): " + r.getComentario();
+            }
+            else 
+            {
+                comentarioI = r.getCliente().getNombreUsuario() + "(negativa): " + r.getComentario();
+            }
+            comentarios += comentarioI;
+            comentarios += "\n";
+        }
+        jTextAreaComentarios.setText(comentarios);
+        String limitaciones = "";
+        for (String l: producto.getLimitacionesTecnicas())
+        {
+            limitaciones += l;
+            limitaciones += "\n";
+        }
+        jTextAreaLimitaciones.setText(limitaciones);
+        if (producto instanceof Videojuego)
+        {
+            Videojuego videojuego = (Videojuego) producto;
+            String infoExtra = "Géneros: ";
+            for (String genero: videojuego.getGeneros())
+            {
+                infoExtra += genero;
+                infoExtra += " ";
+            }
+            infoExtra += "\n";
+            infoExtra += "Otras Plataformas: ";
+            for (String plataforma: videojuego.getOtrasPlataformas())
+            {
+                infoExtra += plataforma;
+                infoExtra += " ";
+            }
+            infoExtra += "\n";
+            infoExtra += "Multijugador: ";
+            if (videojuego.isMultijugador())
+            {
+                infoExtra += "Sí";
+            }
+            else
+            {
+                infoExtra += "No";
+            }
+            infoExtra += "\n";
+            infoExtra += "Número de jugadores: " + videojuego.getJugadores() + "\n";
+            infoExtra += "Modo Online: ";
+            if (videojuego.isOnline())
+            {
+                infoExtra += "Sí";
+            }
+            else
+            {
+                infoExtra += "No";
+            }
+            jTextAreaInfoConcreta.setText(infoExtra);
+        }
+        else if (producto instanceof Productividad)
+        {
+            Productividad productividad = (Productividad) producto;
+            String infoExtra = "Versión Actual: " + productividad.getVersionActual() + 
+                    "\nFecha de la versión actual: " + productividad.getFechaVersionActual().toString() + 
+                    "\nTipo: " + productividad.getTipo();
+            jTextAreaInfoConcreta.setText(infoExtra);
+        }
+        else 
+        {
+            Antivirus antivirus = (Antivirus) producto;
+            String infoExtra = "Versión Actual: " + antivirus.getVersionActual() + 
+                    "\nFecha de la versión actual: " + antivirus.getFechaVersionActual().toString() + 
+                    "\nEntidades Certificadoras: ";
+            for (String ec: antivirus.getCertificaciones())
+            {
+                infoExtra += ec; 
+                infoExtra += " ";
+            }
+            jTextAreaInfoConcreta.setText(infoExtra);
+        }
+        
+        if(producto.isAprobado() && !cliente.getLibreria().contains(producto))
+        {
+            jButtonAccion.setText("Comprar");
+        }
+        else if (producto.isAprobado() && cliente.getLibreria().contains(producto))
+        {
+            jButtonAccion.setText("Ya en librería");
+        }
+        else if (!producto.isAprobado() && !proxy.clienteSuscritoProducto(cliente, producto))
+        {
+            jButtonAccion.setText("Suscribirse");
+        }
+        else 
+        {
+            jButtonAccion.setText("Ya suscrito");
+        }
     }
 
     /**
@@ -29,8 +145,6 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
         jLabelPrecio = new javax.swing.JLabel();
         jLabelValoracionGeneral = new javax.swing.JLabel();
         jLabelCaratula = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableReviews = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaComentario = new javax.swing.JTextArea();
@@ -42,6 +156,8 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextAreaInfoConcreta = new javax.swing.JTextArea();
         jButtonAccion = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextAreaComentarios = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLibreria = new javax.swing.JMenuItem();
@@ -67,19 +183,6 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
 
         jLabelCaratula.setText("jLabel1");
 
-        jTableReviews.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableReviews);
-
         jLabel1.setText("Comentario:");
 
         jTextAreaComentario.setColumns(20);
@@ -89,6 +192,11 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
         jRadioButtonPositivo.setText("Thumbs-up");
 
         jButtonEnviarComentario.setText("Enviar Comentario");
+        jButtonEnviarComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnviarComentarioActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Limitaciones");
 
@@ -103,6 +211,16 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jTextAreaInfoConcreta);
 
         jButtonAccion.setText("jButton1");
+        jButtonAccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAccionActionPerformed(evt);
+            }
+        });
+
+        jTextAreaComentarios.setEditable(false);
+        jTextAreaComentarios.setColumns(20);
+        jTextAreaComentarios.setRows(5);
+        jScrollPane5.setViewportView(jTextAreaComentarios);
 
         jMenu1.setText("Menú");
 
@@ -166,39 +284,44 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jRadioButtonPositivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEnviarComentario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabelNombreProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelNombreCreador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabelDescripcionProducto)
-                            .addComponent(jLabelFechaCreacion)
-                            .addComponent(jLabelPrecio)
-                            .addComponent(jLabelValoracionGeneral)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 10, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2)))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(153, 153, 153)
-                                .addComponent(jLabelCaratula))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(77, 77, 77)
+                                .addComponent(jRadioButtonPositivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonEnviarComentario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabelNombreProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabelNombreCreador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabelDescripcionProducto)
+                                    .addComponent(jLabelFechaCreacion)
+                                    .addComponent(jLabelPrecio)
+                                    .addComponent(jLabelValoracionGeneral))
+                                .addGap(0, 284, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2)))
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67))))
+                        .addGap(67, 67, 67))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelCaratula, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,28 +330,28 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelNombreProducto)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabelCaratula)))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelNombreCreador)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabelDescripcionProducto)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelNombreProducto))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelFechaCreacion))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelNombreCreador)
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabelDescripcionProducto)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelFechaCreacion))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelPrecio)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelValoracionGeneral))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelCaratula, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabelPrecio)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelValoracionGeneral)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -238,7 +361,7 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonPositivo)
                     .addComponent(jButtonEnviarComentario))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
@@ -280,6 +403,54 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_jMenuItemCerrarSesionActionPerformed
 
+    private void jButtonAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccionActionPerformed
+        if (!producto.isAprobado() && !proxy.clienteSuscritoProducto(cliente, producto))
+        {
+            Observador o = new ObservadorConcreto(cliente, proxy.getSujetoProducto(producto));
+            proxy.guardarSujetos();
+            jButtonAccion.setText("Ya suscrito");
+        }
+        else if(producto.isAprobado() && !cliente.getLibreria().contains(producto))
+        {
+            ClienteConfCompra c = new ClienteConfCompra(this, cliente, producto);
+            c.setLocationRelativeTo(null);
+            c.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jButtonAccionActionPerformed
+
+    private void jButtonEnviarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarComentarioActionPerformed
+        String comentario = jTextAreaComentario.getText();
+        if (jRadioButtonPositivo.isSelected())
+        {
+            producto.addReview(new Review(true, comentario, cliente));
+        }
+        else 
+        {
+            producto.addReview(new Review(false, comentario, cliente));
+        }
+        proxy.guardarVideojuegos();
+        proxy.guardarAntivirus();
+        proxy.guardarProductividad();
+        jLabelValoracionGeneral.setText("Valoración General: " + producto.getValoracionGeneral());
+        String comentarios = "";
+        for (Review r:producto.getReviews())
+        {
+            String comentarioI = "";
+            if (r.isPositiva())
+            {
+               comentarioI = r.getCliente().getNombreUsuario() + "(positiva): " + r.getComentario();
+            }
+            else 
+            {
+                comentarioI = r.getCliente().getNombreUsuario() + "(negativa): " + r.getComentario();
+            }
+            comentarios += comentarioI;
+            comentarios += "\n";
+        }
+        jTextAreaComentarios.setText(comentarios);
+    }//GEN-LAST:event_jButtonEnviarComentarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccion;
@@ -302,12 +473,12 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSaldo;
     private javax.swing.JMenuItem jMenuItemTienda;
     private javax.swing.JRadioButton jRadioButtonPositivo;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTableReviews;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextAreaComentario;
+    private javax.swing.JTextArea jTextAreaComentarios;
     private javax.swing.JTextArea jTextAreaInfoConcreta;
     private javax.swing.JTextArea jTextAreaLimitaciones;
     // End of variables declaration//GEN-END:variables
