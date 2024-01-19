@@ -1,6 +1,8 @@
 package proyecto.clases;
 
-public class CodigoDescuento {
+import java.io.Serializable;
+
+public class CodigoDescuento implements Serializable{
     
     private String codigo;
     private double cantidad;

@@ -302,4 +302,9 @@ public class Proxy implements Servidor {
     public void addFactura(Factura f) {
         servidor.addFactura(f);
     }
+    
+    @Override
+    public ArrayList<CodigoDescuento> getCodigosDescuentoPorProducto(Producto p){
+        return servidor.getCodigosDescuentoPorProducto(p);
+    }
 }

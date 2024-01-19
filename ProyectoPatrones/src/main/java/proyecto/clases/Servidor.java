@@ -112,4 +112,6 @@ public interface Servidor {
     public Cliente getClientebyCorreo(String correo);
     
     public void addFactura(Factura f);
+    
+    public ArrayList<CodigoDescuento> getCodigosDescuentoPorProducto(Producto p);
 }

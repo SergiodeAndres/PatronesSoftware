@@ -11,6 +11,7 @@ import proyecto.clases.Antivirus;
 import proyecto.clases.Creador;
 import proyecto.clases.LecturaBBDD;
 import proyecto.clases.Productividad;
+import proyecto.clases.Producto;
 import proyecto.clases.Proxy;
 import proyecto.clases.Servidor;
 import proyecto.clases.ServidorBBDD;
@@ -119,6 +120,11 @@ public class CreadorStatus extends javax.swing.JFrame {
         });
 
         jButton3.setText("Descuentos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Información");
 
@@ -152,9 +158,7 @@ public class CreadorStatus extends javax.swing.JFrame {
                                 .addGap(300, 300, 300)
                                 .addComponent(jLabel4))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(48, 48, 48))))
+                            .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
                         .addComponent(jLabel1)))
@@ -277,6 +281,30 @@ public class CreadorStatus extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: No ha seleccionado ningún producto.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int posicion = jTable1.getSelectedRow();
+        
+        if (posicion >= 0){
+            if (posicion < productos.getListaVideojuegosPorCreador(creador).size()){
+                CreadorDescuentos cd = new CreadorDescuentos(this,
+                        (Producto) productos.getListaVideojuegosPorCreador(creador).get(posicion));
+            } else{
+                posicion -= productos.getListaVideojuegosPorCreador(creador).size();
+                
+                if (posicion < productos.getListaProductividadPorCreador(creador).size()){
+                    CreadorDescuentos cd = new CreadorDescuentos(this, 
+                            (Producto) productos.getListaProductividadPorCreador(creador).get(posicion));
+                }else {
+                    posicion -= productos.getListaProductividadPorCreador(creador).size();
+                    CreadorDescuentos cd = new CreadorDescuentos(this, 
+                            (Producto) productos.getListaAntivirusPorCreador(creador).get(posicion));
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error: No ha seleccionado ningún producto.");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
