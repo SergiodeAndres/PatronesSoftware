@@ -5,6 +5,7 @@
 package proyecto.interfaces;
 
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
 
 /**
@@ -14,15 +15,34 @@ import proyecto.clases.*;
 public class GenerarDescuentos extends javax.swing.JFrame {
     private Servidor proxy = new Proxy(new ServidorBBDD());
     private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
+    private DefaultTableModel mt = new DefaultTableModel();
     /**
      * Creates new form GenerarDescuentos
      */
     public GenerarDescuentos() {
-        ArrayList<Videojuego> lista_videojuegos = lectura.getListaVideojuegos();
-        ArrayList<Productividad> lista_productividad = lectura.getListaProductividad();
-        ArrayList<Antivirus> lista_antivirus = lectura.getListaAntivirus();
-        
         initComponents();
+        String[] ids = {"Nombre", "Creador", "Tipo"};
+        mt.setColumnIdentifiers(ids);
+        jTable1.setModel(mt);
+        
+        for (Videojuego vj: lectura.getListaVideojuegos())
+        {
+            if (vj.isAprobado()){
+                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego"});   
+            }
+        }
+        for (Productividad pv: lectura.getListaProductividad())
+        {
+            if (pv.isAprobado()){
+                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad"});
+            }
+        }
+        for (Antivirus av: lectura.getListaAntivirus())
+        {
+            if (av.isAprobado()){
+                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus"});
+            }
+        }
     }
 
     /**
@@ -34,21 +54,93 @@ public class GenerarDescuentos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Aplicar Descuento");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(139, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(135, 135, 135))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int fila = jTable1.getSelectedRow();
+        String producto = jTable1.getValueAt(fila, 0).toString();
+        String tipo = jTable1.getValueAt(fila, 2).toString();
+        CreadorDescuentos c = null;
+        if (tipo.equals("Videojuego")){
+            ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
+            for (int i=0 ; i< candidatosV.size(); i++){
+                if (candidatosV.get(i).getNombre().equals(producto)){    
+                    c= new CreadorDescuentos(this,candidatosV.get(i),true);
+                }
+            }
+        }else if (tipo.equals("Antivirus")){
+            ArrayList<Antivirus> candidatosA = lectura.getListaAntivirus();
+            for (int i=0 ; i< candidatosA.size(); i++){
+                if (candidatosA.get(i).getNombre().equals(producto)){
+                    c= new CreadorDescuentos(this,candidatosA.get(i),true);
+                }
+            }
+        }else{
+            ArrayList<Productividad> candidatosP = lectura.getListaProductividad();
+            for (int i=0 ; i< candidatosP.size(); i++){
+                if (candidatosP.get(i).getNombre().equals(producto)){
+                    c= new CreadorDescuentos(this,candidatosP.get(i),true);
+                }
+            }
+        }
+        c.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -288,17 +288,17 @@ public class CreadorStatus extends javax.swing.JFrame {
         if (posicion >= 0){
             if (posicion < productos.getListaVideojuegosPorCreador(creador).size()){
                 CreadorDescuentos cd = new CreadorDescuentos(this,
-                        (Producto) productos.getListaVideojuegosPorCreador(creador).get(posicion));
+                        (Producto) productos.getListaVideojuegosPorCreador(creador).get(posicion),false);
             } else{
                 posicion -= productos.getListaVideojuegosPorCreador(creador).size();
                 
                 if (posicion < productos.getListaProductividadPorCreador(creador).size()){
                     CreadorDescuentos cd = new CreadorDescuentos(this, 
-                            (Producto) productos.getListaProductividadPorCreador(creador).get(posicion));
+                            (Producto) productos.getListaProductividadPorCreador(creador).get(posicion),false);
                 }else {
                     posicion -= productos.getListaProductividadPorCreador(creador).size();
                     CreadorDescuentos cd = new CreadorDescuentos(this, 
-                            (Producto) productos.getListaAntivirusPorCreador(creador).get(posicion));
+                            (Producto) productos.getListaAntivirusPorCreador(creador).get(posicion),false);
                 }
             }
         }else{

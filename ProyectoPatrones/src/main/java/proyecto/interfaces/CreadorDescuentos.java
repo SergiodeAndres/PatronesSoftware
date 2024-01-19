@@ -30,8 +30,11 @@ public class CreadorDescuentos extends javax.swing.JFrame {
     private DefaultTableModel mt = new DefaultTableModel();
     private Servidor proxy = new Proxy(new ServidorBBDD());
     
-    public CreadorDescuentos(JFrame v, Producto p) {
+    public CreadorDescuentos(JFrame v, Producto p,boolean admin) {
         initComponents();
+        if (admin){
+            jLabel1.setText("ADMIN");
+        }
         
         principal = v;
         producto = p;
