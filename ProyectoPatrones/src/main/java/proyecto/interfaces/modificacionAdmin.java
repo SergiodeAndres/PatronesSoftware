@@ -124,28 +124,14 @@ public class modificacionAdmin extends javax.swing.JFrame {
         String tipo = jTable1.getValueAt(fila, 2).toString();
         CreadorModificacion c = null;
         if (tipo.equals("Videojuego")){
-            ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
-            for (int i=0 ; i< candidatosV.size(); i++){
-                if (candidatosV.get(i).getNombre().equals(producto)){    
-                    c= new CreadorModificacion(this,candidatosV.get(i).getCreador(),candidatosV.get(i),"Videojuego",true);
-                }
-            }
-        }else if (tipo.equals("Antivirus")){
-            ArrayList<Antivirus> candidatosA = lectura.getListaAntivirus();
-            for (int i=0 ; i< candidatosA.size(); i++){
-                if (candidatosA.get(i).getNombre().equals(producto)){
-                    c= new CreadorModificacion(this,candidatosA.get(i).getCreador(),candidatosA.get(i),"Antivirus",true);
-                }
-            }
-        }else{
-            ArrayList<Productividad> candidatosP = lectura.getListaProductividad();
-            for (int i=0 ; i< candidatosP.size(); i++){
-                if (candidatosP.get(i).getNombre().equals(producto)){
-                    c= new CreadorModificacion(this,candidatosP.get(i).getCreador(),candidatosP.get(i),"Productividad",true);
-                }
-            }
+            c = new CreadorModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Videojuego",true);
         }
-        c.setVisible(true);
+        else if (tipo.equals("Antivirus")){
+            c= new CreadorModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Antivirus",true);
+        }
+        else{
+            c= new CreadorModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Productividad",true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

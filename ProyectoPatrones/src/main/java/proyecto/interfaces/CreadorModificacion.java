@@ -57,7 +57,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
             jLabel10.setVisible(false);
-            jLabel12.setVisible(false);
+            //jLabel12.setVisible(false);
             jCheckBox1.setVisible(false);
             jCheckBox2.setVisible(false);
         }else {
@@ -568,34 +568,10 @@ public class CreadorModificacion extends javax.swing.JFrame {
         String nombreProducto = jLabel7.getText();
         nombreProducto = nombreProducto.replace("Modificando: ", "");
         System.out.println(nombreProducto);
-        if (clase.equals("Videojuego")){
-            ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
-            for (int i=0 ; i< candidatosV.size(); i++){
-                System.out.println(candidatosV.get(i).getNombre());
-                if (candidatosV.get(i).getNombre().equals(nombreProducto)){  
-                    candidatosV.get(i).setReviews(new ArrayList<Review>());
-                    System.out.println(nombreProducto + ":"+ candidatosV.get(i).getReviews());
-                }
-            }
-        }else if (clase.equals("Antivirus")){
-            ArrayList<Antivirus> candidatosA = lectura.getListaAntivirus();
-            for (int i=0 ; i< candidatosA.size(); i++){
-                System.out.println(candidatosA.get(i).getNombre());
-                if (candidatosA.get(i).getNombre().equals(nombreProducto)){
-                    candidatosA.get(i).setReviews(new ArrayList<Review>());
-                    System.out.println(nombreProducto + ":"+candidatosA.get(i).getReviews());
-                }
-            }
-        }else{
-            ArrayList<Productividad> candidatosP = lectura.getListaProductividad();
-            for (int i=0 ; i< candidatosP.size(); i++){
-                System.out.println(candidatosP.get(i).getNombre());
-                if (candidatosP.get(i).getNombre().equals(nombreProducto)){
-                    candidatosP.get(i).setReviews(new ArrayList<Review>());
-                    System.out.println(nombreProducto + ":"+candidatosP.get(i).getReviews());
-                }
-            }
-        }
+        proxy.getProductoByNombre(nombreProducto).setReviews(new ArrayList<>());
+        proxy.guardarAntivirus();
+        proxy.guardarVideojuegos();
+        proxy.guardarProductividad();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
