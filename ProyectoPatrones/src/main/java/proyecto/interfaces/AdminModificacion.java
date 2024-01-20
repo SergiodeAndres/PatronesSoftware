@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import proyecto.clases.Antivirus;
 import proyecto.clases.Creador;
-import proyecto.clases.Dolar;
+import proyecto.clases.*;
 import proyecto.clases.Factoria;
 import proyecto.clases.FactoriaConcreta;
 import proyecto.clases.LecturaBBDD;
@@ -71,8 +71,10 @@ public class AdminModificacion extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jTextField2 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButtonNombre = new javax.swing.JButton();
+        jButtonDescripcion = new javax.swing.JButton();
+        jButtonPrecio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,17 +94,31 @@ public class AdminModificacion extends javax.swing.JFrame {
 
         jLabel6.setText("Precio:");
 
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setText("Eliminar reviews");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButtonNombre.setText("Modificar");
+        jButtonNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNombreActionPerformed(evt);
+            }
+        });
+
+        jButtonDescripcion.setText("Modificar");
+        jButtonDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDescripcionActionPerformed(evt);
+            }
+        });
+
+        jButtonPrecio.setText("Modificar");
+        jButtonPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrecioActionPerformed(evt);
             }
         });
 
@@ -113,9 +129,6 @@ public class AdminModificacion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -123,21 +136,21 @@ public class AdminModificacion extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField2)
+                            .addComponent(jButton2)
+                            .addComponent(jTextField1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jTextField2))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(41, 41, 41))
+                            .addComponent(jButtonNombre)
+                            .addComponent(jButtonDescripcion)
+                            .addComponent(jButtonPrecio)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,116 +164,67 @@ public class AdminModificacion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonNombre))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jButtonDescripcion)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jButtonPrecio))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jButton2)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nombre = jTextField1.getText();
-        String codigoInterno = producto.getCondigoInterno();
-        String descripcion = jTextArea1.getText();
-        LocalDate fecha = producto.getFechaCreacion();
-        String precio = jTextField2.getText();
-        String caratula = producto.getCaratula();
-        String valoracion = producto.getValoracionGeneral();
-        ArrayList<Review> reviews = producto.getReviews();
-        ArrayList<String> limitacionesTecnicas = producto.getLimitacionesTecnicas();
-        boolean aprobado = producto.isAprobado();
-
-        switch (clase) {
-            case "Videojuego" -> {
-                Videojuego v_antiguo = (Videojuego) producto;
-                ArrayList<String> generos = v_antiguo.getGeneros();
-                ArrayList<String> otrasPlataformas = v_antiguo.getOtrasPlataformas();
-                int jugadores = v_antiguo.getJugadores();
-                boolean multijugador = v_antiguo.isMultijugador();
-                boolean online = v_antiguo.isOnline();
-
-                if (!nombre.isEmpty() && !descripcion.isEmpty()  && esDouble(precio)) {
-                    
-                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Videojuego v = fabrica.crearProducto(generos, otrasPlataformas, multijugador,
-                            jugadores, online, nombre, codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)),
-                            caratula, valoracion, reviews, limitacionesTecnicas, aprobado);
-                    proxy.removeVideojuego(codigoInterno);
-                    proxy.addVideojuego(v);
-                    proxy.guardarVideojuegos();
-                    this.setVisible(false);
-                    principal.setVisible(true);
-
-                }else {
-                    JOptionPane.showMessageDialog(this, "Error: Rellena todos los campos.");
-                }
-            }
-            case "Productividad" -> {
-                Productividad p_antigua = (Productividad) producto;
-                String versionActual = p_antigua.getVersionActual();
-                LocalDate fechaVersionActual = p_antigua.getFechaVersionActual();
-                String tipo = p_antigua.getTipo();
-
-                if (!nombre.isEmpty() && !descripcion.isEmpty() && esDouble(precio)) {
-
-                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Productividad p = fabrica.crearProducto(versionActual, fechaVersionActual, tipo, nombre, codigoInterno,
-                            creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), caratula,
-                            valoracion, reviews, limitacionesTecnicas, aprobado);
-                    proxy.removeProductividad(codigoInterno);
-                    proxy.addProductividad(p);
-                    proxy.guardarProductividad();
-                    this.setVisible(false);
-                    principal.setVisible(true);
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error: Rellene todos los campos.");
-                }
-            }
-            case "Antivirus" -> {
-                Antivirus a_antiguo = (Antivirus) producto;
-                String versionActual = a_antiguo.getVersionActual();
-                LocalDate fechaVersionActual = a_antiguo.getFechaVersionActual();
-                ArrayList<String> certificaciones = a_antiguo.getCertificaciones();
-                
-                if (!nombre.isEmpty() && !descripcion.isEmpty() && esDouble(precio)) {
-                    
-                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Antivirus a = fabrica.crearProducto(versionActual, LocalDate.now(), certificaciones, nombre,
-                            codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), caratula,
-                            valoracion, reviews, limitacionesTecnicas, aprobado);
-                    proxy.removeAntivirus(codigoInterno);
-                    proxy.addAntivirus(a);
-                    proxy.guardarAntivirus();
-                    this.setVisible(false);
-                    principal.setVisible(true);
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error: Rellene todos los campos.");
-                }
-            }
-
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        proxy.getProductoByNombre(producto.getNombre()).setReviews(new ArrayList<>());
+        producto.setReviews(new ArrayList<>());
+        producto.setValoracionGeneral("Sin Valorar");
         proxy.guardarAntivirus();
         proxy.guardarVideojuegos();
         proxy.guardarProductividad();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNombreActionPerformed
+        Comando comando = new ComandoCambiarNombre(producto,jTextField1.getText());
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jButtonNombreActionPerformed
+
+    private void jButtonDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDescripcionActionPerformed
+        Comando comando = new ComandoCambiarDescripcion(producto,jTextArea1.getText());
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jButtonDescripcionActionPerformed
+
+    private void jButtonPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrecioActionPerformed
+        if (esDouble(jTextField2.getText()))
+        {
+            Comando comando = new ComandoCambiarPrecio(producto,new Dolar(Double.parseDouble(jTextField2.getText())));
+            comando.ejecutar();
+            proxy.guardarAntivirus();
+            proxy.guardarClientes();
+            proxy.guardarProductividad();
+            proxy.guardarVideojuegos();
+        }
+    }//GEN-LAST:event_jButtonPrecioActionPerformed
 
     private boolean esDouble(String numero) {
         Pattern pat = Pattern.compile("^[0-9]{1,20}\\.[0-9]{2}$");
@@ -302,8 +266,10 @@ public class AdminModificacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonDescripcion;
+    private javax.swing.JButton jButtonNombre;
+    private javax.swing.JButton jButtonPrecio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

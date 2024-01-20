@@ -39,7 +39,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
     private BufferedImage bimage;
     private File file;
     private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
-
+    String codigoInternoProducto;
 
     public CreadorModificacion(JFrame v, Creador c, Object o, String clase) {
         initComponents();
@@ -49,7 +49,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
         this.setVisible(true);
         creador = c;
         this.clase = clase;
-
+        
         moldearPagina(clase);
 
         cargarInformacion(o, clase);
@@ -65,6 +65,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -85,12 +86,21 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jButtonModificarNombre = new javax.swing.JButton();
+        jButtonjLabel9 = new javax.swing.JButton();
+        jButtonDescripcion = new javax.swing.JButton();
+        jButtonPrecio = new javax.swing.JButton();
+        jButtonCaratula = new javax.swing.JButton();
+        jButtonLimitaciones = new javax.swing.JButton();
+        jButtonjLabel8 = new javax.swing.JButton();
+        jButtonjLabel10 = new javax.swing.JButton();
+
+        jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,13 +132,16 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jLabel10.setText("Jugadores:");
 
         jCheckBox1.setText("Multijugador");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setText("Online");
-
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jCheckBox2ActionPerformed(evt);
             }
         });
 
@@ -141,20 +154,79 @@ public class CreadorModificacion extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo de Producto:");
 
+        jButtonModificarNombre.setText("Modificar");
+        jButtonModificarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarNombreActionPerformed(evt);
+            }
+        });
+
+        jButtonjLabel9.setText("Modificar");
+        jButtonjLabel9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonjLabel9ActionPerformed(evt);
+            }
+        });
+
+        jButtonDescripcion.setText("Modificar");
+        jButtonDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDescripcionActionPerformed(evt);
+            }
+        });
+
+        jButtonPrecio.setText("Modificar");
+        jButtonPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrecioActionPerformed(evt);
+            }
+        });
+
+        jButtonCaratula.setText("Modificar");
+        jButtonCaratula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCaratulaActionPerformed(evt);
+            }
+        });
+
+        jButtonLimitaciones.setText("Modificar");
+        jButtonLimitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimitacionesActionPerformed(evt);
+            }
+        });
+
+        jButtonjLabel8.setText("Modificar");
+        jButtonjLabel8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonjLabel8ActionPerformed(evt);
+            }
+        });
+
+        jButtonjLabel10.setText("Modificar");
+        jButtonjLabel10.setToolTipText("");
+        jButtonjLabel10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonjLabel10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(465, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(362, 362, 362))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(362, 362, 362))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jCheckBox1)
@@ -170,7 +242,6 @@ public class CreadorModificacion extends javax.swing.JFrame {
                                     .addComponent(jLabel7))
                                 .addGap(61, 61, 61)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextField6)
                                         .addGap(18, 18, 18)
@@ -183,16 +254,23 @@ public class CreadorModificacion extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jButton1)))
-                                .addGap(77, 77, 77)
+                                    .addComponent(jLabel10))
+                                .addGap(100, 100, 100)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField2)
                                     .addComponent(jTextField4)
                                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonModificarNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonjLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonCaratula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonLimitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonjLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonjLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,53 +279,60 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel13))
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonModificarNombre))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDescripcion))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPrecio))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))
+                            .addComponent(jButton2)
+                            .addComponent(jButtonCaratula))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonLimitaciones))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonjLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonjLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonjLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox2))
+                        .addGap(41, 41, 41))))
         );
 
         pack();
@@ -300,6 +385,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 jTextField5.setText(String.valueOf(v.getJugadores()));
                 jCheckBox1.setSelected(v.isMultijugador());
                 jCheckBox2.setSelected(v.isOnline());
+                codigoInternoProducto = v.getCondigoInterno();
             }
             case "Productividad" -> {
                 Productividad p = (Productividad) o;
@@ -313,6 +399,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 jTextArea2.setText(mostrarListaComoString(p.getLimitacionesTecnicas()));
                 jTextField2.setText(p.getVersionActual());
                 jTextField4.setText(p.getTipo());
+                codigoInternoProducto = p.getCondigoInterno();
             }
             case "Antivirus" -> {
                 Antivirus a = (Antivirus) o;
@@ -326,6 +413,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 jTextArea2.setText(mostrarListaComoString(a.getLimitacionesTecnicas()));
                 jTextField2.setText(a.getVersionActual());
                 jTextField4.setText(mostrarListaComoString(a.getCertificaciones()));
+                codigoInternoProducto = a.getCondigoInterno();
             }
         }
     }
@@ -381,112 +469,6 @@ public class CreadorModificacion extends javax.swing.JFrame {
         }
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nombre = jTextField1.getText();
-        String codigoInterno = producto.getCondigoInterno();
-        String descripcion = jTextArea1.getText();
-        LocalDate fecha = producto.getFechaCreacion();
-        String precio = jTextField3.getText();
-        String valoracion = producto.getValoracionGeneral();
-        ArrayList<Review> reviews = producto.getReviews();
-        String limitacionesTecnicas = jTextArea2.getText();
-        boolean aprobado = producto.isAprobado();
-
-        switch (clase) {
-            case "Videojuego" -> {
-                String generos = jTextField2.getText();
-                String otrasPlataformas = jTextField4.getText();
-                String jugadores = jTextField5.getText();
-                boolean multijugador = jCheckBox1.isSelected();
-                boolean online = jCheckBox2.isSelected();
-
-                if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !generos.isEmpty() && !otrasPlataformas.isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)
-                        && esInteger(jugadores)) {
-                    
-                    if(!producto.getCaratula().equals(nombreImagen)){
-                        guardarImagen();
-                    }
-                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Videojuego v = fabrica.crearProducto(procesarString(generos), procesarString(otrasPlataformas), multijugador,
-                            Integer.parseInt(jugadores), online, nombre, codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)),
-                            nombreImagen, valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
-                    proxy.removeVideojuego(codigoInterno);
-                    proxy.addVideojuego(v);
-                    proxy.guardarVideojuegos();
-                    this.setVisible(false);
-                    principal.setVisible(true);
-
-                }else {
-                    JOptionPane.showMessageDialog(this, "Error: Rellena todos los campos.");
-                }
-            }
-            case "Productividad" -> {
-                String versionActual = jTextField2.getText();
-
-                if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
-
-                    if(!producto.getCaratula().equals(nombreImagen)){
-                        guardarImagen();
-                    }
-                    
-                    Productividad p_antigua = (Productividad) producto;
-                    LocalDate fechaActual;
-                    if (jTextField2.getText().equals(p_antigua.getVersionActual())){
-                        fechaActual = p_antigua.getFechaVersionActual();
-                    }else{
-                        fechaActual = LocalDate.now();
-                    }
-                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Productividad p = fabrica.crearProducto(versionActual, fechaActual, jTextField4.getText(), nombre, codigoInterno,
-                            creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), nombreImagen,
-                            valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
-                    proxy.removeProductividad(codigoInterno);
-                    proxy.addProductividad(p);
-                    proxy.guardarProductividad();
-                    this.setVisible(false);
-                    principal.setVisible(true);
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error: Rellene todos los campos.");
-                }
-            }
-            case "Antivirus" -> {
-                String versionActual = jTextField2.getText();
-                
-                if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
-                    if(!producto.getCaratula().equals(nombreImagen)){
-                        guardarImagen();
-                    }
-                    
-                    Antivirus a_antigua = (Antivirus) producto;
-                    LocalDate fechaActual;
-                    if (jTextField2.getText().equals(a_antigua.getVersionActual())){
-                        fechaActual = a_antigua.getFechaVersionActual();
-                    }else{
-                        fechaActual = LocalDate.now();
-                    }
-                    Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Antivirus a = fabrica.crearProducto(versionActual, fechaActual, procesarString(jTextField4.getText()), nombre,
-                            codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), nombreImagen,
-                            valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
-                    proxy.removeAntivirus(codigoInterno);
-                    proxy.addAntivirus(a);
-                    proxy.guardarAntivirus();
-                    this.setVisible(false);
-                    principal.setVisible(true);
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error: Rellene todos los campos.");
-                }
-            }
-
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void guardarImagen() {
         String imagen = nombreImagen;
         if(!jLabel1.getText().equals("ADMIN")){
@@ -530,10 +512,156 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jLabel12.setIcon(imgRedimensionada);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButtonModificarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarNombreActionPerformed
+        Comando comando = new ComandoCambiarNombre(proxy.getProductoByCodigo(codigoInternoProducto),jTextField1.getText());
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jButtonModificarNombreActionPerformed
+
+    private void jButtonjLabel9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonjLabel9ActionPerformed
+        switch (clase) {
+            case "Productividad" -> {
+                Comando comando = new ComandoCambiarTipo(proxy.getProductoByCodigo(codigoInternoProducto),jTextField4.getText());
+                comando.ejecutar();
+                proxy.guardarAntivirus();
+                proxy.guardarClientes();
+                proxy.guardarProductividad();
+                proxy.guardarVideojuegos();
+            }
+            case "Antivirus" -> {
+                Comando comando = new ComandoCambiarCertificaciones(proxy.getProductoByCodigo(codigoInternoProducto),procesarString(jTextField4.getText()));
+                comando.ejecutar();
+                proxy.guardarAntivirus();
+                proxy.guardarClientes();
+                proxy.guardarProductividad();
+                proxy.guardarVideojuegos();
+            }
+            case "Videojuego" -> {
+                Comando comando = new ComandoCambiarOtrasPlataformas(proxy.getProductoByCodigo(codigoInternoProducto),procesarString(jTextField4.getText()));
+                comando.ejecutar();
+                proxy.guardarAntivirus();
+                proxy.guardarClientes();
+                proxy.guardarProductividad();
+                proxy.guardarVideojuegos();
+            }
+        }
+    }//GEN-LAST:event_jButtonjLabel9ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        Comando comando = new ComandoCambiarMultijugador(proxy.getProductoByCodigo(codigoInternoProducto),jCheckBox1.isSelected());
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        Comando comando = new ComandoCambiarOnline(proxy.getProductoByCodigo(codigoInternoProducto),jCheckBox2.isSelected());
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jButtonDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDescripcionActionPerformed
+        Comando comando = new ComandoCambiarDescripcion(proxy.getProductoByCodigo(codigoInternoProducto),jTextArea1.getText());
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jButtonDescripcionActionPerformed
+
+    private void jButtonPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrecioActionPerformed
+        if (esDouble(jTextField3.getText()))
+        {
+            Comando comando = new ComandoCambiarPrecio(proxy.getProductoByCodigo(codigoInternoProducto),new Dolar(Double.parseDouble(jTextField3.getText())));
+            comando.ejecutar();
+            proxy.guardarAntivirus();
+            proxy.guardarClientes();
+            proxy.guardarProductividad();
+            proxy.guardarVideojuegos();
+        }
+    }//GEN-LAST:event_jButtonPrecioActionPerformed
+
+    private void jButtonCaratulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCaratulaActionPerformed
+        int ultimaAparicion = jTextField6.getText().lastIndexOf('\\');
+        String subcadena = jTextField6.getText().substring(ultimaAparicion + 1);
+        Comando comando = new ComandoCambiarCaratula(proxy.getProductoByCodigo(codigoInternoProducto),subcadena);
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+        guardarImagen();
+    }//GEN-LAST:event_jButtonCaratulaActionPerformed
+
+    private void jButtonLimitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimitacionesActionPerformed
+        Comando comando = new ComandoCambiarLimitaciones(proxy.getProductoByCodigo(codigoInternoProducto),procesarString(jTextArea2.getText()));
+        comando.ejecutar();
+        proxy.guardarAntivirus();
+        proxy.guardarClientes();
+        proxy.guardarProductividad();
+        proxy.guardarVideojuegos();
+    }//GEN-LAST:event_jButtonLimitacionesActionPerformed
+
+    private void jButtonjLabel8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonjLabel8ActionPerformed
+        switch (clase) {
+            case "Productividad" -> {
+                Comando comando = new ComandoCambiarVersionActual(proxy.getProductoByCodigo(codigoInternoProducto),jTextField2.getText());
+                comando.ejecutar();
+                proxy.guardarAntivirus();
+                proxy.guardarClientes();
+                proxy.guardarProductividad();
+                proxy.guardarVideojuegos();
+            }
+            case "Antivirus" -> {
+                Comando comando = new ComandoCambiarVersionActual(proxy.getProductoByCodigo(codigoInternoProducto),jTextField2.getText());
+                comando.ejecutar();
+                proxy.guardarAntivirus();
+                proxy.guardarClientes();
+                proxy.guardarProductividad();
+                proxy.guardarVideojuegos();
+            }
+            case "Videojuego" -> {
+                Comando comando = new ComandoCambiarGeneros(proxy.getProductoByCodigo(codigoInternoProducto),procesarString(jTextField2.getText()));
+                comando.ejecutar();
+                proxy.guardarAntivirus();
+                proxy.guardarClientes();
+                proxy.guardarProductividad();
+                proxy.guardarVideojuegos();
+            }
+        }
+    }//GEN-LAST:event_jButtonjLabel8ActionPerformed
+
+    private void jButtonjLabel10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonjLabel10ActionPerformed
+        if (esInteger(jTextField5.getText())) {
+            Comando comando = new ComandoCambiarJugadores(proxy.getProductoByCodigo(codigoInternoProducto),Integer.parseInt(jTextField5.getText()));
+            comando.ejecutar();
+            proxy.guardarAntivirus();
+            proxy.guardarClientes();
+            proxy.guardarProductividad();
+            proxy.guardarVideojuegos();
+        }
+    }//GEN-LAST:event_jButtonjLabel10ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonCaratula;
+    private javax.swing.JButton jButtonDescripcion;
+    private javax.swing.JButton jButtonLimitaciones;
+    private javax.swing.JButton jButtonModificarNombre;
+    private javax.swing.JButton jButtonPrecio;
+    private javax.swing.JButton jButtonjLabel10;
+    private javax.swing.JButton jButtonjLabel8;
+    private javax.swing.JButton jButtonjLabel9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;

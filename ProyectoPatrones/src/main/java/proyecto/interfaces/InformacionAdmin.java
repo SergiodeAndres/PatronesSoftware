@@ -17,18 +17,19 @@ public class InformacionAdmin extends javax.swing.JFrame {
      * Creates new form InformacionAdmin
      */
     public InformacionAdmin() {
-        ArrayList<Factura> facturas = proxy.getFacturas();
+        initComponents();
+         ArrayList<Factura> facturas = proxy.getFacturas();
         double suma_total = 0;
         for (int i=0; i < facturas.size(); i++){
             String tipo_creador = facturas.get(i).getProducto().getCreador().getTipo();
             if (tipo_creador == "AAA"){
-                suma_total += facturas.get(i).getPrecioFinal().getCantidad() * 0.7;
+                suma_total += facturas.get(i).getPrecioFinal().getCantidad() * 0.3;
             }else{
-                suma_total += facturas.get(i).getPrecioFinal().getCantidad() * 0.8;
+                suma_total += facturas.get(i).getPrecioFinal().getCantidad() * 0.2;
             }
         }
+        suma_total = Math.round(suma_total*100)/100.0;
         jLabel2.setText(suma_total+"");
-        initComponents();
     }
 
     /**

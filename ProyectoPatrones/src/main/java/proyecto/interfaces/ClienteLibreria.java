@@ -13,6 +13,7 @@ public class ClienteLibreria extends javax.swing.JFrame {
     private JFrame principal;
     private Cliente cliente;
     DefaultTableModel mt = new DefaultTableModel();
+    private Servidor proxy = new Proxy(new ServidorBBDD());
     public ClienteLibreria(JFrame v, Cliente c) {
         initComponents();
         principal = v;
@@ -20,12 +21,13 @@ public class ClienteLibreria extends javax.swing.JFrame {
         this.setVisible(true);
         cliente = c;
         jLabelNombreUsuario.setText(cliente.getNombreUsuario());
-        String ids [] = {"Nombre", "Imagen"};
+        String ids [] = {"Nombre"};
         mt.setColumnIdentifiers(ids);
         jTableLibreria.setModel(mt);
         for (Producto p: cliente.getLibreria())
         {
-            mt.addRow(new Object[]{p.getNombre(),""});
+            Producto producto = proxy.getProductoByCodigo(p.getCondigoInterno());
+            mt.addRow(new Object[]{producto.getNombre()});
         }
     }
 

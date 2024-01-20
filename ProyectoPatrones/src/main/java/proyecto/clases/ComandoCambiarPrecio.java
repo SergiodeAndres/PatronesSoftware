@@ -8,11 +8,13 @@ package proyecto.clases;
  *
  * @author sergi
  */
-public class ComandoCambiarX {
+public class ComandoCambiarPrecio implements Comando{
     private Producto producto;
+    private Dolar Precio;
 
-    public ComandoCambiarX(Producto producto) {
+    public ComandoCambiarPrecio(Producto producto, Dolar Precio) {
         this.producto = producto;
+        this.Precio = Precio;
     }
 
     /**
@@ -29,8 +31,34 @@ public class ComandoCambiarX {
      *
      * @param producto new value of producto
      */
+    
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+    
+    /**
+     * Get the value of Precio
+     *
+     * @return the value of Precio
+     */
+    
+    public Dolar getPrecio() {
+        return Precio;
+    }
+
+    /**
+     * Set the value of Precio
+     *
+     * @param Precio new value of Precio
+     */
+    
+    public void setPrecio(Dolar Precio) {
+        this.Precio = Precio;
+    }
+
+    @Override
+    public void ejecutar() {
+        producto.setPrecio(Precio);
     }
 
 }

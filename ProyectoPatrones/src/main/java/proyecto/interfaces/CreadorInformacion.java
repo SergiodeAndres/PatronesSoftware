@@ -14,7 +14,7 @@ import proyecto.clases.Creador;
 import proyecto.clases.Factura;
 import proyecto.clases.Proxy;
 import proyecto.clases.Servidor;
-import proyecto.clases.ServidorBBDD;
+import proyecto.clases.*;
 
 /**
  *
@@ -187,16 +187,65 @@ public class CreadorInformacion extends javax.swing.JFrame {
         HashMap<String, Double> dineroMeses = new HashMap<>();
         int mes_anterior = 0;
         double total = 0.0;
+        Manejador manejadorDolar = new ManejadorMonedaDolar();
+        Manejador manejadorEuro = new ManejadorMonedaEuro();
+        Manejador manejadorOtro = new ManejadorMonedaOtro();
+        manejadorDolar.setSucesor(manejadorEuro);
+        manejadorEuro.setSucesor(manejadorOtro);
         BigDecimal bd;
         for (Factura f : facturas) {
             if (years.contains(f.getFechaCompra().getYear())) {
                 if (f.getFechaCompra().getMonthValue() == mes_anterior) {
-                    total += f.getPrecioFinal().getCantidad();
+                    double parcial = 0.0;
+                    double parcial_quitado = 0.0;
+                    if(creador.getPais().equals("Reino Unido") && creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getPais().equals("Reino Unido") && creador.getTipo().equals("Indie"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                    }
+                    else 
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                    }
+                    total += parcial;
                 } else {
                     bd = new BigDecimal(total);
                     bd = bd.setScale(2, RoundingMode.HALF_UP);
                     dineroMeses.put(nombreMeses[mes_anterior - 1], bd.doubleValue());
-                    total = f.getPrecioFinal().getCantidad();
+                    double parcial = 0.0;
+                    double parcial_quitado = 0.0;
+                    if(creador.getPais().equals("Reino Unido") && creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getPais().equals("Reino Unido") && creador.getTipo().equals("Indie"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                    }
+                    else 
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                    }
+                    total = parcial;
                     mes_anterior = f.getFechaCompra().getMonthValue();
                 }
             } else {
@@ -205,11 +254,55 @@ public class CreadorInformacion extends javax.swing.JFrame {
                     bd = new BigDecimal(total);
                     bd = bd.setScale(2, RoundingMode.HALF_UP);
                     dineroMeses.put(nombreMeses[mes_anterior - 1], bd.doubleValue());
-                    total = f.getPrecioFinal().getCantidad();
+                    double parcial = 0.0;
+                    double parcial_quitado = 0.0;
+                    if(creador.getPais().equals("Reino Unido") && creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getPais().equals("Reino Unido") && creador.getTipo().equals("Indie"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                    }
+                    else 
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                    }
+                    total = parcial;
                     resumen.add(dineroMeses);
                     dineroMeses = new HashMap<>();
                 } else {
-                    total += f.getPrecioFinal().getCantidad();
+                    double parcial = 0.0;
+                    double parcial_quitado = 0.0;
+                    if(creador.getPais().equals("Reino Unido") && creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getPais().equals("Reino Unido") && creador.getTipo().equals("Indie"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                        parcial_quitado = parcial * 0.07;
+                        parcial = parcial - parcial_quitado;
+                    }
+                    else if (creador.getTipo().equals("AAA"))
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.7;
+                    }
+                    else 
+                    {
+                        parcial = manejadorDolar.calcularPrecio(f.getPrecioFinal(), creador) * 0.8;
+                    }
+                    total += parcial;
                 }
                 mes_anterior = f.getFechaCompra().getMonthValue();
             }

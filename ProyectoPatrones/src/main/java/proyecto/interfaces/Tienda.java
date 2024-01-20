@@ -88,7 +88,7 @@ public class Tienda extends javax.swing.JFrame {
 
         jComboBoxBusquedaCreador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBoxBusquedaValGeneral.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muy Positiva", "Positiva", "Mixta", "Negativa", "Muy Negativa" }));
+        jComboBoxBusquedaValGeneral.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muy Positiva", "Positiva", "Mixta", "Negativa", "Muy Negativa", "Sin Valorar" }));
 
         jSpinnerPrecioMinimo.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
 

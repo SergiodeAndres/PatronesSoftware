@@ -432,6 +432,7 @@ public class ClienteInfoProducto extends javax.swing.JFrame {
         proxy.guardarVideojuegos();
         proxy.guardarAntivirus();
         proxy.guardarProductividad();
+        proxy.guardarClientes();
         jLabelValoracionGeneral.setText("Valoración General: " + producto.getValoracionGeneral());
         String comentarios = "";
         for (Review r:producto.getReviews())
