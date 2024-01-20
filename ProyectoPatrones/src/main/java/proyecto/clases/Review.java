@@ -70,4 +70,9 @@ public class Review implements Serializable{
         this.positiva = positiva;
     }
 
+    @Override
+    public String toString() {
+        return "Review: " + positiva + ", comentario=" + comentario + '}';
+    }
+
 }

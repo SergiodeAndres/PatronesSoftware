@@ -29,7 +29,7 @@ public class Dolar implements Serializable{
 
     @Override
     public String toString() {
-        return "Dolar{" + "cantidad=" + cantidad + '}';
+        return "Precio: " + cantidad;
     }
 
 }

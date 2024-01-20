@@ -36,14 +36,26 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                     jLabel5.setText(candidatosV.get(i).getLimitacionesTecnicas().toString());
                     jLabel6.setText(tipo);
                     jLabel7.setText(candidatosV.get(i).getJugadores()+"");
-                    jLabel8.setText(candidatosV.get(i).isMultijugador()+"");
-                    jLabel9.setText(candidatosV.get(i).isOnline()+"");
+                    if (candidatosV.get(i).isMultijugador()){
+                        jLabel8.setText("Con Multijugador");
+                    }else{
+                        jLabel8.setText("Sin Multijugador");
+                    }
+                    if (candidatosV.get(i).isMultijugador()){
+                        jLabel9.setText("Con Online");
+                    }else{
+                        jLabel8.setText("Sin Online");
+                    }
                     jLabel10.setText(candidatosV.get(i).getCreador().toString());
                     jLabel11.setText(candidatosV.get(i).getFechaCreacion().toString());
                     jLabel12.setText(candidatosV.get(i).getGeneros().toString());
                     jLabel13.setText(candidatosV.get(i).getOtrasPlataformas().toString());
                     jLabel14.setText(candidatosV.get(i).getCondigoInterno());
-                    jLabel15.setText(candidatosV.get(i).getReviews().toString());
+                    if (candidatosV.get(i).getReviews().isEmpty()){
+                        jLabel12.setText("Sin Reviews");
+                    }else{
+                        jLabel12.setText(candidatosV.get(i).getReviews().toString());
+                    }
                     jLabel16.setText(candidatosV.get(i).getValoracionGeneral());
                     
                 }
@@ -63,9 +75,13 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                     jLabel9.setText(candidatosA.get(i).getFechaVersionActual().toString());
                     jLabel10.setText(candidatosA.get(i).getCreador().toString());
                     jLabel11.setText(candidatosA.get(i).getFechaCreacion().toString());
-                    jLabel12.setText(candidatosA.get(i).getCondigoInterno());
-                    jLabel13.setText(candidatosA.get(i).getReviews().toString());
-                    jLabel14.setText(candidatosA.get(i).getValoracionGeneral());
+                    jLabel14.setText(candidatosA.get(i).getCondigoInterno());
+                    if (candidatosA.get(i).getReviews().isEmpty()){
+                        jLabel12.setText("Sin Reviews");
+                    }else{
+                        jLabel12.setText(candidatosA.get(i).getReviews().toString());
+                    }
+                    jLabel13.setText(candidatosA.get(i).getValoracionGeneral());
                     jLabel15.setVisible(false);
                     jLabel16.setVisible(false);
                 }
@@ -85,9 +101,13 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                     jLabel9.setText(candidatosP.get(i).getFechaVersionActual().toString());
                     jLabel10.setText(candidatosP.get(i).getCreador().toString());
                     jLabel11.setText(candidatosP.get(i).getFechaCreacion().toString());
-                    jLabel12.setText(candidatosP.get(i).getCondigoInterno());
-                    jLabel13.setText(candidatosP.get(i).getReviews().toString());
-                    jLabel14.setText(candidatosP.get(i).getValoracionGeneral());
+                    jLabel14.setText(candidatosP.get(i).getCondigoInterno());
+                    if (candidatosP.get(i).getReviews().isEmpty()){
+                        jLabel12.setText("Sin Reviews");
+                    }else{
+                        jLabel12.setText(candidatosP.get(i).getReviews().toString());
+                    }
+                    jLabel13.setText(candidatosP.get(i).getValoracionGeneral());
                     jLabel15.setVisible(false);
                     jLabel16.setVisible(false);
                 }

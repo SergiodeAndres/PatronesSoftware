@@ -91,7 +91,7 @@ public class Creador extends Usuario {
 
     @Override
     public String toString() {
-        return "Creador{" + "nombreUsuario=" + nombreUsuario + ", pais=" + pais + ", tipo=" + tipo + ", cuentaBancaria=" + cuentaBancaria + '}';
+        return "Creador =" + nombreUsuario;
     }
 
 }
