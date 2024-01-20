@@ -763,4 +763,17 @@ public class ServidorBBDD implements Servidor {
         
         return lista;
     }
+    
+    @Override
+    public ArrayList<Factura> getFacturasPorCreador(Creador c){
+        ArrayList<Factura> lista = new ArrayList<>();
+        
+        for (Factura f:facturas){
+            if (f.getProducto().getCreador().getCorreo().equals(c.getCorreo())){
+                lista.add(f);
+            }
+        }
+        
+        return lista;
+    }
 }

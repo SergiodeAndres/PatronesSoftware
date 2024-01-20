@@ -114,4 +114,6 @@ public interface Servidor {
     public void addFactura(Factura f);
     
     public ArrayList<CodigoDescuento> getCodigosDescuentoPorProducto(Producto p);
+    
+    public ArrayList<Factura> getFacturasPorCreador(Creador c); 
 }
