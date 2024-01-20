@@ -122,15 +122,15 @@ public class modificacionAdmin extends javax.swing.JFrame {
         int fila = jTable1.getSelectedRow();
         String producto = jTable1.getValueAt(fila, 0).toString();
         String tipo = jTable1.getValueAt(fila, 2).toString();
-        CreadorModificacion c = null;
+        AdminModificacion c = null;
         if (tipo.equals("Videojuego")){
-            c = new CreadorModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Videojuego",true);
+            c = new AdminModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Videojuego");
         }
         else if (tipo.equals("Antivirus")){
-            c= new CreadorModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Antivirus",true);
+            c= new AdminModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Antivirus");
         }
         else{
-            c= new CreadorModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Productividad",true);
+            c= new AdminModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Productividad");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

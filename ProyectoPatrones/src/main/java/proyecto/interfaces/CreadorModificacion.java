@@ -41,31 +41,9 @@ public class CreadorModificacion extends javax.swing.JFrame {
     private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
 
 
-    public CreadorModificacion(JFrame v, Creador c, Object o, String clase, boolean admin) {
+    public CreadorModificacion(JFrame v, Creador c, Object o, String clase) {
         initComponents();
-
-        if (admin){
-            jLabel1.setText("ADMIN");
-            jLabel5.setVisible(false);
-            jLabel6.setVisible(false);
-            jTextField6.setVisible(false);
-            jButton2.setVisible(false);
-            jTextArea2.setVisible(false);
-            jTextField2.setVisible(false);
-            jTextField4.setVisible(false);
-            jTextField5.setVisible(false);
-            jLabel8.setVisible(false);
-            jLabel9.setVisible(false);
-            jLabel10.setVisible(false);
-            //jLabel12.setVisible(false);
-            jCheckBox1.setVisible(false);
-            jCheckBox2.setVisible(false);
-        }else {
-            jButton3.setVisible(false);
-        }
-        Producto p =(Producto) o;
         
-        jLabel7.setText("Modificando: " + p.getNombre());
         principal = v;
         principal.setVisible(false);
         this.setVisible(true);
@@ -108,13 +86,11 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,8 +132,6 @@ public class CreadorModificacion extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Errores");
-
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,13 +140,6 @@ public class CreadorModificacion extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Tipo de Producto:");
-
-        jButton3.setText("Eliminar Reviews");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,14 +185,10 @@ public class CreadorModificacion extends javax.swing.JFrame {
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel10)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addComponent(jLabel11))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
                                         .addComponent(jButton1)))
                                 .addGap(77, 77, 77)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton3)
                                     .addComponent(jTextField2)
                                     .addComponent(jTextField4)
                                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -283,12 +246,8 @@ public class CreadorModificacion extends javax.swing.JFrame {
                     .addComponent(jCheckBox1)
                     .addComponent(jCheckBox2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -443,8 +402,7 @@ public class CreadorModificacion extends javax.swing.JFrame {
 
                 if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
                         && !generos.isEmpty() && !otrasPlataformas.isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)
-                        && esInteger(jugadores) && !jLabel1.getText().equals("ADMIN") || ((!nombre.isEmpty() && !descripcion.isEmpty() && 
-                        !jTextField3.getText().isEmpty() && esDouble(precio) && jLabel1.getText().equals("ADMIN")))) {
+                        && esInteger(jugadores)) {
                     
                     if(!producto.getCaratula().equals(nombreImagen)){
                         guardarImagen();
@@ -467,22 +425,26 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 String versionActual = jTextField2.getText();
 
                 if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio) || ((!nombre.isEmpty() && !descripcion.isEmpty() && 
-                        !jTextField3.getText().isEmpty() && esDouble(precio) && jLabel1.getText().equals("ADMIN")))) {
+                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
 
                     if(!producto.getCaratula().equals(nombreImagen)){
                         guardarImagen();
                     }
+                    
+                    Productividad p_antigua = (Productividad) producto;
+                    LocalDate fechaActual;
+                    if (jTextField2.getText().equals(p_antigua.getVersionActual())){
+                        fechaActual = p_antigua.getFechaVersionActual();
+                    }else{
+                        fechaActual = LocalDate.now();
+                    }
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Productividad p = fabrica.crearProducto(versionActual, LocalDate.now(), jTextField4.getText(), nombre, codigoInterno,
+                    Productividad p = fabrica.crearProducto(versionActual, fechaActual, jTextField4.getText(), nombre, codigoInterno,
                             creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), nombreImagen,
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
                     proxy.removeProductividad(codigoInterno);
                     proxy.addProductividad(p);
                     proxy.guardarProductividad();
-                    jLabel11.setText("Productividad registrada");
-                    jLabel11.setForeground(Color.green);
-                    jLabel11.setVisible(true);
                     this.setVisible(false);
                     principal.setVisible(true);
 
@@ -494,21 +456,25 @@ public class CreadorModificacion extends javax.swing.JFrame {
                 String versionActual = jTextField2.getText();
                 
                 if (!nombre.isEmpty() && !descripcion.isEmpty() && !limitacionesTecnicas.isEmpty()
-                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)|| ((!nombre.isEmpty() && !descripcion.isEmpty() && 
-                        !jTextField3.getText().isEmpty() && esDouble(precio) && jLabel1.getText().equals("ADMIN")))) {
+                        && !versionActual.isEmpty() && !jTextField4.getText().isEmpty() && !jTextField6.getText().isEmpty() && esDouble(precio)) {
                     if(!producto.getCaratula().equals(nombreImagen)){
                         guardarImagen();
                     }
+                    
+                    Antivirus a_antigua = (Antivirus) producto;
+                    LocalDate fechaActual;
+                    if (jTextField2.getText().equals(a_antigua.getVersionActual())){
+                        fechaActual = a_antigua.getFechaVersionActual();
+                    }else{
+                        fechaActual = LocalDate.now();
+                    }
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
-                    Antivirus a = fabrica.crearProducto(versionActual, fecha, procesarString(jTextField4.getText()), nombre,
+                    Antivirus a = fabrica.crearProducto(versionActual, fechaActual, procesarString(jTextField4.getText()), nombre,
                             codigoInterno, creador, descripcion, fecha, new Dolar(Double.parseDouble(precio)), nombreImagen,
                             valoracion, reviews, procesarString(limitacionesTecnicas), aprobado);
                     proxy.removeAntivirus(codigoInterno);
                     proxy.addAntivirus(a);
                     proxy.guardarAntivirus();
-                    jLabel11.setText("Antivirus registrado");
-                    jLabel11.setForeground(Color.green);
-                    jLabel11.setVisible(true);
                     this.setVisible(false);
                     principal.setVisible(true);
 
@@ -564,26 +530,14 @@ public class CreadorModificacion extends javax.swing.JFrame {
         jLabel12.setIcon(imgRedimensionada);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String nombreProducto = jLabel7.getText();
-        nombreProducto = nombreProducto.replace("Modificando: ", "");
-        System.out.println(nombreProducto);
-        proxy.getProductoByNombre(nombreProducto).setReviews(new ArrayList<>());
-        proxy.guardarAntivirus();
-        proxy.guardarVideojuegos();
-        proxy.guardarProductividad();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;

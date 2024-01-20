@@ -264,17 +264,17 @@ public class CreadorStatus extends javax.swing.JFrame {
         if (posicion >= 0){
             if (posicion < productos.getListaVideojuegosPorCreador(creador).size()){
                 CreadorModificacion cm = new CreadorModificacion(this, creador,
-                        productos.getListaVideojuegosPorCreador(creador).get(posicion), "Videojuego",false);
+                        productos.getListaVideojuegosPorCreador(creador).get(posicion), "Videojuego");
             } else{
                 posicion -= productos.getListaVideojuegosPorCreador(creador).size();
                 
                 if (posicion < productos.getListaProductividadPorCreador(creador).size()){
                     CreadorModificacion cm = new CreadorModificacion(this, creador,
-                        productos.getListaProductividadPorCreador(creador).get(posicion), "Productividad",false);
+                        productos.getListaProductividadPorCreador(creador).get(posicion), "Productividad");
                 }else {
                     posicion -= productos.getListaProductividadPorCreador(creador).size();
                     CreadorModificacion cm = new CreadorModificacion(this, creador,
-                        productos.getListaAntivirusPorCreador(creador).get(posicion), "Antivirus",false);
+                        productos.getListaAntivirusPorCreador(creador).get(posicion), "Antivirus");
                 }
             }
         }else{
