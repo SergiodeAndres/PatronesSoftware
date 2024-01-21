@@ -4,8 +4,9 @@
  */
 package proyecto.interfaces;
 
-import java.awt.Color;
-import proyecto.clases.CuentaBancaria;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import proyecto.clases.Proxy;
 import proyecto.clases.Servidor;
 import proyecto.clases.ServidorBBDD;
@@ -16,13 +17,14 @@ import proyecto.clases.TarjetaCredito;
  * @author diego
  */
 public class Debug extends javax.swing.JFrame {
-    private Servidor proxy=new Proxy(new ServidorBBDD());
+
+    private Servidor proxy = new Proxy(new ServidorBBDD());
+
     /**
      * Creates new form InicioSesionPantalla
      */
     public Debug() {
         initComponents();
-        jLabel3.setVisible(false);
     }
 
     /**
@@ -38,16 +40,13 @@ public class Debug extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Número de cuenta:");
+        jLabel1.setText("Número de tarjeta:");
 
         jLabel2.setText("Saldo:");
 
@@ -55,17 +54,6 @@ public class Debug extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Errores");
-
-        jLabel4.setText("Tipo:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cuenta bancaria", "Tarjeta de crédito" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -84,47 +72,33 @@ public class Debug extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(142, 142, 142)
-                                .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jButton2))
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(109, 109, 109)
-                                .addComponent(jComboBox1, 0, 245, Short.MAX_VALUE))))
+                        .addGap(142, 142, 142)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jButton2))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1)
+                            .addComponent(jTextField2))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(158, 158, 158)
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -134,9 +108,7 @@ public class Debug extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -146,60 +118,34 @@ public class Debug extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String numero = jTextField1.getText();
-        Double saldo = Double.valueOf(jTextField2.getText());
-        
-        if (numero.isEmpty()||saldo.isNaN()){
-            jLabel3.setText("Error: Rellene todos los campos.");
-            jLabel3.setVisible(true);
-            jLabel3.setForeground(Color.red);
-        } else{
-            if (jComboBox1.getSelectedIndex()==0){
-                
-                if (proxy.comprobarCuentaBancaria(numero)){
-                    CuentaBancaria cuentaNueva = new CuentaBancaria(numero, saldo);
-                    proxy.addCuentaBancaria(cuentaNueva);
-                    proxy.guardarCuentasBancarias();
-                    jLabel3.setText("Cuenta bancaria registrada");
-                    jLabel3.setForeground(Color.green);
-                    jLabel3.setVisible(true);
-                    Inicio inicio = new Inicio();
-                    this.setVisible(false);
-                    inicio.setVisible(true);
-                } else{
-                    jLabel3.setText("Error: Este número de cuenta ya existe.");
-                    jLabel3.setVisible(true);
-                    jLabel3.setForeground(Color.red);
-                }
 
-            }else{
-                
-                if (!proxy.existeTarjetaCredito(numero)){
-                    TarjetaCredito tarjetaNueva = new TarjetaCredito(numero, saldo);
-                    proxy.addTarjetaCredito(tarjetaNueva);
-                    proxy.guardarTarjetasCredito();
-                    jLabel3.setText("Tarjeta de crédito registrada");
-                    jLabel3.setForeground(Color.green);
-                    jLabel3.setVisible(true);
-                    Inicio inicio = new Inicio();
-                    this.setVisible(false);
-                    inicio.setVisible(true);
-                } else{
-                    jLabel3.setText("Error: Este número de tarjeta ya existe.");
-                    jLabel3.setVisible(true);
-                    jLabel3.setForeground(Color.red);
-                }
-                
+        if (numero.isEmpty() || jTextField2.getText().isEmpty() || !esDouble(jTextField2.getText())) {
+            JOptionPane.showMessageDialog(this, "Error: Rellene todos los campos apropiadamente.");
+        } else {
+            Double saldo = Double.valueOf(jTextField2.getText());
+
+            if (!proxy.existeTarjetaCredito(numero)) {
+                TarjetaCredito tarjetaNueva = new TarjetaCredito(numero, saldo);
+                proxy.addTarjetaCredito(tarjetaNueva);
+                proxy.guardarTarjetasCredito();
+                Inicio inicio = new Inicio();
+                this.setVisible(false);
+                inicio.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: Este número de tarjeta ya existe.");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if (jComboBox1.getSelectedIndex()==0){
-            jLabel1.setText("Número de cuenta:");
-        }else{
-            jLabel1.setText("Número de tarjeta:");
+    private boolean esDouble(String numero) {
+        Pattern pat = Pattern.compile("^[0-9]{1,20}\\.[0-9]{2}$");
+        Matcher mat = pat.matcher(numero);
+        if (mat.find()) {
+            return mat.group().equals(numero);
+        } else {
+            return false;
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Inicio inicio = new Inicio();
@@ -210,11 +156,8 @@ public class Debug extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

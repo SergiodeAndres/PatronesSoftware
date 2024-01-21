@@ -4,6 +4,7 @@
  */
 package proyecto.interfaces;
 
+import javax.swing.JOptionPane;
 import proyecto.clases.Proxy;
 import proyecto.clases.Servidor;
 import proyecto.clases.ServidorBBDD;
@@ -19,7 +20,6 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
      */
     public InicioSesionPantalla() {
         initComponents();
-        jLabel3.setVisible(false);
     }
 
     /**
@@ -35,7 +35,6 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
 
@@ -51,8 +50,6 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("Errores");
 
         jButton2.setText("Atrás");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -81,15 +78,13 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(75, 75, 75)
                         .addComponent(jButton1)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel3)
-                        .addGap(0, 55, Short.MAX_VALUE)))
+                        .addGap(0, 142, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -97,16 +92,12 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel3))
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                        .addComponent(jButton1)
+                        .addGap(22, 22, 22))
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         pack();
@@ -116,8 +107,6 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
         if (proxy.correoValido(jTextField1.getText()) == 1){
             //Comprobar contraseña
             if (proxy.comprobarContraseña(jTextField1.getText(),jPasswordField1.getText())){
-                jLabel3.setText("Inicio de sesion correcto");
-                jLabel3.setVisible(true);
                 if(proxy.esCliente(jTextField1.getText()) != null)
                 {
                     ClienteLibreria c = new ClienteLibreria(this, proxy.esCliente(jTextField1.getText()));
@@ -130,8 +119,7 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
                 }
                 //ELSE REDIRIGIR A CREADOR O ADMIN
             }else{
-                jLabel3.setText("Contraseña incorrecta");
-                jLabel3.setVisible(true);
+                JOptionPane.showMessageDialog(this, "Error: Contraseña incorrecta.");
             }
         }else if (jTextField1.getText().contains("admin") && (jTextField1.getText().contains("@javasteam.com"))){
             String numeroAdmin  = jTextField1.getText().replace("admin","");
@@ -139,24 +127,19 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
             try{
                 Integer.valueOf(numeroAdmin);
                 if (jPasswordField1.getText().equals("admin"+numeroAdmin)){
-                    jLabel3.setText("Accediendo como admin");
-                    jLabel3.setVisible(true);
                     this.setVisible(false);
                     InformacionAdmin informacion = new InformacionAdmin();
                     informacion.setVisible(true);
                 }else{
-                    jLabel3.setText("Ese correo no existe");
-                    jLabel3.setVisible(true);
+                    JOptionPane.showMessageDialog(this, "Error: Contraseña incorrecta.");
                 }
             } catch (Exception e){
                 System.out.println(e);
-                jLabel3.setText("Ese correo no existe");
-                jLabel3.setVisible(true);
+                JOptionPane.showMessageDialog(this, "Error: Correo no existente.");
             }
         }
         else{
-            jLabel3.setText("Ese correo no existe");
-            jLabel3.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Error: Correo no existente.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -171,7 +154,6 @@ public class InicioSesionPantalla extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

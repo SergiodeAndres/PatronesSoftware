@@ -4,8 +4,8 @@
  */
 package proyecto.interfaces;
 
-import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import proyecto.clases.*;
 
 /**
@@ -211,17 +211,11 @@ public class RegistroPantalla extends javax.swing.JFrame {
         String usuarioContrasena = jPasswordField1.getText();
         String usuarioPais = jComboBox1.getSelectedItem().toString();
         if (jTextField1.getText().isEmpty()){
-            jLabel8.setText("Error: Nombre de usuario no valido");
-            jLabel8.setVisible(true);
-            jLabel8.setForeground(Color.red);
+            JOptionPane.showMessageDialog(this, "Error: Nombre de usuario no válido.");
         }else if (jTextField2.getText().isEmpty()){
-            jLabel8.setText("Error: Correo de usuario no valido");
-            jLabel8.setVisible(true);
-            jLabel8.setForeground(Color.red);
+            JOptionPane.showMessageDialog(this, "Error: Correo de usuario no válido.");
         }else if (jPasswordField1.getText().isEmpty()){
-            jLabel8.setText("Error: Contraseña no valida");
-            jLabel8.setVisible(true);
-            jLabel8.setForeground(Color.red);
+            JOptionPane.showMessageDialog(this, "Error: Contraseña no válida.");
         }else{
             if (jComboBox2.getSelectedIndex()==0){
             
@@ -233,22 +227,15 @@ public class RegistroPantalla extends javax.swing.JFrame {
                     case 0 -> {
                         proxy.addCliente(cl);
                         proxy.guardarClientes();
-                        jLabel8.setText("Registro Exitoso");
-                        jLabel8.setForeground(Color.green);
-                        jLabel8.setVisible(true);
                         Inicio inicio = new Inicio();
                         this.setVisible(false);
                         inicio.setVisible(true);
                     }
                     case 1 -> {
-                        jLabel8.setText("Correo ya existente");
-                        jLabel8.setVisible(true);
-                        jLabel8.setForeground(Color.red);
+                        JOptionPane.showMessageDialog(this, "Error: Correo ya existente.");
                     }
                     default -> {
-                        jLabel8.setText("Correo no existente");
-                        jLabel8.setVisible(true);
-                        jLabel8.setForeground(Color.red);
+                        JOptionPane.showMessageDialog(this, "Error: Correo no existente.");
                     }
                 }
 
@@ -264,22 +251,15 @@ public class RegistroPantalla extends javax.swing.JFrame {
                         case 0 -> {
                             proxy.addCreadores(cr);
                             proxy.guardarCreadores();
-                            jLabel8.setText("Registro Exitoso");
-                            jLabel8.setForeground(Color.green);
-                            jLabel8.setVisible(true);
                             Inicio inicio = new Inicio();
                             this.setVisible(false);
                             inicio.setVisible(true);
                         }
                         case 1 -> {
-                            jLabel8.setText("Correo ya existente");
-                            jLabel8.setVisible(true);
-                            jLabel8.setForeground(Color.red);
+                            JOptionPane.showMessageDialog(this, "Error: Correo ya existente.");
                         }
                         default -> {
-                            jLabel8.setText("Correo no existente");
-                            jLabel8.setVisible(true);
-                            jLabel8.setForeground(Color.red);
+                            JOptionPane.showMessageDialog(this, "Error: Correo no existente.");
                         }
                     }
                 }
