@@ -4,7 +4,6 @@
  */
 package proyecto.interfaces;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyecto.clases.Antivirus;

@@ -4,7 +4,7 @@
  */
 package proyecto.interfaces;
 
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
 
@@ -21,26 +21,26 @@ public class GenerarDescuentos extends javax.swing.JFrame {
      */
     public GenerarDescuentos() {
         initComponents();
-        String[] ids = {"Nombre", "Creador", "Tipo"};
+        String[] ids = {"Nombre", "Creador", "Tipo", "Código"};
         mt.setColumnIdentifiers(ids);
         jTable1.setModel(mt);
         
         for (Videojuego vj: lectura.getListaVideojuegos())
         {
             if (vj.isAprobado()){
-                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego"});   
+                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego", vj.getCondigoInterno()});   
             }
         }
         for (Productividad pv: lectura.getListaProductividad())
         {
             if (pv.isAprobado()){
-                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad"});
+                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad", pv.getCondigoInterno()});
             }
         }
         for (Antivirus av: lectura.getListaAntivirus())
         {
             if (av.isAprobado()){
-                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus"});
+                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus", av.getCondigoInterno()});
             }
         }
     }
@@ -161,7 +161,27 @@ public class GenerarDescuentos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int fila = jTable1.getSelectedRow();
-        String producto = jTable1.getValueAt(fila, 0).toString();
+        if (fila >= 0)
+        {
+            String tipo = jTable1.getValueAt(fila, 2).toString();
+            String codigo = jTable1.getValueAt(fila, 3).toString();
+            CreadorDescuentos c = null;
+            if (tipo.equals("Videojuego")){
+                c = new CreadorDescuentos(this,proxy.getProductoByCodigo(codigo),true);
+            }
+            else if (tipo.equals("Antivirus")){
+                c= new CreadorDescuentos(this,proxy.getProductoByCodigo(codigo),true);
+            }
+            else{
+                c= new CreadorDescuentos(this, proxy.getProductoByCodigo(codigo),true);
+            }
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "Error: No ha seleccionado ningún producto.");
+        }
+
+        /*String producto = jTable1.getValueAt(fila, 0).toString();
         String tipo = jTable1.getValueAt(fila, 2).toString();
         CreadorDescuentos c = null;
         if (tipo.equals("Videojuego")){
@@ -186,7 +206,7 @@ public class GenerarDescuentos extends javax.swing.JFrame {
                 }
             }
         }
-        c.setVisible(true);
+        c.setVisible(true);*/
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

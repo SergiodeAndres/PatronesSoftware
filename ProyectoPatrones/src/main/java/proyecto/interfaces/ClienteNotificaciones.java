@@ -4,11 +4,7 @@
  */
 package proyecto.interfaces;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
 

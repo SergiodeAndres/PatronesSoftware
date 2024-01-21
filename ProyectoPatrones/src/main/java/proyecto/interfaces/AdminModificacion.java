@@ -4,22 +4,17 @@
  */
 package proyecto.interfaces;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import proyecto.clases.Antivirus;
 import proyecto.clases.Creador;
 import proyecto.clases.*;
-import proyecto.clases.Factoria;
-import proyecto.clases.FactoriaConcreta;
 import proyecto.clases.LecturaBBDD;
 import proyecto.clases.Productividad;
 import proyecto.clases.Producto;
 import proyecto.clases.Proxy;
-import proyecto.clases.Review;
 import proyecto.clases.Servidor;
 import proyecto.clases.ServidorBBDD;
 import proyecto.clases.Videojuego;

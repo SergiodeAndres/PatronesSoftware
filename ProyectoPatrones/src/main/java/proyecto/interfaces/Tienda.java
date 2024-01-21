@@ -1,7 +1,6 @@
 
 package proyecto.interfaces;
 import java.util.ArrayList;
-import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import proyecto.clases.*;
 import javax.swing.JFrame;

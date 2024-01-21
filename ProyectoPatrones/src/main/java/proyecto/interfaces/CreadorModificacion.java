@@ -4,9 +4,6 @@
  */
 package proyecto.interfaces;
 
-import java.awt.Color;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import proyecto.clases.Creador;
