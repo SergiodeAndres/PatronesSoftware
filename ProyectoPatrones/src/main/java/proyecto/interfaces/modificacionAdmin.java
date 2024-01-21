@@ -100,7 +100,7 @@ public class modificacionAdmin extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("File");
+        jMenu1.setText("Menú");
 
         jMenuItem1.setText("Información");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {

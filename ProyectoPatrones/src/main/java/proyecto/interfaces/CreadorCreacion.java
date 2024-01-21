@@ -4,7 +4,6 @@
  */
 package proyecto.interfaces;
 
-import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
         jTextField5.setVisible(false);
         jCheckBox1.setVisible(false);
         jCheckBox2.setVisible(false);
-        jLabel11.setVisible(false);
         jRadioButton1.setSelected(true);
     }
 
@@ -86,7 +84,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -147,8 +144,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel11.setText("Errores");
 
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -260,10 +255,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
                                     .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(342, 342, 342)
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -324,8 +315,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     .addComponent(jRadioButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -421,9 +410,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     s.setProducto(p);
                     proxy.addSujeto(s);
                     proxy.guardarSujetos();
-                    jLabel11.setText("Productividad registrada");
-                    jLabel11.setForeground(Color.green);
-                    jLabel11.setVisible(true);
                     CreadorStatus cS = new CreadorStatus(this, creador);
                 } else {
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
@@ -436,9 +422,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     s.setProducto(a);
                     proxy.addSujeto(s);
                     proxy.guardarSujetos();
-                    jLabel11.setText("Antivirus registrado");
-                    jLabel11.setForeground(Color.green);
-                    jLabel11.setVisible(true);
                     CreadorStatus cS = new CreadorStatus(this, creador);
                 }
 
@@ -467,9 +450,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 s.setProducto(v);
                 proxy.addSujeto(s);
                 proxy.guardarSujetos();
-                jLabel11.setText("Videojuego registrado");
-                jLabel11.setForeground(Color.green);
-                jLabel11.setVisible(true);
                 CreadorStatus cS = new CreadorStatus(this, creador);
 
             } else {
@@ -554,7 +534,6 @@ public class CreadorCreacion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

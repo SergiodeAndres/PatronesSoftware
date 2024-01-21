@@ -57,7 +57,7 @@ public class InformacionAdmin extends javax.swing.JFrame {
 
         jLabel2.setText("jLabel2");
 
-        jMenu1.setText("File");
+        jMenu1.setText("Menú");
 
         jMenuItem1.setText("Información");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {

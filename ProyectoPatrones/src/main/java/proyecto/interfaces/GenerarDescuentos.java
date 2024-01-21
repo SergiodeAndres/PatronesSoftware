@@ -87,7 +87,7 @@ public class GenerarDescuentos extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("File");
+        jMenu1.setText("Menú");
 
         jMenuItem1.setText("Información");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +149,7 @@ public class GenerarDescuentos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
