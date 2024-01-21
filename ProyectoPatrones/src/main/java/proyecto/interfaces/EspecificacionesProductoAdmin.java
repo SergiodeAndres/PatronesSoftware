@@ -14,17 +14,18 @@ import proyecto.clases.*;
 public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
     private Servidor proxy = new Proxy(new ServidorBBDD());
     private LecturaBBDD lectura = new LecturaBBDD(proxy.getVideojuegos(), proxy.getProductividad(), proxy.getAntivirus());
-    private String nombreProducto;
+    private String nombreProducto, codigoProducto;
     private String tipoProducto;
     
     /**
      * Creates new form EspecificacionesProductoAdmin
      */
-    public EspecificacionesProductoAdmin(String producto, String tipo) {
+    public EspecificacionesProductoAdmin(String producto, String tipo, String codigo) {
         initComponents();
         
         nombreProducto = producto;
         tipoProducto = tipo;
+        codigoProducto = codigo;
         if (tipo.equals("Videojuego")){
             ArrayList<Videojuego> candidatosV = lectura.getListaVideojuegos();
             for (int i=0 ; i< candidatosV.size(); i++){
@@ -378,7 +379,7 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
             ArrayList<Videojuego> candidatosV = proxy.getVideojuegos();
             for (int i=0 ; i< candidatosV.size(); i++){
                 if (candidatosV.get(i).getNombre().equals(nombreProducto)){
-                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByNombre(nombreProducto)));
+                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByCodigo(codigoProducto)));
                     candidatosV.remove(i);
                 }
             }
@@ -386,7 +387,7 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
             ArrayList<Antivirus> candidatosA = proxy.getAntivirus();
             for (int i=0 ; i< candidatosA.size(); i++){
                 if (candidatosA.get(i).getNombre().equals(nombreProducto)){
-                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByNombre(nombreProducto)));
+                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByCodigo(codigoProducto)));
                     candidatosA.remove(i);
                 }
             }
@@ -394,7 +395,7 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
             ArrayList<Productividad> candidatosP = proxy.getProductividad();
             for (int i=0 ; i< candidatosP.size(); i++){
                 if (candidatosP.get(i).getNombre().equals(nombreProducto)){
-                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByNombre(nombreProducto)));
+                    proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByCodigo(codigoProducto)));
                     candidatosP.remove(i);
                 }
             }

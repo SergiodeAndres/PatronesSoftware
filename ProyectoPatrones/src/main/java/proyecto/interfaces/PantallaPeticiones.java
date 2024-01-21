@@ -4,6 +4,7 @@
  */
 package proyecto.interfaces;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyecto.clases.*;
 
@@ -21,26 +22,26 @@ public class PantallaPeticiones extends javax.swing.JFrame {
     public PantallaPeticiones() {
         initComponents();
         
-        String[] ids = {"Nombre", "Creador", "Tipo"};
+        String[] ids = {"Nombre", "Creador", "Tipo", "Código Interno"};
         mt.setColumnIdentifiers(ids);
         jTable1.setModel(mt);
         
         for (Videojuego vj: lectura.getListaVideojuegos())
         {
             if (!vj.isAprobado()){
-                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego"});   
+                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego", vj.getCondigoInterno()});   
             }
         }
         for (Productividad pv: lectura.getListaProductividad())
         {
             if (!pv.isAprobado()){
-                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad"});
+                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad", pv.getCondigoInterno()});
             }
         }
         for (Antivirus av: lectura.getListaAntivirus())
         {
             if (!av.isAprobado()){
-                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus"});
+                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus", av.getCondigoInterno()});
             }
         }
     }
@@ -161,10 +162,19 @@ public class PantallaPeticiones extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int seleccion = jTable1.getSelectedRow();
-        String prod_seleccionado = jTable1.getValueAt(seleccion, 0).toString();
-        String tipo_seleccionado = jTable1.getValueAt(seleccion, 2).toString();
-        EspecificacionesProductoAdmin e = new EspecificacionesProductoAdmin(prod_seleccionado,tipo_seleccionado);
-        e.setVisible(true);
+        if (seleccion >= 0)
+        {
+            String prod_seleccionado = jTable1.getValueAt(seleccion, 0).toString();
+            String tipo_seleccionado = jTable1.getValueAt(seleccion, 2).toString();
+            String codigo_seleccionado = jTable1.getValueAt(seleccion, 3).toString();
+            EspecificacionesProductoAdmin e = new EspecificacionesProductoAdmin(prod_seleccionado,tipo_seleccionado,codigo_seleccionado);
+            this.setVisible(false);
+            e.setVisible(true);
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "Error: No ha seleccionado ningún producto.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

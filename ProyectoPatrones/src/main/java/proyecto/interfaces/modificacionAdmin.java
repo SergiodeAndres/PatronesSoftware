@@ -5,6 +5,7 @@
 package proyecto.interfaces;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyecto.clases.Antivirus;
 import proyecto.clases.LecturaBBDD;
@@ -28,26 +29,26 @@ public class modificacionAdmin extends javax.swing.JFrame {
      */
     public modificacionAdmin() {
         initComponents();
-        String[] ids = {"Nombre", "Creador", "Tipo"};
+        String[] ids = {"Nombre", "Creador", "Tipo", "Código Interno"};
         mt.setColumnIdentifiers(ids);
         jTable1.setModel(mt);
         
         for (Videojuego vj: lectura.getListaVideojuegos())
         {
             if (vj.isAprobado()){
-                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego"});   
+                mt.addRow(new Object[]{vj.getNombre(), vj.getCreador().getCorreo(), "Videojuego", vj.getCondigoInterno()});   
             }
         }
         for (Productividad pv: lectura.getListaProductividad())
         {
             if (pv.isAprobado()){
-                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad"});
+                mt.addRow(new Object[]{pv.getNombre(), pv.getCreador().getCorreo(), "Productividad", pv.getCondigoInterno()});
             }
         }
         for (Antivirus av: lectura.getListaAntivirus())
         {
             if (av.isAprobado()){
-                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus"});
+                mt.addRow(new Object[]{av.getNombre(), av.getCreador().getCorreo(), "Antivirus", av.getCondigoInterno()});
             }
         }
     }
@@ -173,18 +174,27 @@ public class modificacionAdmin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int fila = jTable1.getSelectedRow();
-        String producto = jTable1.getValueAt(fila, 0).toString();
-        String tipo = jTable1.getValueAt(fila, 2).toString();
-        AdminModificacion c = null;
-        if (tipo.equals("Videojuego")){
-            c = new AdminModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Videojuego");
+        if (fila >= 0)
+        {
+            String producto = jTable1.getValueAt(fila, 0).toString();
+            String tipo = jTable1.getValueAt(fila, 2).toString();
+            String codigo = jTable1.getValueAt(fila, 3).toString();
+            AdminModificacion c = null;
+            if (tipo.equals("Videojuego")){
+                c = new AdminModificacion(this,proxy.getProductoByCodigo(codigo).getCreador(),proxy.getProductoByCodigo(codigo),"Videojuego");
+            }
+            else if (tipo.equals("Antivirus")){
+                c= new AdminModificacion(this,proxy.getProductoByCodigo(codigo).getCreador(),proxy.getProductoByCodigo(codigo),"Antivirus");
+            }
+            else{
+                c= new AdminModificacion(this,proxy.getProductoByCodigo(codigo).getCreador(),proxy.getProductoByCodigo(codigo),"Productividad");
+            }
         }
-        else if (tipo.equals("Antivirus")){
-            c= new AdminModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Antivirus");
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "Error: No ha seleccionado ningún producto.");
         }
-        else{
-            c= new AdminModificacion(this,proxy.getProductoByNombre(producto).getCreador(),proxy.getProductoByNombre(producto),"Productividad");
-        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
