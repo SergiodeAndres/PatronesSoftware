@@ -32,15 +32,12 @@ public class CreadorDescuentos extends javax.swing.JFrame {
     
     public CreadorDescuentos(JFrame v, Producto p,boolean admin) {
         initComponents();
-        if (admin){
-            jLabel1.setText("ADMIN");
-        }
         
         principal = v;
         producto = p;
         principal.setVisible(false);
         this.setVisible(true);
-        
+        jButton3.setVisible(false);
         jLabel6.setText(p.getNombre());
         
         String [] ids = {"Código", "Cantidad"};
@@ -50,6 +47,11 @@ public class CreadorDescuentos extends javax.swing.JFrame {
         jTable1.setModel(mt);
         
         cargarTabla();
+        if (admin){
+            jLabel1.setText("ADMIN");
+            jMenuBarCreador.setVisible(false);
+            jButton3.setVisible(true);
+        }
     }
     
     private void cargarTabla(){
@@ -99,6 +101,12 @@ public class CreadorDescuentos extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jMenuBarCreador = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -153,6 +161,44 @@ public class CreadorDescuentos extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jMenu1.setText("Menú");
+
+        jMenuItem1.setText("Crear");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Información");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Principal");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Cerrar Sesión");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuBarCreador.add(jMenu1);
+
+        setJMenuBar(jMenuBarCreador);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,7 +260,7 @@ public class CreadorDescuentos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,9 +291,28 @@ public class CreadorDescuentos extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        principal.setVisible(true);
         this.setVisible(false);
+        GenerarDescuentos descuentos = new GenerarDescuentos();
+        descuentos.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CreadorCreacion cc = new CreadorCreacion(this, producto.getCreador());
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        CreadorInformacion ci = new CreadorInformacion(this, producto.getCreador());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        CreadorStatus cS = new CreadorStatus(this, producto.getCreador());
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Inicio inicio = new Inicio();
+        this.setVisible(false);
+        inicio.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -259,6 +324,12 @@ public class CreadorDescuentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBarCreador;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;

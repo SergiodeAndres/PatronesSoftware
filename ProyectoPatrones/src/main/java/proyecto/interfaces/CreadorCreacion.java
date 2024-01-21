@@ -92,6 +92,12 @@ public class CreadorCreacion extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,6 +172,44 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 jRadioButton2ActionPerformed(evt);
             }
         });
+
+        jMenu1.setText("Menú");
+
+        jMenuItem1.setText("Crear");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Información");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Principal");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Cerrar Sesión");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -282,7 +326,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -380,8 +424,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     jLabel11.setText("Productividad registrada");
                     jLabel11.setForeground(Color.green);
                     jLabel11.setVisible(true);
-                    this.setVisible(false);
-                    principal.setVisible(true);
+                    CreadorStatus cS = new CreadorStatus(this, creador);
                 } else {
                     Factoria fabrica = FactoriaConcreta.getInstanciaUnica();
                     Antivirus a = fabrica.crearProducto(versionActual, fecha, procesarString(jTextField4.getText()), nombre,
@@ -396,8 +439,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                     jLabel11.setText("Antivirus registrado");
                     jLabel11.setForeground(Color.green);
                     jLabel11.setVisible(true);
-                    this.setVisible(false);
-                    principal.setVisible(true);
+                    CreadorStatus cS = new CreadorStatus(this, creador);
                 }
 
             } else {
@@ -428,8 +470,7 @@ public class CreadorCreacion extends javax.swing.JFrame {
                 jLabel11.setText("Videojuego registrado");
                 jLabel11.setForeground(Color.green);
                 jLabel11.setVisible(true);
-                this.setVisible(false);
-                principal.setVisible(true);
+                CreadorStatus cS = new CreadorStatus(this, creador);
 
             } else {
                 JOptionPane.showMessageDialog(this, "Error: Relleno todos los campos.");
@@ -486,6 +527,24 @@ public class CreadorCreacion extends javax.swing.JFrame {
         jLabel9.setText("Certificados:");
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CreadorCreacion cc = new CreadorCreacion(this, creador);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        CreadorInformacion ci = new CreadorInformacion(this, creador);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        CreadorStatus cS = new CreadorStatus(this, creador);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Inicio inicio = new Inicio();
+        this.setVisible(false);
+        inicio.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
@@ -505,6 +564,12 @@ public class CreadorCreacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
