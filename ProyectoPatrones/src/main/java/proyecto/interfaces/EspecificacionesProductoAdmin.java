@@ -53,9 +53,9 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                     jLabel13.setText(candidatosV.get(i).getOtrasPlataformas().toString());
                     jLabel14.setText(candidatosV.get(i).getCondigoInterno());
                     if (candidatosV.get(i).getReviews().isEmpty()){
-                        jLabel12.setText("Sin Reviews");
+                        jLabel15.setText("Sin Reviews");
                     }else{
-                        jLabel12.setText(candidatosV.get(i).getReviews().toString());
+                        jLabel15.setText(candidatosV.get(i).getReviews().toString());
                     }
                     jLabel16.setText(candidatosV.get(i).getValoracionGeneral());
                     
@@ -372,6 +372,9 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                 }
             }
         }
+        this.setVisible(false);
+        PantallaPeticiones peticion = new PantallaPeticiones();
+        peticion.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -381,6 +384,7 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                 if (candidatosV.get(i).getNombre().equals(nombreProducto)){
                     proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByCodigo(codigoProducto)));
                     candidatosV.remove(i);
+                    proxy.removeVideojuego(codigoProducto);
                 }
             }
         }else if (tipoProducto.equals("Antivirus")){
@@ -389,6 +393,7 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                 if (candidatosA.get(i).getNombre().equals(nombreProducto)){
                     proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByCodigo(codigoProducto)));
                     candidatosA.remove(i);
+                    proxy.removeAntivirus(codigoProducto);
                 }
             }
         }else{
@@ -397,6 +402,7 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
                 if (candidatosP.get(i).getNombre().equals(nombreProducto)){
                     proxy.removeSujeto(proxy.getSujetoProducto(proxy.getProductoByCodigo(codigoProducto)));
                     candidatosP.remove(i);
+                    proxy.removeProductividad(codigoProducto);
                 }
             }
         }
@@ -405,6 +411,9 @@ public class EspecificacionesProductoAdmin extends javax.swing.JFrame {
         proxy.guardarProductividad();
         proxy.guardarSujetos();
         proxy.guardarClientes();
+        this.setVisible(false);
+        PantallaPeticiones peticion = new PantallaPeticiones();
+        peticion.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

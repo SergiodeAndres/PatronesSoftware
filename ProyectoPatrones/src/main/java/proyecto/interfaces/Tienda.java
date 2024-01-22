@@ -421,7 +421,15 @@ public class Tienda extends javax.swing.JFrame {
             }
         }
         mt.setRowCount(0);
+        ArrayList<Producto> listaMostrar = new ArrayList<>(); 
         for (Producto p: listaFinal)
+        {
+            if (!listaMostrar.contains(p))
+            {
+                listaMostrar.add(p);
+            }
+        }
+        for (Producto p: listaMostrar)
         {
             if (p instanceof Videojuego)
             {

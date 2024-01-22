@@ -283,10 +283,13 @@ public class ClienteConfCompra extends javax.swing.JFrame {
             proxy.guardarFacturas();
             cliente.addProducto(producto);
             cliente.setSaldo(cliente.getSaldo() - manejadorDolar.calcularPrecio(precioFinalDolares, cliente));
-            String[] codigos = jTextArea1.getText().split("\n");
-            for (String c: codigos)
+            if (!jTextArea1.getText().equals(""))
             {
-                cliente.removeCodigo(cliente.getLlavero().indexOf(cliente.getCodigoFromLlavero(c)));
+                String[] codigos = jTextArea1.getText().split("\n");
+                for (String c: codigos)
+                {
+                    cliente.removeCodigo(cliente.getLlavero().indexOf(cliente.getCodigoFromLlavero(c)));
+                }
             }
             proxy.guardarClientes();
             JOptionPane.showMessageDialog(this, "Se ha añadido el producto a su librería y se ha generado la factura.");
